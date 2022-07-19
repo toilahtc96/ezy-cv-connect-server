@@ -9,5 +9,4 @@ public class CVConnectApplication {
         RequestHandlerImplementer.setDebug(true);
         EzyHttpApplicationBootstrap.start(CVConnectApplication.class);
     }
-
 }

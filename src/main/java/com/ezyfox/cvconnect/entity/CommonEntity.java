@@ -1,4 +1,4 @@
-package com.ezyfox.cvconnect.entities;
+package com.ezyfox.cvconnect.entity;
 
 import lombok.Getter;
 import lombok.Setter;

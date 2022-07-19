@@ -65,6 +65,11 @@ CREATE TABLE `cvdatabase`.`company` (
     ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
+alter table company
+    change infomation information varchar(500) null;
+
+
+
 
 CREATE TABLE `cvdatabase`.`user` (
                                      `id` INT NOT NULL,
@@ -86,6 +91,8 @@ CREATE TABLE `cvdatabase`.`user` (
     ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
+alter table user
+    change infomation information varchar(500) null;
 
 ALTER TABLE `cvdatabase`.`user`
     ADD COLUMN `created_id` INT NULL AFTER `status`,
@@ -144,4 +151,21 @@ CREATE TABLE `cvdatabase`.`deal` (
                                      PRIMARY KEY (`id`))
     ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
+
+
+create table `cvdatabase`.`access_token`
+(
+    access_token   varchar(500) not null,
+    user_id        long         null,
+    expire_at      TIMESTAMP    null,
+    expire_in      TIMESTAMP    null,
+    first_issue_at TIMESTAMP    null,
+    created_time   TIMESTAMP    null,
+    updated_time   TIMESTAMP    null,
+    deleted        binary       null,
+    constraint access_token_pk
+        primary key (access_token)
+);
+alter table access_token
+    modify user_id INT null;
 
