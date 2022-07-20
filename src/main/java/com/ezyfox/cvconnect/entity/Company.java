@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -20,8 +21,11 @@ public class Company extends CommonEntity {
     private long id;
     private String code;
     private String name;
+    @Column(name = "province_code")
     private String provinceCode;
+    @Column(name = "district_code")
     private String districtCode;
+    @Column(name = "precinct_code")
     private String precinctCode;
     private String information;
     private long star;

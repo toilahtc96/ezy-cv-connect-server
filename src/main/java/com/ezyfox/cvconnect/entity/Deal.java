@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -19,8 +20,11 @@ public class Deal extends CommonEntity {
 
     @Id
     private long id;
+    @Column(name ="agency_id")
     private long agencyId;
+    @Column(name ="candidate_id")
     private long candidateId;
     private long status;
+    @Column(name ="process_id")
     private long processId;
 }

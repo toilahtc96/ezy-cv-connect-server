@@ -192,3 +192,10 @@ drop column typeId;
 alter table user
 drop column yearExperience;
 
+
+
+alter table access_token drop accessToken;
+alter table access_token drop expireAt;
+alter table access_token drop expireIn;
+alter table access_token drop firstIssueAt;
+alter table access_token drop userId;

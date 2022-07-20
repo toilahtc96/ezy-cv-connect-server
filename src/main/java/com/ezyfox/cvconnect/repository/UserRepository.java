@@ -12,4 +12,8 @@ import java.util.List;
 public interface UserRepository extends EzyDatabaseRepository<Long, User> {
     @EzyQuery("select max(id+1) from User e")
     Long getMaxUserId();
+
+    @EzyQuery("select e.id from User e where e.username = ?0 and e.password = ?1 and e.status = ?2")
+    List<Long> findByUsernameAndPasswordAndStatus(String username, String password, Integer status);
 }
+

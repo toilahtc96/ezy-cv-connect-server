@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.ezyfox.cvconnect.constant.UserStatus;
 import com.ezyfox.cvconnect.request.RegisterRequest;
+import com.tvd12.ezyfox.sercurity.EzySHA256;
 import lombok.*;
 
 import javax.persistence.Column;
@@ -31,6 +32,7 @@ public class User extends CommonEntity {
     private String description;
     private Integer star;
     private String information;
+    @Column(name = "birth_day")
     private Date birthDay;
     private String name;
     @Column(name = "level_id")
@@ -48,7 +50,7 @@ public class User extends CommonEntity {
                 .birthDay(registerRequest.getBirthDay())
                 .name(registerRequest.getName())
                 .username(registerRequest.getUsername())
-                .password(registerRequest.getPassword())
+                .password(EzySHA256.cryptUtfToLowercase(registerRequest.getPassword()))
                 .typeId(registerRequest.getTypeId())
                 .status(UserStatus.ACTIVE.getStatus())
                 .build();
