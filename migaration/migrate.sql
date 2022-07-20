@@ -169,3 +169,26 @@ create table `cvdatabase`.`access_token`
 alter table access_token
     modify user_id INT null;
 
+
+alter table user
+    modify role_id INT null;
+
+alter table user
+    modify company_id INT null;
+
+alter table user
+drop column birthDay;
+alter table user
+drop column companyId;
+alter table user
+drop column cvLink;
+alter table user
+drop column levelId;
+alter table user
+drop column roleId;
+alter table user
+drop column typeId;
+
+alter table user
+drop column yearExperience;
+

@@ -1,10 +1,12 @@
 package com.ezyfox.cvconnect.entity;
 
 import java.util.Date;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+
+import com.ezyfox.cvconnect.constant.UserStatus;
+import com.ezyfox.cvconnect.request.RegisterRequest;
+import lombok.*;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -13,24 +15,42 @@ import javax.persistence.Table;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Table(name = "user")
 @EqualsAndHashCode(of = "user", callSuper = false)
 public class User extends CommonEntity {
 
     @Id
-    private long id;
-    private long roleId;
-    private long companyId;
-    private long typeId;
+    private Long id;
+    @Column(name = "role_id")
+    private Long roleId;
+    @Column(name = "company_id")
+    private Long companyId;
+    @Column(name = "type_id")
+    private Integer typeId;
     private String description;
-    private long star;
+    private Integer star;
     private String information;
     private Date birthDay;
     private String name;
-    private long levelId;
-    private long yearExperience;
+    @Column(name = "level_id")
+    private Integer levelId;
+    @Column(name = "year_experience")
+    private Integer yearExperience;
+    @Column(name = "cv_link")
     private String cvLink;
     private String username;
     private String password;
-    private long status;
+    private Integer status;
+
+    public User of(RegisterRequest registerRequest) {
+        return User.builder()
+                .birthDay(registerRequest.getBirthDay())
+                .name(registerRequest.getName())
+                .username(registerRequest.getUsername())
+                .password(registerRequest.getPassword())
+                .typeId(registerRequest.getTypeId())
+                .status(UserStatus.ACTIVE.getStatus())
+                .build();
+    }
 }
