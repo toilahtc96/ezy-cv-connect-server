@@ -46,6 +46,7 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
         accessToken.setExpireIn(LocalDateTime.now().plusSeconds(expireIn));
         accessToken.setFirstIssueAt(LocalDateTime.now());
         accessToken.setUserId(userId);
+        accessToken.setCreatedTime(LocalDateTime.now());
         accessTokenRepository.save(accessToken);
         return tokenString;
     }
