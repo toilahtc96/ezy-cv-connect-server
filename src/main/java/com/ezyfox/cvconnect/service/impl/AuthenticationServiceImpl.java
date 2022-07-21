@@ -4,7 +4,7 @@ import com.ezyfox.cvconnect.entity.AccessToken;
 import com.ezyfox.cvconnect.exception.TokenExpiredException;
 import com.ezyfox.cvconnect.exception.TokenNotFoundException;
 import com.ezyfox.cvconnect.repository.AccessTokenRepository;
-import com.ezyfox.cvconnect.service.IAuthenticationService;
+import com.ezyfox.cvconnect.service.AuthenticationService;
 import com.tvd12.ezyfox.annotation.EzyProperty;
 import com.tvd12.ezyfox.bean.annotation.EzyAutoBind;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
@@ -15,7 +15,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 @EzySingleton
-public class AuthenticationServiceImpl implements IAuthenticationService {
+public class AuthenticationServiceImpl implements AuthenticationService {
     @EzyProperty("access_token.expires_in")
     private int expireIn;
 

@@ -1,6 +1,6 @@
 package com.ezyfox.cvconnect.service;
 
-public interface IAuthenticationService {
+public interface AuthenticationService {
     long verifyAccessToken(String accessToken);
 
     String generateAccessToken(long userId);

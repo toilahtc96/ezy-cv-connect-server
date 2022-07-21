@@ -8,7 +8,7 @@ import com.tvd12.ezyhttp.server.core.annotation.DoGet;
 public class PingController {
 
     @DoGet("/")
-    public ResponseEntity ping(){
+    public ResponseEntity ping() {
         return ResponseEntity.ok("Ping");
     }
 }

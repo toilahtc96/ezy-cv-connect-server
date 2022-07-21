@@ -2,7 +2,7 @@ package com.ezyfox.cvconnect.interceptor;
 
 import com.ezyfox.cvconnect.annotation.UserId;
 import com.ezyfox.cvconnect.exception.TokenNotFoundException;
-import com.ezyfox.cvconnect.service.IAuthenticationService;
+import com.ezyfox.cvconnect.service.AuthenticationService;
 import com.tvd12.ezyfox.bean.annotation.EzyAutoBind;
 import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.util.EzyLoggable;
@@ -22,7 +22,7 @@ public class GlobalRequestInterceptor
 
     private final Set<Method> authorizedMethods;
     @EzyAutoBind
-    private IAuthenticationService authenticationService;
+    private AuthenticationService authenticationService;
 
     public GlobalRequestInterceptor() {
         try {
@@ -33,6 +33,7 @@ public class GlobalRequestInterceptor
             throw new IllegalStateException(e);
         }
     }
+
     @Override
     public boolean preHandle(RequestArguments arguments, Method handler) throws Exception {
         logger.info("request uri: {}", arguments.getRequest().getRequestURI());

@@ -20,11 +20,11 @@ public class Deal extends CommonEntity {
 
     @Id
     private long id;
-    @Column(name ="agency_id")
+    @Column(name = "agency_id")
     private long agencyId;
-    @Column(name ="candidate_id")
+    @Column(name = "candidate_id")
     private long candidateId;
     private long status;
-    @Column(name ="process_id")
+    @Column(name = "process_id")
     private long processId;
 }

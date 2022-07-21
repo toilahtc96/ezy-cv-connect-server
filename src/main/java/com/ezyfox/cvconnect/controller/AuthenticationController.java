@@ -3,7 +3,7 @@ package com.ezyfox.cvconnect.controller;
 import com.ezyfox.cvconnect.request.LoginRequest;
 import com.ezyfox.cvconnect.request.RegisterRequest;
 import com.ezyfox.cvconnect.response.ResponseEntityData;
-import com.ezyfox.cvconnect.service.IUserService;
+import com.ezyfox.cvconnect.service.UserService;
 import com.tvd12.ezyfox.bean.annotation.EzyAutoBind;
 import com.tvd12.ezyhttp.core.exception.HttpBadRequestException;
 import com.tvd12.ezyhttp.core.response.ResponseEntity;
@@ -15,7 +15,7 @@ import com.tvd12.ezyhttp.server.core.annotation.RequestBody;
 public class AuthenticationController {
 
     @EzyAutoBind
-    private IUserService userService;
+    private UserService userService;
 
     @DoPost("/register")
     public ResponseEntity register(@RequestBody RegisterRequest registerRequest) {
