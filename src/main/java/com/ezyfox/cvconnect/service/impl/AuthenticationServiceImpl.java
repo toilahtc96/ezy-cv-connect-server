@@ -1,10 +1,10 @@
-package com.ezyfox.cvconnect.services.impl;
+package com.ezyfox.cvconnect.service.impl;
 
 import com.ezyfox.cvconnect.entity.AccessToken;
 import com.ezyfox.cvconnect.exception.TokenExpiredException;
 import com.ezyfox.cvconnect.exception.TokenNotFoundException;
 import com.ezyfox.cvconnect.repository.AccessTokenRepository;
-import com.ezyfox.cvconnect.services.IAuthenticationService;
+import com.ezyfox.cvconnect.service.IAuthenticationService;
 import com.tvd12.ezyfox.annotation.EzyProperty;
 import com.tvd12.ezyfox.bean.annotation.EzyAutoBind;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;

@@ -2,7 +2,7 @@ package com.ezyfox.cvconnect.interceptor;
 
 import com.ezyfox.cvconnect.annotation.UserId;
 import com.ezyfox.cvconnect.exception.TokenNotFoundException;
-import com.ezyfox.cvconnect.services.IAuthenticationService;
+import com.ezyfox.cvconnect.service.IAuthenticationService;
 import com.tvd12.ezyfox.bean.annotation.EzyAutoBind;
 import com.tvd12.ezyfox.collect.Sets;
 import com.tvd12.ezyfox.util.EzyLoggable;

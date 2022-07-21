@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @Table(name = "review")
 @EqualsAndHashCode(of = "review", callSuper = false)
-public class ReviewInfo extends CommonEntity {
+public class Review extends CommonEntity {
 
     @Id
     private long id;

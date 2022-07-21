@@ -1,4 +1,4 @@
-package com.ezyfox.cvconnect.services;
+package com.ezyfox.cvconnect.service;
 
 public interface IAuthenticationService {
     long verifyAccessToken(String accessToken);
