@@ -27,7 +27,7 @@ public class GlobalRequestInterceptor
         logger.info("request uri: {}", arguments.getRequest().getRequestURI());
         HttpMethod method = arguments.getMethod();
         String uriTemplate = arguments.getUriTemplate();
-        if (requestUriManager.isAuthenticatedURI(method, uriTemplate)) {
+        if (!requestUriManager.isAuthenticatedURI(method, uriTemplate)) {
             return true;
         }
         String accessToken = arguments.getParameter("accessToken");
