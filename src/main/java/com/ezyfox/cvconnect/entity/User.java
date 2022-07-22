@@ -1,16 +1,18 @@
 package com.ezyfox.cvconnect.entity;
 
-import java.util.Date;
-
 import com.ezyfox.cvconnect.constant.UserStatus;
-import com.ezyfox.cvconnect.request.RegisterRequest;
+import com.ezyfox.cvconnect.model.RegisterData;
 import com.tvd12.ezyfox.sercurity.EzySHA256;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Date;
 
 @Data
 @Entity
@@ -18,7 +20,6 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @Builder
 @Table(name = "user")
-@EqualsAndHashCode(of = "user", callSuper = false)
 public class User extends CommonEntity {
 
     @Id
@@ -43,16 +44,16 @@ public class User extends CommonEntity {
     private String cvLink;
     private String username;
     private String password;
-    private Integer status;
+    private UserStatus status;
 
-    public User of(RegisterRequest registerRequest) {
+    public User of(RegisterData registerData) {
         return User.builder()
-                .birthDay(registerRequest.getBirthDay())
-                .name(registerRequest.getName())
-                .username(registerRequest.getUsername())
-                .password(EzySHA256.cryptUtfToLowercase(registerRequest.getPassword()))
-                .typeId(registerRequest.getTypeId())
-                .status(UserStatus.ACTIVE.getStatus())
+                .birthDay(registerData.getBirthDay())
+                .name(registerData.getName())
+                .username(registerData.getUsername())
+                .password(EzySHA256.cryptUtfToLowercase(registerData.getPassword()))
+                .typeId(registerData.getTypeId())
+                .status(UserStatus.ACTIVE)
                 .build();
     }
 }

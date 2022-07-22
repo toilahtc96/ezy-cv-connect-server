@@ -2,7 +2,6 @@ package com.ezyfox.cvconnect.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
@@ -15,7 +14,6 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "deal")
-@EqualsAndHashCode(of = "deal", callSuper = false)
 public class Deal extends CommonEntity {
 
     @Id

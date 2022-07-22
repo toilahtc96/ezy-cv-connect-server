@@ -6,21 +6,22 @@ import com.ezyfox.cvconnect.exception.TokenNotFoundException;
 import com.ezyfox.cvconnect.repository.AccessTokenRepository;
 import com.ezyfox.cvconnect.service.AuthenticationService;
 import com.tvd12.ezyfox.annotation.EzyProperty;
-import com.tvd12.ezyfox.bean.annotation.EzyAutoBind;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import com.tvd12.ezyfox.sercurity.EzySHA256;
+import lombok.AllArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
 @EzySingleton
+@AllArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
+
     @EzyProperty("access_token.expires_in")
     private int expireIn;
 
-    @EzyAutoBind
-    private AccessTokenRepository accessTokenRepository;
+    private final AccessTokenRepository accessTokenRepository;
 
     @Override
     public long verifyAccessToken(String accessToken) {

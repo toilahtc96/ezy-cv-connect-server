@@ -1,11 +1,11 @@
 package com.ezyfox.cvconnect.service;
 
-import com.ezyfox.cvconnect.request.LoginRequest;
-import com.ezyfox.cvconnect.request.RegisterRequest;
+import com.ezyfox.cvconnect.model.LoginData;
+import com.ezyfox.cvconnect.model.RegisterData;
 
 public interface UserService {
 
-    void registerUser(RegisterRequest registerRequest);
+    void registerUser(RegisterData registerData);
 
-    String login(LoginRequest registerRequest);
+    String login(LoginData registerData);
 }

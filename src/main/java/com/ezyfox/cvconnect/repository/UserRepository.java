@@ -1,5 +1,6 @@
 package com.ezyfox.cvconnect.repository;
 
+import com.ezyfox.cvconnect.constant.UserStatus;
 import com.ezyfox.cvconnect.entity.User;
 import com.tvd12.ezydata.database.EzyDatabaseRepository;
 import com.tvd12.ezyfox.database.annotation.EzyQuery;
@@ -13,6 +14,6 @@ public interface UserRepository extends EzyDatabaseRepository<Long, User> {
     Long getMaxUserId();
 
     @EzyQuery("select e.id from User e where e.username = ?0 and e.password = ?1 and e.status = ?2")
-    List<Long> findByUsernameAndPasswordAndStatus(String username, String password, Integer status);
+    List<Long> findByUsernameAndPasswordAndStatus(String username, String password, UserStatus status);
 }
 

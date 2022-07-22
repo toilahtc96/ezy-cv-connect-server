@@ -12,11 +12,11 @@ public enum UserStatus {
     ACTIVE(1),
     BLOCK(2),
     ;
-    private int status;
+    private int value;
 
     public static UserStatus of(int value) {
         return Stream.of(UserStatus.values())
-                .filter(p -> p.getStatus() == value)
+                .filter(p -> p.getValue() == value)
                 .findFirst()
                 .orElseThrow(IllegalArgumentException::new);
     }

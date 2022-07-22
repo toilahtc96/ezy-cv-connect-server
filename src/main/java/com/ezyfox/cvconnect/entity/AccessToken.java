@@ -3,7 +3,6 @@ package com.ezyfox.cvconnect.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
@@ -17,7 +16,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "access_token")
-@EqualsAndHashCode(of = "accessToken", callSuper = false)
 public class AccessToken extends CommonEntity {
 
     @Id

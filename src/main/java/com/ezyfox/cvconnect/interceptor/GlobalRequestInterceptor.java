@@ -3,25 +3,24 @@ package com.ezyfox.cvconnect.interceptor;
 import com.ezyfox.cvconnect.annotation.UserId;
 import com.ezyfox.cvconnect.exception.TokenNotFoundException;
 import com.ezyfox.cvconnect.service.AuthenticationService;
-import com.tvd12.ezyfox.bean.annotation.EzyAutoBind;
 import com.tvd12.ezyfox.util.EzyLoggable;
 import com.tvd12.ezyhttp.core.annotation.Interceptor;
 import com.tvd12.ezyhttp.core.constant.HttpMethod;
 import com.tvd12.ezyhttp.server.core.interceptor.RequestInterceptor;
 import com.tvd12.ezyhttp.server.core.manager.RequestURIManager;
 import com.tvd12.ezyhttp.server.core.request.RequestArguments;
+import lombok.AllArgsConstructor;
 
 import java.lang.reflect.Method;
 
 @Interceptor
+@AllArgsConstructor
 public class GlobalRequestInterceptor
         extends EzyLoggable
         implements RequestInterceptor {
 
-    @EzyAutoBind
-    private RequestURIManager requestUriManager;
-    @EzyAutoBind
-    private AuthenticationService authenticationService;
+    private final RequestURIManager requestUriManager;
+    private final AuthenticationService authenticationService;
 
     @Override
     public boolean preHandle(RequestArguments arguments, Method handler) throws Exception {
