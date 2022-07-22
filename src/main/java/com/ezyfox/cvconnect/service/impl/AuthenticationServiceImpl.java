@@ -39,15 +39,16 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public String generateAccessToken(long userId) {
         String tokenString = EzySHA256.cryptUtfToLowercase(
-                userId + UUID.randomUUID().toString() + System.currentTimeMillis()
+            userId + UUID.randomUUID().toString() + System.currentTimeMillis()
         );
+        LocalDateTime now = LocalDateTime.now();
         AccessToken accessToken = new AccessToken();
         accessToken.setAccessToken(tokenString);
-        accessToken.setExpireAt(LocalDateTime.now());
-        accessToken.setExpireIn(LocalDateTime.now().plusSeconds(expireIn));
-        accessToken.setFirstIssueAt(LocalDateTime.now());
+        accessToken.setExpireAt(now);
+        accessToken.setExpireIn(now.plusSeconds(expireIn));
+        accessToken.setFirstIssueAt(now);
         accessToken.setUserId(userId);
-        accessToken.setCreatedTime(LocalDateTime.now());
+        accessToken.setCreatedTime(now);
         accessTokenRepository.save(accessToken);
         return tokenString;
     }

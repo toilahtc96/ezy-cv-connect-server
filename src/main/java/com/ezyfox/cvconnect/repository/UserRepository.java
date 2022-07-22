@@ -10,6 +10,7 @@ import java.util.List;
 
 @EzyRepository
 public interface UserRepository extends EzyDatabaseRepository<Long, User> {
+
     @EzyQuery("select max(id+1) from User e")
     Long getMaxUserId();
 

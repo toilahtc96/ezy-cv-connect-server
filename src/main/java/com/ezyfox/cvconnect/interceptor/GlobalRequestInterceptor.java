@@ -16,8 +16,8 @@ import java.lang.reflect.Method;
 @Interceptor
 @AllArgsConstructor
 public class GlobalRequestInterceptor
-        extends EzyLoggable
-        implements RequestInterceptor {
+    extends EzyLoggable
+    implements RequestInterceptor {
 
     private final RequestURIManager requestUriManager;
     private final AuthenticationService authenticationService;
@@ -49,9 +49,9 @@ public class GlobalRequestInterceptor
     @Override
     public void postHandle(RequestArguments arguments, Method handler) {
         logger.info(
-                "request: {}, response: {}",
-                arguments.getRequest().getRequestURI(),
-                arguments.getResponse().getStatus()
+            "request: {}, response: {}",
+            arguments.getRequest().getRequestURI(),
+            arguments.getResponse().getStatus()
         );
     }
 }

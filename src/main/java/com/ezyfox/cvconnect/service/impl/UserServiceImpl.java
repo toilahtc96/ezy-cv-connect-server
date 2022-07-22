@@ -1,6 +1,7 @@
 package com.ezyfox.cvconnect.service.impl;
 
 import com.ezyfox.cvconnect.constant.UserStatus;
+import com.ezyfox.cvconnect.converter.DataToEntityConverter;
 import com.ezyfox.cvconnect.entity.User;
 import com.ezyfox.cvconnect.model.LoginData;
 import com.ezyfox.cvconnect.model.RegisterData;
@@ -24,13 +25,14 @@ public class UserServiceImpl extends EzyLoggable implements UserService {
     private final UserRepository userRepository;
     private final AuthenticationService authenticationService;
     private final UserValidator userValidator;
+    private final DataToEntityConverter dataToEntityConverter;
 
     @Override
     public void registerUser(RegisterData registerData) {
         userValidator.validRegisterRequest(registerData);
         User userByUsername = userRepository.findByField("username", registerData.getUsername());
         userValidator.validUsernameAndPassword(userByUsername);
-        User newUser = new User().of(registerData);
+        User newUser = dataToEntityConverter.toUserEntityFromData(registerData);
         newUser.setCreatedTime(LocalDateTime.now());
         userRepository.save(newUser);
     }
@@ -39,9 +41,9 @@ public class UserServiceImpl extends EzyLoggable implements UserService {
     public String login(LoginData logindata) {
         userValidator.validLoginRequest(logindata);
         List<Long> userId = userRepository.findByUsernameAndPasswordAndStatus(
-                logindata.getUsername(),
-                EzySHA256.cryptUtfToLowercase(logindata.getPassword()),
-                UserStatus.ACTIVE
+            logindata.getUsername(),
+            EzySHA256.cryptUtfToLowercase(logindata.getPassword()),
+            UserStatus.ACTIVE
         );
         userValidator.validUserId(userId);
         String accessToken = "";

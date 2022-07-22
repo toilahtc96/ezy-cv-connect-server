@@ -1,8 +1,6 @@
 package com.ezyfox.cvconnect.entity;
 
 import com.ezyfox.cvconnect.constant.UserStatus;
-import com.ezyfox.cvconnect.model.RegisterData;
-import com.tvd12.ezyfox.sercurity.EzySHA256;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -43,15 +41,4 @@ public class User extends CommonEntity {
     private String username;
     private String password;
     private UserStatus status;
-
-    public User of(RegisterData registerData) {
-        return User.builder()
-                .birthDay(registerData.getBirthDay())
-                .name(registerData.getName())
-                .username(registerData.getUsername())
-                .password(EzySHA256.cryptUtfToLowercase(registerData.getPassword()))
-                .typeId(registerData.getTypeId())
-                .status(UserStatus.ACTIVE)
-                .build();
-    }
 }
