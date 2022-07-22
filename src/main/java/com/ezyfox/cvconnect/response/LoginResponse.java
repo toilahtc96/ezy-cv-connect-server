@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class ResponseEntityData {
-    private boolean status;
+public class LoginResponse {
     private String msg;
+    private String accessToken;
 }
