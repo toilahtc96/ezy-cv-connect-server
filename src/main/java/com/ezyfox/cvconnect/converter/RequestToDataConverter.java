@@ -13,12 +13,8 @@ public class RequestToDataConverter {
         return
             LoginData
                 .builder()
-                .username(
-                    loginRequest.getUsername()
-                )
-                .password(
-                    loginRequest.getPassword()
-                )
+                .username(loginRequest.getUsername())
+                .password(loginRequest.getPassword())
                 .build();
     }
 
