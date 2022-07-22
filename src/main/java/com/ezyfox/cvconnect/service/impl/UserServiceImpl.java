@@ -45,10 +45,9 @@ public class UserServiceImpl extends EzyLoggable implements UserService {
             newUser.setCreatedTime(LocalDateTime.now());
             userRepository.save(newUser);
         } catch (Exception ex) {
-            throw new HttpBadRequestException("Có lỗi khi lưu thông tin đăng kí");
+            throw new HttpBadRequestException("Error when create User!");
         }
     }
-
 
     @Override
     public String login(LoginRequest loginRequest) {
@@ -63,10 +62,10 @@ public class UserServiceImpl extends EzyLoggable implements UserService {
         try {
             accessToken = authenticationService.generateAccessToken(userId.get(0));
         } catch (Exception ex) {
-            throw new HttpBadRequestException("Tạo token lỗi");
+            throw new HttpBadRequestException("Generate Token has error");
         }
         if (accessToken.isEmpty()) {
-            throw new HttpBadRequestException("Tạo token lỗi");
+            throw new HttpBadRequestException("Generate Token has error");
         }
         return accessToken;
     }
