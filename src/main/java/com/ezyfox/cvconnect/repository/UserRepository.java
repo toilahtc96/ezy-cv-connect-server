@@ -13,7 +13,7 @@ public interface UserRepository extends EzyDatabaseRepository<Long, User> {
     @EzyQuery("select max(id+1) from User e")
     Long getMaxUserId();
 
-    @EzyQuery("select e.id from User e where e.username = ?0")
+    @EzyQuery("select e from User e where e.username = ?0")
     List<User> findByUsername(String username);
 }
 
