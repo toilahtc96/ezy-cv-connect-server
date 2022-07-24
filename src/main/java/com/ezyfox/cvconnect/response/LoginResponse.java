@@ -1,13 +1,8 @@
 package com.ezyfox.cvconnect.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
+@Getter
 @Builder
 public class LoginResponse {
     private String msg;

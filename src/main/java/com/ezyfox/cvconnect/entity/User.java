@@ -1,41 +1,38 @@
 package com.ezyfox.cvconnect.entity;
 
 import com.ezyfox.cvconnect.constant.UserStatus;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
 
-@Data
-@Entity
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 @Builder
 @Table(name = "user")
 public class User extends CommonEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
     @Column(name = "role_id")
-    private Long roleId;
+    private long roleId;
     @Column(name = "company_id")
-    private Long companyId;
+    private long companyId;
     @Column(name = "type_id")
-    private Integer typeId;
+    private int typeId;
     private String description;
-    private Integer star;
+    private int star;
     private String information;
     @Column(name = "birth_day")
     private Date birthDay;
     private String name;
     @Column(name = "level_id")
-    private Integer levelId;
+    private int levelId;
     @Column(name = "year_experience")
-    private Integer yearExperience;
+    private int yearExperience;
     @Column(name = "cv_link")
     private String cvLink;
     private String username;

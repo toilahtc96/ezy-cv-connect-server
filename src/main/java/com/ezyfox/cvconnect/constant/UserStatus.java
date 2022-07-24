@@ -20,6 +20,7 @@ public enum UserStatus {
 
     private static final Map<Object, UserStatus> MAP =
         EzyEnums.enumMap(UserStatus.class, it -> it.value);
+    
     public static UserStatus of(String name) {
         return name == null ? null : MAP.get(name);
     }

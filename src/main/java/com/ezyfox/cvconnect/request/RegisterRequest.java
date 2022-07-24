@@ -1,14 +1,10 @@
 package com.ezyfox.cvconnect.request;
 
 import com.ezyfox.cvconnect.constant.UserStatus;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
 public class RegisterRequest {
     private Integer typeId;

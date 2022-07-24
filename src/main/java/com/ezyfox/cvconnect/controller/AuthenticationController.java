@@ -31,6 +31,8 @@ public class AuthenticationController {
             dataToResponseConverter.toLoginResponse(
                 userService.login(
                     requestToDataConverter.toLoginData(loginRequest)
-                )));
+                )
+            )
+        );
     }
 }

@@ -22,7 +22,7 @@ public class AccessToken extends CommonEntity {
     @Column(name = "access_token")
     private String accessToken;
     @Column(name = "user_id")
-    private Long userId;
+    private long userId;
     @Column(name = "expire_at")
     private LocalDateTime expireAt;
     @Column(name = "expire_in")

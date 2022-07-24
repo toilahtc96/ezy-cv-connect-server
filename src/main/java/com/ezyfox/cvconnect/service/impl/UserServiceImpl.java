@@ -12,7 +12,6 @@ import com.ezyfox.cvconnect.validator.UserValidator;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import com.tvd12.ezyfox.sercurity.EzySHA256;
 import com.tvd12.ezyfox.util.EzyLoggable;
-import com.tvd12.ezyhttp.core.exception.HttpBadRequestException;
 import lombok.AllArgsConstructor;
 
 import java.time.LocalDateTime;
@@ -40,21 +39,21 @@ public class UserServiceImpl extends EzyLoggable implements UserService {
     @Override
     public String login(LoginData logindata) {
         userValidator.validLoginRequest(logindata);
-        List<Long> userId = userRepository.findByUsernameAndPasswordAndStatus(
-            logindata.getUsername(),
-            EzySHA256.cryptUtfToLowercase(logindata.getPassword()),
-            UserStatus.ACTIVE
-        );
-        userValidator.validUserId(userId);
-        String accessToken = "";
-        try {
-            accessToken = authenticationService.generateAccessToken(userId.get(0));
-        } catch (Exception ex) {
-            throw new HttpBadRequestException("Generate Token has error");
-        }
-        if (accessToken.isEmpty()) {
-            throw new HttpBadRequestException("Generate Token has error");
-        }
+        List<User> lstUserByUsername = userRepository.findByUsername(logindata.getUsername());
+        userValidator.validListUser(lstUserByUsername);
+        User userLogin = lstUserByUsername
+            .stream()
+            .filter(
+                (
+                    user ->
+                        user.getStatus().equals(UserStatus.ACTIVE) &&
+                            user.getPassword().equals(
+                                EzySHA256.cryptUtfToLowercase(logindata.getPassword())
+                            )
+                )
+            ).findAny().orElse(null);
+        userValidator.validUser(userLogin);
+        String accessToken = authenticationService.generateAccessToken(userLogin.getId());
         return accessToken;
     }
 }

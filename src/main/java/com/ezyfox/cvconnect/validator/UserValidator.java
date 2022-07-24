@@ -6,6 +6,7 @@ import com.ezyfox.cvconnect.model.RegisterData;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import com.tvd12.ezyfox.io.EzyStrings;
 import com.tvd12.ezyhttp.core.exception.HttpBadRequestException;
+import com.tvd12.ezyhttp.core.exception.HttpNotFoundException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +27,7 @@ public class UserValidator {
         if (EzyStrings.isBlank(registerData.getPassword())) {
             errors.put("password", "required");
         }
-        if (Objects.isNull(registerData.getTypeId())) {
+        if (registerData.getTypeId() == null) {
             errors.put("type_id", "required");
         }
         if (errors.size() > 0) {
@@ -49,7 +50,7 @@ public class UserValidator {
 
     public void validUsernameAndPassword(User userByUsername) {
         Map<String, String> errors = new HashMap<>();
-        if (Objects.nonNull(userByUsername)) {
+        if (userByUsername != null) {
             errors.put("Username", "already existed");
         }
         if (errors.size() > 0) {
@@ -59,11 +60,27 @@ public class UserValidator {
 
     public void validUserId(List<Long> userId) {
         Map<String, String> errors = new HashMap<>();
-        if (Objects.isNull(userId) || userId.size() != 1) {
+        if (userId == null || userId.size() != 1) {
             errors.put("Login", "has error");
         }
         if (errors.size() > 0) {
             throw new HttpBadRequestException(errors);
+        }
+    }
+
+    public void validListUser(List<User> lstUser) {
+        Map<String, String> errors = new HashMap<>();
+        if (lstUser == null || lstUser.size() != 1) {
+            errors.put("Login", "has error");
+        }
+        if (errors.size() > 0) {
+            throw new HttpBadRequestException(errors);
+        }
+    }
+
+    public void validUser(User user) {
+        if (user == null) {
+            throw new HttpNotFoundException("user not found");
         }
     }
 }
