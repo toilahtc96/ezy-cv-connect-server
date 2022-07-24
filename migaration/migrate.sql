@@ -89,6 +89,9 @@ CREATE TABLE `cvdatabase`.`user` (
 DEFAULT CHARACTER SET = utf8;
 
 alter table user
+    modify id int auto_increment;
+
+alter table user
     change infomation information varchar(500) null;
 
 ALTER TABLE `cvdatabase`.`user`
