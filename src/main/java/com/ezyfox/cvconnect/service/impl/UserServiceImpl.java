@@ -30,7 +30,7 @@ public class UserServiceImpl extends EzyLoggable implements UserService {
     public void registerUser(RegisterData registerData) {
         userValidator.validRegisterRequest(registerData);
         User userByUsername = userRepository.findByField("username", registerData.getUsername());
-        userValidator.validUsernameAndPassword(userByUsername);
+        userValidator.validUsername(userByUsername);
         User newUser = dataToEntityConverter.toUserEntityFromData(registerData);
         newUser.setCreatedTime(LocalDateTime.now());
         userRepository.save(newUser);

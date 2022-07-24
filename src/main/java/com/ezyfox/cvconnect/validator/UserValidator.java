@@ -48,20 +48,10 @@ public class UserValidator {
         }
     }
 
-    public void validUsernameAndPassword(User userByUsername) {
+    public void validUsername(User userByUsername) {
         Map<String, String> errors = new HashMap<>();
         if (userByUsername != null) {
             errors.put("Username", "already existed");
-        }
-        if (errors.size() > 0) {
-            throw new HttpBadRequestException(errors);
-        }
-    }
-
-    public void validUserId(List<Long> userId) {
-        Map<String, String> errors = new HashMap<>();
-        if (userId == null || userId.size() != 1) {
-            errors.put("Login", "has error");
         }
         if (errors.size() > 0) {
             throw new HttpBadRequestException(errors);
