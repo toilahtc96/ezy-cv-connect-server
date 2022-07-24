@@ -46,8 +46,8 @@ public class UserServiceImpl extends EzyLoggable implements UserService {
             .filter(
                 (
                     user ->
-                        user.getStatus().equals(UserStatus.ACTIVE) &&
-                            user.getPassword().equals(
+                        user.getStatus().equals(UserStatus.ACTIVE)
+                            && user.getPassword().equals(
                                 EzySHA256.cryptUtfToLowercase(logindata.getPassword())
                             )
                 )

@@ -11,7 +11,6 @@ import com.tvd12.ezyhttp.core.exception.HttpNotFoundException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @EzySingleton
 public class UserValidator {
