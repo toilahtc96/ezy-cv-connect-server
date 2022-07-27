@@ -1,17 +1,16 @@
 package com.ezyfox.cvconnect.entity;
 
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Data
+@Getter
+@Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "address")
+@Builder
 public class Address extends CommonEntity {
 
     @Id
@@ -20,4 +19,8 @@ public class Address extends CommonEntity {
     private long type;
     private String code;
     private String name;
+    @Column(name = "parent_id")
+    private long parentId;
+    @Column(name = "created_id")
+    private long createdId;
 }

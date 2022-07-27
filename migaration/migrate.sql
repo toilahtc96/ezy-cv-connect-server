@@ -1,15 +1,16 @@
 CREATE TABLE `cvdatabase`.`address` (
-         `id` INT NOT NULL AUTO_INCREMENT,
-         `type` INT NULL COMMENT '\'Loại địa chỉ\'',
-         `code` VARCHAR(45) NULL COMMENT '\'mã địa chỉ\'',
-         `name` VARCHAR(100) NULL COMMENT '\'Tên\'',
-         `created_id` INT NULL,
-         `created_time` TIME NULL,
-         `updated_time` TIME NULL,
-         PRIMARY KEY (`id`))
+                                        `id` BIGINT NOT NULL AUTO_INCREMENT,
+                                        `type` INT NULL COMMENT 'Loại địa chỉ',
+                                        `code` VARCHAR(45) NULL COMMENT 'mã địa chỉ',
+                                        `name` VARCHAR(100) NULL COMMENT 'Tên',
+                                        `parent_id` BIGINT NULL,
+                                        `created_id` INT NULL,
+                                        `created_time` TIME NULL,
+                                        `updated_time` TIME NULL,
+                                        PRIMARY KEY (`id`))
     ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COMMENT = 'Thông tin địa chỉ, sẽ mapping với công ty, phục vụ tìm kiếm';
+    DEFAULT CHARACTER SET = utf8
+    COMMENT = 'Thông tin địa chỉ, sẽ mapping với công ty, phục vụ tìm kiếm';
 
 
 CREATE TABLE `cvdatabase`.`process` (
@@ -176,3 +177,4 @@ alter table user
 alter table user
     modify company_id INT null;
 
+alter table address add column parent_id long null;
