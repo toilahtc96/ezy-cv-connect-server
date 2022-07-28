@@ -16,7 +16,7 @@ public class Address extends CommonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private long type;
+    private int type;
     private String code;
     private String name;
     @Column(name = "parent_id")

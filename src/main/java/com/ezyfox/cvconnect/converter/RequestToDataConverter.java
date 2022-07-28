@@ -1,9 +1,11 @@
 package com.ezyfox.cvconnect.converter;
 
 import com.ezyfox.cvconnect.model.AddAddressData;
+import com.ezyfox.cvconnect.model.AddressData;
 import com.ezyfox.cvconnect.model.LoginData;
 import com.ezyfox.cvconnect.model.RegisterData;
 import com.ezyfox.cvconnect.request.AddAddressRequest;
+import com.ezyfox.cvconnect.request.EditAddressRequest;
 import com.ezyfox.cvconnect.request.LoginRequest;
 import com.ezyfox.cvconnect.request.RegisterRequest;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
@@ -42,6 +44,16 @@ public class RequestToDataConverter {
             .parentId(addAddressRequest.getParentId())
             .type(addAddressRequest.getType())
             .name(addAddressRequest.getName())
+            .build();
+    }
+
+    public AddressData toAddressDataFromEdit(EditAddressRequest editAddressRequest) {
+        return AddressData
+            .builder()
+            .id(editAddressRequest.getId())
+            .name(editAddressRequest.getName())
+            .parentId(editAddressRequest.getParentId())
+            .type(editAddressRequest.getType())
             .build();
     }
 }
