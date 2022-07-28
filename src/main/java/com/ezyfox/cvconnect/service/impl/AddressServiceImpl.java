@@ -49,7 +49,13 @@ public class AddressServiceImpl implements AddressService {
         if (data.getParentId() != 0) {
             addressById.setParentId(data.getParentId());
         }
-        addressById.setCode(addressUtil.buildCodeOfAddress(AddressType.of(addressById.getType()), addressById.getParentId(), addressById.getName()));
+        addressById.setCode(
+            addressUtil.buildCodeOfAddress(
+                AddressType.of(addressById.getType()),
+                addressById.getParentId(),
+                addressById.getName()
+            )
+        );
         addressById.setUpdatedTime(LocalDateTime.now());
         addressRepository.save(addressById);
     }
@@ -67,7 +73,10 @@ public class AddressServiceImpl implements AddressService {
     public List<AddressData> getAddressByType(int type) {
         List<Address> listByType = addressRepository.findAllByType(type);
         if (listByType != null && listByType.size() > 0) {
-            return listByType.stream().map(entityToDataConverter::addressEntityToData).collect(Collectors.toList());
+            return listByType
+                .stream()
+                .map(entityToDataConverter::addressEntityToData)
+                .collect(Collectors.toList());
         }
         return new ArrayList<>();
     }
@@ -85,7 +94,10 @@ public class AddressServiceImpl implements AddressService {
     public List<AddressData> getAddressByTypeAndParentId(int type, long parentId) {
         List<Address> listByTypeAndParentId = addressRepository.findAllByTypeAndParentId(type, parentId);
         if (listByTypeAndParentId != null && listByTypeAndParentId.size() > 0) {
-            return listByTypeAndParentId.stream().map(entityToDataConverter::addressEntityToData).collect(Collectors.toList());
+            return listByTypeAndParentId
+                .stream()
+                .map(entityToDataConverter::addressEntityToData)
+                .collect(Collectors.toList());
         }
         return new ArrayList<>();
     }

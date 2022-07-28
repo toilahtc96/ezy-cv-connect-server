@@ -20,6 +20,6 @@ public interface AddressRepository extends EzyDatabaseRepository<Long, Address> 
     List<Address> findAllByParentId(long parentId);
 
     @EzyQuery("select e from Address e where e.type = ?0 and e.parentId = ?1")
-    List<Address> findAllByTypeAndParentId(int type,long parentId);
+    List<Address> findAllByTypeAndParentId(int type, long parentId);
 
 }

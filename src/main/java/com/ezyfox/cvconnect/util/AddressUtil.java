@@ -23,7 +23,10 @@ public class AddressUtil {
         switch (type) {
             case PROVINCE: {
                 String firstLetter = name.substring(0, 1);
-                long countOfAddressByNameAndType = addressRepository.getCountAddressByNameStartAndType(firstLetter.concat("%"), type.getValue());
+                long countOfAddressByNameAndType = addressRepository
+                    .getCountAddressByNameStartAndType(
+                        firstLetter.concat("%"), type.getValue()
+                    );
                 String numberOfAddressCode = String.format("%03d", ++countOfAddressByNameAndType);
                 code.append(stringFormatUtil.removeAccent(firstLetter)).append(numberOfAddressCode);
                 break;
@@ -35,9 +38,15 @@ public class AddressUtil {
                     throw new HttpBadRequestException("Parent id is not found");
                 }
                 String firstLetter = name.substring(0, 1);
-                long countOfAddressByNameAndType = addressRepository.getCountAddressByNameStartAndType(firstLetter.concat("%"), type.getValue());
+                long countOfAddressByNameAndType = addressRepository
+                    .getCountAddressByNameStartAndType(
+                        firstLetter.concat("%"), type.getValue()
+                    );
                 String numberOfAddressCode = String.format("%03d", ++countOfAddressByNameAndType);
-                code.append(parentAddress.getCode()).append(stringFormatUtil.removeAccent(firstLetter)).append(numberOfAddressCode);
+                code
+                    .append(parentAddress.getCode())
+                    .append(stringFormatUtil.removeAccent(firstLetter))
+                    .append(numberOfAddressCode);
                 break;
             }
 

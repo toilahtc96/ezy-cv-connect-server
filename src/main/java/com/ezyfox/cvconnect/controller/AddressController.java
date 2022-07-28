@@ -16,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @Authenticated
 public class AddressController {
+
     private final AddressService addressService;
     private final RequestToDataConverter requestToDataConverter;
 
@@ -46,8 +47,12 @@ public class AddressController {
     }
 
     @DoGet("/get-by-type-and-parentId")
-    public ResponseEntity getByTypeAndParentId(@RequestParam("type") int type, @RequestParam("parentId") long parentId) {
-        List<AddressData> listByTypeAndParentId = addressService.getAddressByTypeAndParentId(type, parentId);
+    public ResponseEntity getByTypeAndParentId(
+        @RequestParam("type") int type,
+        @RequestParam("parentId") long parentId
+    ) {
+        List<AddressData> listByTypeAndParentId = addressService
+            .getAddressByTypeAndParentId(type, parentId);
         return ResponseEntity.ok(listByTypeAndParentId);
     }
 }

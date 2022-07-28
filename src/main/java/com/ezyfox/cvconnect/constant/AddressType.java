@@ -27,6 +27,14 @@ public enum AddressType {
     }
 
     public static AddressType of(int value) {
-        return MAP.entrySet().stream().filter(item -> item.getValue().getValue() == value).findAny().orElseThrow(IllegalAccessError::new).getValue();
+        return MAP
+            .entrySet()
+            .stream()
+            .filter(
+                item -> item.getValue().getValue() == value
+            )
+            .findAny()
+            .orElseThrow(IllegalAccessError::new)
+            .getValue();
     }
 }
