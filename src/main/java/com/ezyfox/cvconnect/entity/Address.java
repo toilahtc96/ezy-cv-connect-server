@@ -23,4 +23,5 @@ public class Address extends CommonEntity {
     private long parentId;
     @Column(name = "created_id")
     private long createdId;
+    private int status;
 }

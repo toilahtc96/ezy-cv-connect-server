@@ -10,6 +10,8 @@ public interface AddressService {
 
     void editAddress(AddressData data);
 
+    void deleteAddress(long id);
+
     AddressData getAddressById(long id);
 
     List<AddressData> getAddressByType(int type);
@@ -19,4 +21,5 @@ public interface AddressService {
     int countAddressByParentId(long parentId);
 
     List<AddressData> getAddressByTypeAndParentId(int type, long parentId);
+
 }

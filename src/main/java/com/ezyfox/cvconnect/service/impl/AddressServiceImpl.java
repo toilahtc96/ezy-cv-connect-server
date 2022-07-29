@@ -31,6 +31,7 @@ public class AddressServiceImpl implements AddressService {
     public void saveAddress(AddAddressData data) {
         Address newAddress = dataToEntityConverter.toAddressEntityFromAddData(data);
         newAddress.setCreatedTime(LocalDateTime.now());
+        newAddress.setStatus(1);
         addressRepository.save(newAddress);
     }
 
@@ -39,6 +40,9 @@ public class AddressServiceImpl implements AddressService {
         Address addressById = addressRepository.findById(data.getId());
         if (addressById == null) {
             throw new HttpBadRequestException("Address By Id Not Found");
+        }
+        if (addressById.getStatus() != 1) {
+            throw new HttpBadRequestException("Address By Id Not Active");
         }
         if (data.getType() != 0) {
             addressById.setType(data.getType());
@@ -65,6 +69,9 @@ public class AddressServiceImpl implements AddressService {
         Address addressById = addressRepository.findById(id);
         if (addressById == null) {
             throw new HttpBadRequestException("Address By Id Not Found");
+        }
+        if (addressById.getStatus() != 1) {
+            throw new HttpBadRequestException("Address By Id Not Active");
         }
         return entityToDataConverter.addressEntityToData(addressById);
     }
@@ -105,5 +112,17 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public int countAddressByParentId(long parentId) {
         return 0;
+    }
+
+    @Override
+    public void deleteAddress(long id) {
+        Address addressById = addressRepository.findById(id);
+        if (addressById == null) {
+            throw new HttpBadRequestException("Address By Id Not Found");
+        }
+        if (addressById.getStatus() == 1) {
+            addressById.setStatus(0);
+            addressRepository.save(addressById);
+        }
     }
 }

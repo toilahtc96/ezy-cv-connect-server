@@ -178,3 +178,6 @@ alter table user
     modify company_id INT null;
 
 alter table address add column parent_id long null;
+alter table address add column status int null;
+
+alter table company add column status int null;
