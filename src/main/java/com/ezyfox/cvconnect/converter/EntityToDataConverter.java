@@ -7,7 +7,7 @@ import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 @EzySingleton
 public class EntityToDataConverter {
 
-    public AddressData addressEntityToData(Address address) {
+    public AddressData toData(Address address) {
         return AddressData
             .builder()
             .type(address.getType())

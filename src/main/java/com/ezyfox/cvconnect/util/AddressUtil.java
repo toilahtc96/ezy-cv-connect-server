@@ -7,45 +7,37 @@ import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import com.tvd12.ezyhttp.core.exception.HttpBadRequestException;
 import lombok.AllArgsConstructor;
 
-@EzySingleton
+import java.text.Normalizer;
+import java.util.regex.Pattern;
+
 @AllArgsConstructor
 public class AddressUtil {
 
     private final AddressRepository addressRepository;
-    private final StringFormatUtil stringFormatUtil;
 
     /*
      * Code = Code parent + chu cai dau + (so ban ghi co chu cai dau giong + 1 ) gom 3 chu so
      *
      * */
-    public String buildCodeOfAddress(final AddressType type, long parentId, String name) {
+    public static String buildCodeOfAddress(final AddressType type, long parentId, String name, long countOfAddressByNameAndType, Address parentAddress) {
         StringBuilder code = new StringBuilder("");
         switch (type) {
             case PROVINCE: {
                 String firstLetter = name.substring(0, 1);
-                long countOfAddressByNameAndType = addressRepository
-                    .getCountAddressByNameStartAndType(
-                        firstLetter.concat("%"), type.getValue()
-                    );
                 String numberOfAddressCode = String.format("%03d", ++countOfAddressByNameAndType);
-                code.append(stringFormatUtil.removeAccent(firstLetter)).append(numberOfAddressCode);
+                code.append(removeAccent(firstLetter)).append(numberOfAddressCode);
                 break;
             }
             case DISTRICT:
             case PRECINCT: {
-                Address parentAddress = addressRepository.findById(parentId);
                 if (parentAddress == null) {
                     throw new HttpBadRequestException("Parent id is not found");
                 }
                 String firstLetter = name.substring(0, 1);
-                long countOfAddressByNameAndType = addressRepository
-                    .getCountAddressByNameStartAndType(
-                        firstLetter.concat("%"), type.getValue()
-                    );
                 String numberOfAddressCode = String.format("%03d", ++countOfAddressByNameAndType);
                 code
                     .append(parentAddress.getCode())
-                    .append(stringFormatUtil.removeAccent(firstLetter))
+                    .append(removeAccent(firstLetter))
                     .append(numberOfAddressCode);
                 break;
             }
@@ -53,5 +45,15 @@ public class AddressUtil {
             default:
         }
         return code.toString();
+    }
+
+    public static String removeAccent(String s) {
+        String temp = Normalizer.normalize(s, Normalizer.Form.NFD);
+        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        return pattern
+            .matcher(temp)
+            .replaceAll("")
+            .replace('đ', 'd')
+            .replace('Đ', 'D');
     }
 }
