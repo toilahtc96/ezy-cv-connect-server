@@ -15,8 +15,6 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class DataToEntityConverter {
 
-    private final AddressUtil addressUtil;
-
     public User toUserEntityFromData(RegisterData registerData) {
         return User.builder()
             .birthDay(registerData.getBirthDay())
@@ -32,13 +30,6 @@ public class DataToEntityConverter {
         return Address
             .builder()
             .type(addAddressData.getType())
-            .code(addressUtil
-                .buildCodeOfAddress(
-                    AddressType.of(addAddressData.getType()),
-                    addAddressData.getParentId(),
-                    addAddressData.getName()
-                )
-            )
             .name(addAddressData.getName())
             .parentId(addAddressData.getParentId())
             .build();
