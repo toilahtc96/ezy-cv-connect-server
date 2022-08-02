@@ -1,13 +1,7 @@
 package com.ezyfox.cvconnect.converter;
 
-import com.ezyfox.cvconnect.model.AddAddressData;
-import com.ezyfox.cvconnect.model.AddressData;
-import com.ezyfox.cvconnect.model.LoginData;
-import com.ezyfox.cvconnect.model.RegisterData;
-import com.ezyfox.cvconnect.request.AddAddressRequest;
-import com.ezyfox.cvconnect.request.EditAddressRequest;
-import com.ezyfox.cvconnect.request.LoginRequest;
-import com.ezyfox.cvconnect.request.RegisterRequest;
+import com.ezyfox.cvconnect.model.*;
+import com.ezyfox.cvconnect.request.*;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 
 @EzySingleton
@@ -54,6 +48,24 @@ public class RequestToDataConverter {
             .name(editAddressRequest.getName())
             .parentId(editAddressRequest.getParentId())
             .type(editAddressRequest.getType())
+            .build();
+    }
+
+    public AddRoleData toAddRoleData(AddRoleRequest addRoleRequest) {
+        return AddRoleData
+            .builder()
+            .code(addRoleRequest.getCode())
+            .name(addRoleRequest.getName())
+            .build();
+    }
+
+    public RoleData toRoleDataFromEdit(RoleRequest editRoleRequest) {
+        return RoleData
+            .builder()
+            .id(editRoleRequest.getId())
+            .name(editRoleRequest.getName())
+            .code(editRoleRequest.getCode())
+            .status(editRoleRequest.getStatus())
             .build();
     }
 }

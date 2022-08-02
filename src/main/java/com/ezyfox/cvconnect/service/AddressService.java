@@ -2,24 +2,20 @@ package com.ezyfox.cvconnect.service;
 
 import com.ezyfox.cvconnect.model.AddAddressData;
 import com.ezyfox.cvconnect.model.AddressData;
+import com.ezyfox.cvconnect.response.AddressResponse;
 
 import java.util.List;
 
 public interface AddressService {
+
     void saveAddress(AddAddressData data);
 
     void editAddress(AddressData data);
 
-    void deleteAddress(long id);
+    List<AddressResponse> getAddressByType(int type);
 
-    AddressData getAddressById(long id);
+    List<AddressResponse> getAddressByParentId(long parentId);
 
-    List<AddressData> getAddressByType(int type);
-
-    List<AddressData> getAddressByParentId(long parentId);
-
-    int countAddressByParentId(long parentId);
-
-    List<AddressData> getAddressByTypeAndParentId(int type, long parentId);
+    List<AddressResponse> getAddressByTypeAndParentId(int type, long parentId);
 
 }
