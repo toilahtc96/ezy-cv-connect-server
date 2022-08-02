@@ -2,7 +2,11 @@ package com.ezyfox.cvconnect.converter;
 
 import com.ezyfox.cvconnect.model.*;
 import com.ezyfox.cvconnect.request.*;
+import com.ezyfox.cvconnect.util.DateUtil;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
+
+import java.text.ParseException;
+import java.util.Date;
 
 @EzySingleton
 public class RequestToDataConverter {
@@ -17,10 +21,13 @@ public class RequestToDataConverter {
     }
 
     public RegisterData toRegisterData(RegisterRequest registerRequest) {
-        return
-            RegisterData
+        try {
+            return RegisterData
                 .builder()
-                .birthDay(registerRequest.getBirthDay())
+                .birthDay(DateUtil.parseFromStringFormat(
+                    registerRequest.getBirthDay(),
+                    DateUtil.DATE_DDMMYYYY_PATTERN
+                ))
                 .name(registerRequest.getName())
                 .cvLink(registerRequest.getCvLink())
                 .levelId(registerRequest.getLevelId())
@@ -30,6 +37,10 @@ public class RequestToDataConverter {
                 .yearExperience(registerRequest.getYearExperience())
                 .username(registerRequest.getUsername())
                 .build();
+        } catch (ParseException parseException) {
+            return null;
+        }
+
     }
 
     public AddAddressData toAddAddressData(AddAddressRequest addAddressRequest) {

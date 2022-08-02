@@ -8,7 +8,7 @@ import java.util.Date;
 @Data
 public class RegisterRequest {
     private Integer typeId;
-    private Date birthDay;
+    private String birthDay;
     private String name;
     private Integer levelId;
     private Integer yearExperience;

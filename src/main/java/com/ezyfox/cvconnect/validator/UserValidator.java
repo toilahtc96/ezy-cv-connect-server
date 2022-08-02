@@ -5,6 +5,8 @@ import com.ezyfox.cvconnect.entity.User;
 import com.ezyfox.cvconnect.model.LoginData;
 import com.ezyfox.cvconnect.model.RegisterData;
 import com.ezyfox.cvconnect.repository.UserRepository;
+import com.ezyfox.cvconnect.request.RegisterRequest;
+import com.ezyfox.cvconnect.util.DateUtil;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import com.tvd12.ezyfox.io.EzyStrings;
 import com.tvd12.ezyfox.sercurity.EzySHA256;
@@ -12,6 +14,7 @@ import com.tvd12.ezyhttp.core.exception.HttpBadRequestException;
 import com.tvd12.ezyhttp.core.exception.HttpNotFoundException;
 import lombok.AllArgsConstructor;
 
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -100,5 +103,14 @@ public class UserValidator {
         validRegisterRequest(registerData);
         User userByUsername = userRepository.findByField("username", registerData.getUsername());
         validUsername(userByUsername);
+    }
+    public void validateDateFromUserRegister(RegisterRequest registerRequest) {
+        if(registerRequest.getBirthDay() != null){
+            try{
+                DateUtil.parseFromStringFormat(registerRequest.getBirthDay(),DateUtil.DATE_DDMMYYYY_PATTERN);
+            } catch (ParseException parseException) {
+                throw new HttpNotFoundException("Date format is " + DateUtil.DATE_DDMMYYYY_PATTERN);
+            }
+        }
     }
 }
