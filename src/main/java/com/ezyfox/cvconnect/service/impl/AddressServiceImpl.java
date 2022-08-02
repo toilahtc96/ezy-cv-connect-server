@@ -25,11 +25,21 @@ public class AddressServiceImpl implements AddressService {
     private final AddressRepository addressRepository;
     private final DataToEntityConverter dataToEntityConverter;
     private final EntityToDataConverter entityToDataConverter;
-    private final AddressUtil addressUtil;
 
     @Override
     public void saveAddress(AddAddressData data) {
         Address newAddress = dataToEntityConverter.toAddressEntityFromAddData(data);
+        String firstLetterName = data.getName().substring(0,1);
+        long countOfAddressByNameAndType = addressRepository
+            .getCountAddressByNameStartAndType(firstLetterName,data.getType());
+        Address parentAddress = addressRepository.findById(data.getParentId());
+        newAddress.setCode(
+            AddressUtil.buildCodeOfAddress(
+                AddressType.of(data.getType()),
+                data.getName(),
+                countOfAddressByNameAndType,
+                parentAddress)
+        );
         newAddress.setCreatedTime(LocalDateTime.now());
         newAddress.setStatus(1);
         addressRepository.save(newAddress);
@@ -53,13 +63,18 @@ public class AddressServiceImpl implements AddressService {
         if (data.getParentId() != 0) {
             addressById.setParentId(data.getParentId());
         }
-//        addressById.setCode(
-//            addressUtil.buildCodeOfAddress(
-//                AddressType.of(addressById.getType()),
-//                addressById.getParentId(),
-//                addressById.getName()
-//            )
-//        );
+        String firstLetterName = data.getName().substring(0,1);
+        long countOfAddressByNameAndType = addressRepository
+            .getCountAddressByNameStartAndType(firstLetterName,data.getType());
+        Address parentAddress = addressRepository.findById(data.getParentId());
+        addressById.setCode(
+            AddressUtil.buildCodeOfAddress(
+                AddressType.of(addressById.getType()),
+                addressById.getName(),
+                countOfAddressByNameAndType,
+                parentAddress
+            )
+        );
         addressById.setUpdatedTime(LocalDateTime.now());
         addressRepository.save(addressById);
     }
