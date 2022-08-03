@@ -29,7 +29,7 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public void saveAddress(AddAddressData data) {
-        Address newAddress = dataToEntityConverter.toAddressEntityFromAddData(data);
+        Address newAddress = dataToEntityConverter.dataToAddress(data);
         String firstLetterName = data.getName().substring(0,1);
         long countOfAddressByNameAndType = addressRepository
             .getCountAddressByNameStartAndType(firstLetterName,data.getType());

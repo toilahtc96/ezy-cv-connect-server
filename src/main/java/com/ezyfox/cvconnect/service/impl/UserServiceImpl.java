@@ -24,7 +24,7 @@ public class UserServiceImpl extends EzyLoggable implements UserService {
     @Override
     public void registerUser(RegisterData registerData) {
         userValidator.validateUserRegister(registerData);
-        User newUser = dataToEntityConverter.toUserEntityFromData(registerData);
+        User newUser = dataToEntityConverter.dataToUser(registerData);
         userRepository.save(newUser);
     }
 

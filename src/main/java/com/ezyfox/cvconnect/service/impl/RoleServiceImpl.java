@@ -27,7 +27,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public void addRole(AddRoleData roleData) {
-        Role role = dataToEntityConverter.toRoleEntityFromAddData(roleData);
+        Role role = dataToEntityConverter.dataToRole(roleData);
         role.setCreatedTime(LocalDateTime.now());
         roleRepository.save(role);
     }
@@ -54,25 +54,27 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public List<RoleResponse> getRoleByCodeActive(String code) {
-        return entityToResponseConverter.toListResponse(
+        return entityToResponseConverter.toListRoleResponse(
             roleRepository.getRoleByCodeAndStatus(code, ACTIVE)
         );
     }
 
     @Override
     public List<RoleResponse> getRoleByNameActive(String name) {
-        return entityToResponseConverter.toListResponse(
+        return entityToResponseConverter.toListRoleResponse(
             roleRepository.getRoleByNameAndStatus(name, ACTIVE)
         );
     }
 
     @Override
     public List<RoleResponse> getAllRoleActive() {
-        return entityToResponseConverter.toListResponse(roleRepository.getAllRoleByStatus(ACTIVE));
+        return entityToResponseConverter.toListRoleResponse(
+            roleRepository.getAllRoleByStatus(ACTIVE)
+        );
     }
 
     @Override
     public List<RoleResponse> getAllRole() {
-        return entityToResponseConverter.toListResponse(roleRepository.getAllRole());
+        return entityToResponseConverter.toListRoleResponse(roleRepository.getAllRole());
     }
 }

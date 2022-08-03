@@ -11,7 +11,7 @@ import java.util.Date;
 @EzySingleton
 public class RequestToDataConverter {
 
-    public LoginData toLoginData(LoginRequest loginRequest) {
+    public LoginData toData(LoginRequest loginRequest) {
         return
             LoginData
                 .builder()
@@ -20,7 +20,7 @@ public class RequestToDataConverter {
                 .build();
     }
 
-    public RegisterData toRegisterData(RegisterRequest registerRequest) {
+    public RegisterData toData(RegisterRequest registerRequest) {
         try {
             return RegisterData
                 .builder()
@@ -43,7 +43,7 @@ public class RequestToDataConverter {
 
     }
 
-    public AddAddressData toAddAddressData(AddAddressRequest addAddressRequest) {
+    public AddAddressData toData(AddAddressRequest addAddressRequest) {
         return AddAddressData
             .builder()
             .parentId(addAddressRequest.getParentId())
@@ -52,7 +52,7 @@ public class RequestToDataConverter {
             .build();
     }
 
-    public AddressData toAddressDataFromEdit(EditAddressRequest editAddressRequest) {
+    public AddressData toData(EditAddressRequest editAddressRequest) {
         return AddressData
             .builder()
             .id(editAddressRequest.getId())
@@ -62,7 +62,7 @@ public class RequestToDataConverter {
             .build();
     }
 
-    public AddRoleData toAddRoleData(AddRoleRequest addRoleRequest) {
+    public AddRoleData toData(AddRoleRequest addRoleRequest) {
         return AddRoleData
             .builder()
             .code(addRoleRequest.getCode())
@@ -70,13 +70,31 @@ public class RequestToDataConverter {
             .build();
     }
 
-    public RoleData toRoleDataFromEdit(RoleRequest editRoleRequest) {
+    public RoleData toData(RoleRequest editRoleRequest) {
         return RoleData
             .builder()
             .id(editRoleRequest.getId())
             .name(editRoleRequest.getName())
             .code(editRoleRequest.getCode())
             .status(editRoleRequest.getStatus())
+            .build();
+    }
+
+    public AddUserTypeData toData(AddUserTypeRequest addUserTypeRequest) {
+        return AddUserTypeData
+            .builder()
+            .code(addUserTypeRequest.getCode())
+            .meaning(addUserTypeRequest.getMeaning())
+            .build();
+    }
+
+    public EditUserTypeData toData(EditUserTypeRequest editUserTypeRequest) {
+        return EditUserTypeData
+            .builder()
+            .id(editUserTypeRequest.getId())
+            .code(editUserTypeRequest.getCode())
+            .meaning(editUserTypeRequest.getMeaning())
+            .status(editUserTypeRequest.getStatus())
             .build();
     }
 }

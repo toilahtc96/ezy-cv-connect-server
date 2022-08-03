@@ -1,12 +1,8 @@
 package com.ezyfox.cvconnect.converter;
 
 import com.ezyfox.cvconnect.constant.UserStatus;
-import com.ezyfox.cvconnect.entity.Address;
-import com.ezyfox.cvconnect.entity.Role;
-import com.ezyfox.cvconnect.entity.User;
-import com.ezyfox.cvconnect.model.AddAddressData;
-import com.ezyfox.cvconnect.model.AddRoleData;
-import com.ezyfox.cvconnect.model.RegisterData;
+import com.ezyfox.cvconnect.entity.*;
+import com.ezyfox.cvconnect.model.*;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import com.tvd12.ezyfox.sercurity.EzySHA256;
 import lombok.AllArgsConstructor;
@@ -19,7 +15,7 @@ public class DataToEntityConverter {
 
     private final int ACTIVE = 1;
     private final int BLOCK = 0;
-    public User toUserEntityFromData(RegisterData registerData) {
+    public User dataToUser(RegisterData registerData) {
         User user =  User.builder()
             .birthDay(registerData.getBirthDay())
             .name(registerData.getName())
@@ -32,7 +28,7 @@ public class DataToEntityConverter {
         return user;
     }
 
-    public Address toAddressEntityFromAddData(AddAddressData addAddressData) {
+    public Address dataToAddress(AddAddressData addAddressData) {
         return Address.builder()
             .type(addAddressData.getType())
             .name(addAddressData.getName())
@@ -41,11 +37,30 @@ public class DataToEntityConverter {
             .build();
     }
 
-    public Role toRoleEntityFromAddData(AddRoleData addRoleData) {
+    public Role dataToRole(AddRoleData addRoleData) {
         return Role.builder()
             .name(addRoleData.getName())
             .code(addRoleData.getCode())
             .status(ACTIVE)
+            .build();
+    }
+
+    public UserType dataToUserType(AddUserTypeData addUserTypeData) {
+        return UserType
+            .builder()
+            .code(addUserTypeData.getCode())
+            .meaning(addUserTypeData.getMeaning())
+            .status(ACTIVE)
+            .build();
+    }
+
+    public UserType dataToUserType(EditUserTypeData editUserTypeData) {
+        return UserType
+            .builder()
+            .id(editUserTypeData.getId())
+            .code(editUserTypeData.getCode())
+            .meaning(editUserTypeData.getMeaning())
+            .status(editUserTypeData.getStatus())
             .build();
     }
 }

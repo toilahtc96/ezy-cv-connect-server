@@ -23,14 +23,14 @@ public class RoleController {
 
     @DoPost("/add")
     public ResponseEntity addRole(@RequestBody AddRoleRequest addRoleRequest) {
-        AddRoleData addRoleData = requestToDataConverter.toAddRoleData(addRoleRequest);
+        AddRoleData addRoleData = requestToDataConverter.toData(addRoleRequest);
         roleService.addRole(addRoleData);
         return ResponseEntity.noContent();
     }
 
     @DoPost("/edit")
     public ResponseEntity editRole(@RequestBody RoleRequest editRoleRequest) {
-        RoleData roleData = requestToDataConverter.toRoleDataFromEdit(editRoleRequest);
+        RoleData roleData = requestToDataConverter.toData(editRoleRequest);
         roleService.editRole(roleData);
         return ResponseEntity.noContent();
     }

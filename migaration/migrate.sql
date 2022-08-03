@@ -179,5 +179,5 @@ alter table user
 
 alter table address add column parent_id long null;
 alter table address add column status int null;
-
 alter table company add column status int null;
+alter table user_type add column status int null;
