@@ -23,14 +23,14 @@ public class UserTypeController {
 
     @DoPost("/add")
     public ResponseEntity addUserType(@RequestBody AddUserTypeRequest addUserTypeRequest) {
-        AddUserTypeData addUserTypeData = requestToDataConverter.toData(addUserTypeRequest);
+        AddUserTypeData addUserTypeData = requestToDataConverter.toDataFromAddUserType(addUserTypeRequest);
         userTypeService.saveUserType(addUserTypeData);
         return ResponseEntity.noContent();
     }
 
     @DoPost("/edit")
     public ResponseEntity editUserType(@RequestBody EditUserTypeRequest editUserTypeRequest) {
-        EditUserTypeData userTypeData = requestToDataConverter.toData(editUserTypeRequest);
+        EditUserTypeData userTypeData = requestToDataConverter.toDataFromEditUserType(editUserTypeRequest);
         userTypeService.editUserType(userTypeData);
         return ResponseEntity.noContent();
     }

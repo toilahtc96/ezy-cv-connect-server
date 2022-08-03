@@ -23,14 +23,14 @@ public class AddressController {
 
     @DoPost("/add")
     public ResponseEntity addAddress(@RequestBody AddAddressRequest addAddressRequest) {
-        AddAddressData addAddressData = requestToDataConverter.toData(addAddressRequest);
+        AddAddressData addAddressData = requestToDataConverter.toDataFromAddAddress(addAddressRequest);
         addressService.saveAddress(addAddressData);
         return ResponseEntity.noContent();
     }
 
     @DoPost("/edit")
     public ResponseEntity editAddress(@RequestBody EditAddressRequest editAddressRequest) {
-        AddressData addressData = requestToDataConverter.toData(editAddressRequest);
+        AddressData addressData = requestToDataConverter.toDataFromEditAddress(editAddressRequest);
         addressService.editAddress(addressData);
         return ResponseEntity.noContent();
     }

@@ -11,7 +11,7 @@ import java.util.Date;
 @EzySingleton
 public class RequestToDataConverter {
 
-    public LoginData toData(LoginRequest loginRequest) {
+    public LoginData toDataFromLogin(LoginRequest loginRequest) {
         return
             LoginData
                 .builder()
@@ -20,7 +20,7 @@ public class RequestToDataConverter {
                 .build();
     }
 
-    public RegisterData toData(RegisterRequest registerRequest) {
+    public RegisterData toDataFromRegister(RegisterRequest registerRequest) {
         try {
             return RegisterData
                 .builder()
@@ -43,7 +43,7 @@ public class RequestToDataConverter {
 
     }
 
-    public AddAddressData toData(AddAddressRequest addAddressRequest) {
+    public AddAddressData toDataFromAddAddress(AddAddressRequest addAddressRequest) {
         return AddAddressData
             .builder()
             .parentId(addAddressRequest.getParentId())
@@ -52,7 +52,7 @@ public class RequestToDataConverter {
             .build();
     }
 
-    public AddressData toData(EditAddressRequest editAddressRequest) {
+    public AddressData toDataFromEditAddress(EditAddressRequest editAddressRequest) {
         return AddressData
             .builder()
             .id(editAddressRequest.getId())
@@ -62,7 +62,7 @@ public class RequestToDataConverter {
             .build();
     }
 
-    public AddRoleData toData(AddRoleRequest addRoleRequest) {
+    public AddRoleData toDataFromAddRole(AddRoleRequest addRoleRequest) {
         return AddRoleData
             .builder()
             .code(addRoleRequest.getCode())
@@ -70,7 +70,7 @@ public class RequestToDataConverter {
             .build();
     }
 
-    public RoleData toData(RoleRequest editRoleRequest) {
+    public RoleData toDataFromEditRole(RoleRequest editRoleRequest) {
         return RoleData
             .builder()
             .id(editRoleRequest.getId())
@@ -80,7 +80,7 @@ public class RequestToDataConverter {
             .build();
     }
 
-    public AddUserTypeData toData(AddUserTypeRequest addUserTypeRequest) {
+    public AddUserTypeData toDataFromAddUserType(AddUserTypeRequest addUserTypeRequest) {
         return AddUserTypeData
             .builder()
             .code(addUserTypeRequest.getCode())
@@ -88,7 +88,7 @@ public class RequestToDataConverter {
             .build();
     }
 
-    public EditUserTypeData toData(EditUserTypeRequest editUserTypeRequest) {
+    public EditUserTypeData toDataFromEditUserType(EditUserTypeRequest editUserTypeRequest) {
         return EditUserTypeData
             .builder()
             .id(editUserTypeRequest.getId())
