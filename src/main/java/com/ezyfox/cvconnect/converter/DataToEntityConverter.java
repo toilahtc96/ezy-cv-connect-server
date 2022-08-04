@@ -13,8 +13,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class DataToEntityConverter {
 
-    private final int ACTIVE = 1;
-    private final int BLOCK = 0;
+    private static final int ACTIVE = 1;
+    private static final int BLOCK = 0;
+
     public User dataToUser(RegisterData registerData) {
         User user =  User.builder()
             .birthDay(registerData.getBirthDay())
@@ -64,6 +65,23 @@ public class DataToEntityConverter {
             .code(editUserTypeData.getCode())
             .meaning(editUserTypeData.getMeaning())
             .status(editUserTypeData.getStatus())
+            .build();
+    }
+
+    public User dataToAgencyUser(AddAgencyData addAgencyData) {
+        return User
+            .builder()
+            .birthDay(addAgencyData.getBirthDay())
+            .companyId(addAgencyData.getCompanyId())
+            .status(UserStatus.of(addAgencyData.getStatus()))
+            .name(addAgencyData.getName())
+            .information(addAgencyData.getInformation())
+            .description(addAgencyData.getDescription())
+            .username(addAgencyData.getUserName())
+            .password(addAgencyData.getPassword())
+            .roleId(addAgencyData.getRoleId())
+            .typeId(addAgencyData.getTypeId())
+            .star(addAgencyData.getStar())
             .build();
     }
 }

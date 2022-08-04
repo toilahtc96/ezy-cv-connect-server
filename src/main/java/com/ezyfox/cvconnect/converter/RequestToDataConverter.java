@@ -6,10 +6,11 @@ import com.ezyfox.cvconnect.util.DateUtil;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 
 import java.text.ParseException;
-import java.util.Date;
 
 @EzySingleton
 public class RequestToDataConverter {
+
+    private static final int ACTIVE = 1;
 
     public LoginData toDataFromLogin(LoginRequest loginRequest) {
         return
@@ -38,7 +39,17 @@ public class RequestToDataConverter {
                 .username(registerRequest.getUsername())
                 .build();
         } catch (ParseException parseException) {
-            return null;
+            return RegisterData
+                .builder()
+                .name(registerRequest.getName())
+                .cvLink(registerRequest.getCvLink())
+                .levelId(registerRequest.getLevelId())
+                .status(registerRequest.getStatus())
+                .typeId(registerRequest.getTypeId())
+                .password(registerRequest.getPassword())
+                .yearExperience(registerRequest.getYearExperience())
+                .username(registerRequest.getUsername())
+                .build();
         }
 
     }
@@ -96,5 +107,75 @@ public class RequestToDataConverter {
             .meaning(editUserTypeRequest.getMeaning())
             .status(editUserTypeRequest.getStatus())
             .build();
+    }
+
+    public AddAgencyData toDataFromAddAgency(AddAgencyUserRequest addAgencyUserRequest) {
+        try {
+            return AddAgencyData
+                .builder()
+                .companyId(addAgencyUserRequest.getCompanyId())
+                .information(addAgencyUserRequest.getInformation())
+                .description(addAgencyUserRequest.getDescription())
+                .birthDay(
+                    DateUtil.parseFromStringFormat(
+                        addAgencyUserRequest.getBirthDay(), DateUtil.DATE_DDMMYYYY_PATTERN
+                    )
+                )
+                .status(ACTIVE)
+                .star(-1)
+                .userName(addAgencyUserRequest.getUserName())
+                .password(addAgencyUserRequest.getPassword())
+                .name(addAgencyUserRequest.getName())
+                .build();
+        } catch (ParseException e) {
+            return AddAgencyData
+                .builder()
+                .companyId(addAgencyUserRequest.getCompanyId())
+                .information(addAgencyUserRequest.getDescription())
+                .description(addAgencyUserRequest.getInformation())
+                .status(ACTIVE)
+                .star(-1)
+                .userName(addAgencyUserRequest.getUserName())
+                .password(addAgencyUserRequest.getPassword())
+                .name(addAgencyUserRequest.getName())
+                .build();
+        }
+    }
+
+    public EditAgencyData toDataFromAddAgency(EditAgencyUserRequest editAgencyUserRequest) {
+        try {
+            return EditAgencyData
+                .builder()
+                .companyId(editAgencyUserRequest.getCompanyId())
+                .roleId(editAgencyUserRequest.getRoleId())
+                .typeId(editAgencyUserRequest.getTypeId())
+                .information(editAgencyUserRequest.getDescription())
+                .description(editAgencyUserRequest.getInformation())
+                .birthDay(
+                    DateUtil.parseFromStringFormat(
+                        editAgencyUserRequest.getBirthDay(), DateUtil.DATE_DDMMYYYY_PATTERN
+                    )
+                )
+                .status(editAgencyUserRequest.getStatus())
+                .star(editAgencyUserRequest.getStar())
+                .userName(editAgencyUserRequest.getUserName())
+                .password(editAgencyUserRequest.getPassword())
+                .name(editAgencyUserRequest.getName())
+                .build();
+        } catch (ParseException e) {
+            return EditAgencyData
+                .builder()
+                .companyId(editAgencyUserRequest.getCompanyId())
+                .roleId(editAgencyUserRequest.getRoleId())
+                .typeId(editAgencyUserRequest.getTypeId())
+                .information(editAgencyUserRequest.getDescription())
+                .description(editAgencyUserRequest.getInformation())
+                .status(editAgencyUserRequest.getStatus())
+                .star(editAgencyUserRequest.getStar())
+                .userName(editAgencyUserRequest.getUserName())
+                .password(editAgencyUserRequest.getPassword())
+                .name(editAgencyUserRequest.getName())
+                .build();
+        }
     }
 }

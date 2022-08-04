@@ -22,7 +22,7 @@ public class RoleServiceImpl implements RoleService {
     private final RoleRepository roleRepository;
     private final DataToEntityConverter dataToEntityConverter;
     private final EntityToResponseConverter entityToResponseConverter;
-    private final int ACTIVE = 1;
+    private static final int ACTIVE = 1;
 
 
     @Override
@@ -34,7 +34,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public void editRole(RoleData roleData) {
         Role roleById = roleRepository.findById(roleData.getId());
-        if(roleById == null) {
+        if (roleById == null) {
             throw new HttpBadRequestException("Role By Id Not Found");
         }
         if (roleById.getStatus() != 1) {

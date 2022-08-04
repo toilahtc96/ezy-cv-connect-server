@@ -54,7 +54,7 @@ public class UserTypeController {
     }
 
     @DoGet("/get-by-id")
-    public ResponseEntity getById(@RequestParam long id){
+    public ResponseEntity getById(@RequestParam long id) {
         return ResponseEntity.ok(userTypeService.getById(id));
     }
 }

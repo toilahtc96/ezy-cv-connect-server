@@ -15,7 +15,12 @@ public class AddressUtil {
      * Code = Code parent + chu cai dau + (so ban ghi co chu cai dau giong + 1 ) gom 3 chu so
      *
      * */
-    public static String buildCodeOfAddress(final AddressType type,  String name, long countOfAddressByNameAndType, Address parentAddress) {
+    public static String buildCodeOfAddress(
+        final AddressType type,
+        String name,
+        long countOfAddressByNameAndType,
+        Address parentAddress
+    ) {
         StringBuilder code = new StringBuilder("");
         switch (type) {
             case PROVINCE: {

@@ -24,4 +24,8 @@ public enum UserStatus {
     public static UserStatus of(String name) {
         return name == null ? null : MAP.get(name);
     }
+    public static UserStatus of(int value) {
+        return MAP.get(value);
+    }
+
 }

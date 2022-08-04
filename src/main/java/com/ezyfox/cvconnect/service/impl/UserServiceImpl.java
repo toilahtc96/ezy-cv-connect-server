@@ -28,7 +28,7 @@ public class UserServiceImpl extends EzyLoggable implements UserService {
         userRepository.save(newUser);
     }
 
-     @Override
+    @Override
     public String login(LoginData logindata) {
         User userLogin = userValidator.validateUserLogin(logindata);
         return authenticationService.generateAccessToken(userLogin.getId());

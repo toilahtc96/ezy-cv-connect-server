@@ -24,7 +24,6 @@ public class UserTypeServiceImpl implements UserTypeService {
     private final DataToEntityConverter dataToEntityConverter;
     private final EntityToResponseConverter entityToResponseConverter;
     private static final int ACTIVE = 1;
-//    private static final int BLOCK = 0;
 
     @Override
     public void saveUserType(AddUserTypeData data) {

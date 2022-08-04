@@ -104,10 +104,13 @@ public class UserValidator {
         User userByUsername = userRepository.findByField("username", registerData.getUsername());
         validUsername(userByUsername);
     }
+
     public void validateDateFromUserRegister(RegisterRequest registerRequest) {
-        if(registerRequest.getBirthDay() != null){
-            try{
-                DateUtil.parseFromStringFormat(registerRequest.getBirthDay(),DateUtil.DATE_DDMMYYYY_PATTERN);
+        if (registerRequest.getBirthDay() != null) {
+            try {
+                DateUtil.parseFromStringFormat(
+                    registerRequest.getBirthDay(), DateUtil.DATE_DDMMYYYY_PATTERN
+                );
             } catch (ParseException parseException) {
                 throw new HttpNotFoundException("Date format is " + DateUtil.DATE_DDMMYYYY_PATTERN);
             }
