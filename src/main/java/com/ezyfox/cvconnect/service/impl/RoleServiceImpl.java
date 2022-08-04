@@ -28,7 +28,6 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public void addRole(AddRoleData roleData) {
         Role role = dataToEntityConverter.dataToRole(roleData);
-        role.setCreatedTime(LocalDateTime.now());
         roleRepository.save(role);
     }
 

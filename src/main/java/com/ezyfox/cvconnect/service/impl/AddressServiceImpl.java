@@ -30,9 +30,9 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public void saveAddress(AddAddressData data) {
         Address newAddress = dataToEntityConverter.dataToAddress(data);
-        String firstLetterName = data.getName().substring(0,1);
+        String firstLetterName = data.getName().substring(0, 1);
         long countOfAddressByNameAndType = addressRepository
-            .getCountAddressByNameStartAndType(firstLetterName,data.getType());
+            .getCountAddressByNameStartAndType(firstLetterName, data.getType());
         Address parentAddress = addressRepository.findById(data.getParentId());
         newAddress.setCode(
             AddressUtil.buildCodeOfAddress(
@@ -41,7 +41,6 @@ public class AddressServiceImpl implements AddressService {
                 countOfAddressByNameAndType,
                 parentAddress)
         );
-        newAddress.setCreatedTime(LocalDateTime.now());
         addressRepository.save(newAddress);
     }
 
@@ -63,9 +62,9 @@ public class AddressServiceImpl implements AddressService {
         if (data.getParentId() != 0) {
             addressById.setParentId(data.getParentId());
         }
-        String firstLetterName = data.getName().substring(0,1);
+        String firstLetterName = data.getName().substring(0, 1);
         long countOfAddressByNameAndType = addressRepository
-            .getCountAddressByNameStartAndType(firstLetterName,data.getType());
+            .getCountAddressByNameStartAndType(firstLetterName, data.getType());
         Address parentAddress = addressRepository.findById(data.getParentId());
         addressById.setCode(
             AddressUtil.buildCodeOfAddress(

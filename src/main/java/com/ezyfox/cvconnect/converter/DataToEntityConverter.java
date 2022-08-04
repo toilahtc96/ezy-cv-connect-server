@@ -23,8 +23,8 @@ public class DataToEntityConverter {
             .password(EzySHA256.cryptUtfToLowercase(registerData.getPassword()))
             .typeId(registerData.getTypeId())
             .status(UserStatus.ACTIVE)
+            .createdTime(LocalDateTime.now())
             .build();
-        user.setCreatedTime(LocalDateTime.now());
         return user;
     }
 
@@ -34,6 +34,7 @@ public class DataToEntityConverter {
             .name(addAddressData.getName())
             .parentId(addAddressData.getParentId())
             .status(ACTIVE)
+            .createdTime(LocalDateTime.now())
             .build();
     }
 
@@ -42,6 +43,7 @@ public class DataToEntityConverter {
             .name(addRoleData.getName())
             .code(addRoleData.getCode())
             .status(ACTIVE)
+            .createdTime(LocalDateTime.now())
             .build();
     }
 
@@ -51,6 +53,7 @@ public class DataToEntityConverter {
             .code(addUserTypeData.getCode())
             .meaning(addUserTypeData.getMeaning())
             .status(ACTIVE)
+            .createdTime(LocalDateTime.now())
             .build();
     }
 

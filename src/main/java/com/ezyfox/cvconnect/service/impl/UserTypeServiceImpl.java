@@ -29,7 +29,6 @@ public class UserTypeServiceImpl implements UserTypeService {
     @Override
     public void saveUserType(AddUserTypeData data) {
         UserType userType = dataToEntityConverter.dataToUserType(data);
-        userType.setCreatedTime(LocalDateTime.now());
         userTypeRepository.save(userType);
     }
 

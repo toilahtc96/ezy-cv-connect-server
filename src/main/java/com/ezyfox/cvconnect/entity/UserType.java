@@ -1,9 +1,9 @@
 package com.ezyfox.cvconnect.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
@@ -12,7 +12,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "user_type")
-@Builder
+@SuperBuilder
 public class UserType extends CommonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
