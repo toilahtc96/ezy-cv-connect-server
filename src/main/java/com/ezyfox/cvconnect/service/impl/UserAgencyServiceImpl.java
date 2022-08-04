@@ -3,13 +3,13 @@ package com.ezyfox.cvconnect.service.impl;
 import com.ezyfox.cvconnect.constant.UserStatus;
 import com.ezyfox.cvconnect.converter.DataToEntityConverter;
 import com.ezyfox.cvconnect.entity.User;
+import com.ezyfox.cvconnect.exception.NotFoundException;
 import com.ezyfox.cvconnect.model.AddAgencyData;
 import com.ezyfox.cvconnect.model.EditAgencyData;
 import com.ezyfox.cvconnect.repository.UserRepository;
 import com.ezyfox.cvconnect.response.UserAgencyResponse;
 import com.ezyfox.cvconnect.service.UserAgencyService;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
-import com.tvd12.ezyhttp.core.exception.HttpBadRequestException;
 import lombok.AllArgsConstructor;
 
 import java.time.LocalDateTime;
@@ -31,10 +31,10 @@ public class UserAgencyServiceImpl implements UserAgencyService {
     public void editAgencyUser(EditAgencyData editAgencyData) {
         User userById = userRepository.findById(editAgencyData.getId());
         if (userById == null) {
-            throw new HttpBadRequestException("User By Id not found");
+            throw new NotFoundException("User By Id not found");
         }
         if (!userById.getStatus().equals(UserStatus.ACTIVE)) {
-            throw new HttpBadRequestException("User By Id not active");
+            throw new NotFoundException("User By Id not active");
         }
         userById.setUpdatedTime(LocalDateTime.now());
         userById.setUsername(editAgencyData.getUserName());
@@ -46,7 +46,7 @@ public class UserAgencyServiceImpl implements UserAgencyService {
         userById.setName(editAgencyData.getName());
         userById.setUsername(editAgencyData.getUserName());
         userById.setPassword(editAgencyData.getPassword());
-//        userById.setTypeId();//set type agency
+        // userById.setTypeId();
         userById.setStatus(UserStatus.ACTIVE);
         userById.setStar(editAgencyData.getStar());
         userRepository.save(userById);

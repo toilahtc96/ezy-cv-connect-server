@@ -3,13 +3,13 @@ package com.ezyfox.cvconnect.service.impl;
 import com.ezyfox.cvconnect.converter.DataToEntityConverter;
 import com.ezyfox.cvconnect.converter.EntityToResponseConverter;
 import com.ezyfox.cvconnect.entity.Role;
+import com.ezyfox.cvconnect.exception.NotFoundException;
 import com.ezyfox.cvconnect.model.AddRoleData;
 import com.ezyfox.cvconnect.model.RoleData;
 import com.ezyfox.cvconnect.repository.RoleRepository;
 import com.ezyfox.cvconnect.response.RoleResponse;
 import com.ezyfox.cvconnect.service.RoleService;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
-import com.tvd12.ezyhttp.core.exception.HttpBadRequestException;
 import lombok.AllArgsConstructor;
 
 import java.time.LocalDateTime;
@@ -35,10 +35,10 @@ public class RoleServiceImpl implements RoleService {
     public void editRole(RoleData roleData) {
         Role roleById = roleRepository.findById(roleData.getId());
         if (roleById == null) {
-            throw new HttpBadRequestException("Role By Id Not Found");
+            throw new NotFoundException("Role By Id Not Found");
         }
         if (roleById.getStatus() != 1) {
-            throw new HttpBadRequestException("Role By Id Not Active");
+            throw new NotFoundException("Role By Id Not Active");
         }
         if (roleData.getName() != null) {
             roleById.setName(roleData.getName());

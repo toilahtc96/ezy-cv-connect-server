@@ -1,17 +1,17 @@
 package com.ezyfox.cvconnect.service.impl;
 
+import com.ezyfox.cvconnect.builder.AddressCodeBuilder;
 import com.ezyfox.cvconnect.constant.AddressType;
 import com.ezyfox.cvconnect.converter.DataToEntityConverter;
 import com.ezyfox.cvconnect.converter.EntityToResponseConverter;
 import com.ezyfox.cvconnect.entity.Address;
+import com.ezyfox.cvconnect.exception.NotFoundException;
 import com.ezyfox.cvconnect.model.AddAddressData;
 import com.ezyfox.cvconnect.model.AddressData;
 import com.ezyfox.cvconnect.repository.AddressRepository;
 import com.ezyfox.cvconnect.response.AddressResponse;
 import com.ezyfox.cvconnect.service.AddressService;
-import com.ezyfox.cvconnect.util.AddressUtil;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
-import com.tvd12.ezyhttp.core.exception.HttpBadRequestException;
 import lombok.AllArgsConstructor;
 
 import java.time.LocalDateTime;
@@ -34,12 +34,14 @@ public class AddressServiceImpl implements AddressService {
         long countOfAddressByNameAndType = addressRepository
             .getCountAddressByNameStartAndType(firstLetterName, data.getType());
         Address parentAddress = addressRepository.findById(data.getParentId());
+        AddressCodeBuilder addressCodeBuilder = AddressCodeBuilder.builder()
+            .name(data.getName())
+            .type(AddressType.of(data.getType()))
+            .parentAddress(parentAddress)
+            .countOfAddressByNameAndType(countOfAddressByNameAndType)
+            .build();
         newAddress.setCode(
-            AddressUtil.buildCodeOfAddress(
-                AddressType.of(data.getType()),
-                data.getName(),
-                countOfAddressByNameAndType,
-                parentAddress)
+            addressCodeBuilder.build()
         );
         addressRepository.save(newAddress);
     }
@@ -48,10 +50,10 @@ public class AddressServiceImpl implements AddressService {
     public void editAddress(AddressData data) {
         Address addressById = addressRepository.findById(data.getId());
         if (addressById == null) {
-            throw new HttpBadRequestException("Address By Id Not Found");
+            throw new NotFoundException("Address By Id Not Found");
         }
         if (addressById.getStatus() != 1) {
-            throw new HttpBadRequestException("Address By Id Not Active");
+            throw new NotFoundException("Address By Id Not Active");
         }
         if (data.getType() != 0) {
             addressById.setType(data.getType());
@@ -66,13 +68,14 @@ public class AddressServiceImpl implements AddressService {
         long countOfAddressByNameAndType = addressRepository
             .getCountAddressByNameStartAndType(firstLetterName, data.getType());
         Address parentAddress = addressRepository.findById(data.getParentId());
+        AddressCodeBuilder addressCodeBuilder = AddressCodeBuilder.builder()
+            .name(data.getName())
+            .type(AddressType.of(data.getType()))
+            .parentAddress(parentAddress)
+            .countOfAddressByNameAndType(countOfAddressByNameAndType)
+            .build();
         addressById.setCode(
-            AddressUtil.buildCodeOfAddress(
-                AddressType.of(addressById.getType()),
-                addressById.getName(),
-                countOfAddressByNameAndType,
-                parentAddress
-            )
+            addressCodeBuilder.build()
         );
         addressById.setUpdatedTime(LocalDateTime.now());
         addressRepository.save(addressById);

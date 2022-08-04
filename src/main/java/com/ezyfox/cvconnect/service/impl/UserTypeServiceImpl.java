@@ -3,13 +3,13 @@ package com.ezyfox.cvconnect.service.impl;
 import com.ezyfox.cvconnect.converter.DataToEntityConverter;
 import com.ezyfox.cvconnect.converter.EntityToResponseConverter;
 import com.ezyfox.cvconnect.entity.UserType;
+import com.ezyfox.cvconnect.exception.NotFoundException;
 import com.ezyfox.cvconnect.model.AddUserTypeData;
 import com.ezyfox.cvconnect.model.EditUserTypeData;
 import com.ezyfox.cvconnect.repository.UserTypeRepository;
 import com.ezyfox.cvconnect.response.UserTypeResponse;
 import com.ezyfox.cvconnect.service.UserTypeService;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
-import com.tvd12.ezyhttp.core.exception.HttpBadRequestException;
 import lombok.AllArgsConstructor;
 
 import java.time.LocalDateTime;
@@ -35,10 +35,10 @@ public class UserTypeServiceImpl implements UserTypeService {
     public void editUserType(EditUserTypeData data) {
         UserType userTypeById = userTypeRepository.findById(data.getId());
         if (userTypeById == null) {
-            throw new HttpBadRequestException("User Type By Id Not Found");
+            throw new NotFoundException("User Type By Id Not Found");
         }
         if (userTypeById.getStatus() != ACTIVE) {
-            throw new HttpBadRequestException("User Type By Id Not Active");
+            throw new NotFoundException("User Type By Id Not Active");
         }
         if (data.getCode() != null) {
             userTypeById.setCode(data.getCode());
