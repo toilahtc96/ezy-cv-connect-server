@@ -27,7 +27,7 @@ public class User extends CommonEntity {
     @Column(name = "company_id")
     private long companyId;
     @Column(name = "type_id")
-    private int typeId;
+    private long typeId;
     private String description;
     private int star;
     private String information;

@@ -44,7 +44,7 @@ public class EntityToResponseConverter {
         return UserTypeResponse
             .builder()
             .id(userType.getId())
-            .code(userType.getCode())
+            .code(userType.getCode().getName())
             .meaning(userType.getMeaning())
             .build();
     }

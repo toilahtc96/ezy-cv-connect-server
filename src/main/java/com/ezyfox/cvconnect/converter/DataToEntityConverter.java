@@ -1,6 +1,7 @@
 package com.ezyfox.cvconnect.converter;
 
 import com.ezyfox.cvconnect.constant.UserStatus;
+import com.ezyfox.cvconnect.constant.UserTypeCode;
 import com.ezyfox.cvconnect.entity.*;
 import com.ezyfox.cvconnect.model.*;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
@@ -51,7 +52,7 @@ public class DataToEntityConverter {
     public UserType dataToUserType(AddUserTypeData addUserTypeData) {
         return UserType
             .builder()
-            .code(addUserTypeData.getCode())
+            .code(UserTypeCode.of(addUserTypeData.getCode()))
             .meaning(addUserTypeData.getMeaning())
             .status(ACTIVE)
             .createdTime(LocalDateTime.now())
@@ -62,7 +63,7 @@ public class DataToEntityConverter {
         return UserType
             .builder()
             .id(editUserTypeData.getId())
-            .code(editUserTypeData.getCode())
+            .code(UserTypeCode.of(editUserTypeData.getCode()))
             .meaning(editUserTypeData.getMeaning())
             .status(editUserTypeData.getStatus())
             .build();
@@ -78,10 +79,11 @@ public class DataToEntityConverter {
             .information(addAgencyData.getInformation())
             .description(addAgencyData.getDescription())
             .username(addAgencyData.getUserName())
-            .password(addAgencyData.getPassword())
+            .password(EzySHA256.cryptUtfToLowercase(addAgencyData.getPassword()))
             .roleId(addAgencyData.getRoleId())
             .typeId(addAgencyData.getTypeId())
             .star(addAgencyData.getStar())
+            .createdTime(LocalDateTime.now())
             .build();
     }
 }

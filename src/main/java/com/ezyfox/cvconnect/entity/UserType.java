@@ -1,5 +1,6 @@
 package com.ezyfox.cvconnect.entity;
 
+import com.ezyfox.cvconnect.constant.UserTypeCode;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,7 @@ public class UserType extends CommonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String code;
+    private UserTypeCode code;
     private String meaning;
     private int status;
 }

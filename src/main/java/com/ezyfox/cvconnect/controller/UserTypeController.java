@@ -1,5 +1,6 @@
 package com.ezyfox.cvconnect.controller;
 
+import com.ezyfox.cvconnect.constant.UserTypeCode;
 import com.ezyfox.cvconnect.converter.RequestToDataConverter;
 import com.ezyfox.cvconnect.model.AddUserTypeData;
 import com.ezyfox.cvconnect.model.EditUserTypeData;
@@ -37,7 +38,7 @@ public class UserTypeController {
 
     @DoGet("/get-by-code")
     public ResponseEntity getByCode(@RequestParam String code) {
-        List<UserTypeResponse> listUserType = userTypeService.getUserTypeByCode(code);
+        UserTypeResponse listUserType = userTypeService.getUserTypeByCode(UserTypeCode.of(code));
         return ResponseEntity.ok(listUserType);
     }
 

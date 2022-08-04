@@ -1,5 +1,6 @@
 package com.ezyfox.cvconnect.service.impl;
 
+import com.ezyfox.cvconnect.constant.UserTypeCode;
 import com.ezyfox.cvconnect.converter.DataToEntityConverter;
 import com.ezyfox.cvconnect.converter.EntityToResponseConverter;
 import com.ezyfox.cvconnect.entity.UserType;
@@ -41,7 +42,7 @@ public class UserTypeServiceImpl implements UserTypeService {
             throw new NotFoundException("User Type By Id Not Active");
         }
         if (data.getCode() != null) {
-            userTypeById.setCode(data.getCode());
+            userTypeById.setCode(UserTypeCode.of(data.getCode()));
         }
         userTypeById.setStatus(data.getStatus());
         if (data.getMeaning() != null) {
@@ -52,11 +53,8 @@ public class UserTypeServiceImpl implements UserTypeService {
     }
 
     @Override
-    public List<UserTypeResponse> getUserTypeByCode(String code) {
-        return userTypeRepository.getUserTypeByCode(code)
-            .stream()
-            .map(entityToResponseConverter::toUserTypeResponse)
-            .collect(Collectors.toList());
+    public UserTypeResponse getUserTypeByCode(UserTypeCode code) {
+        return entityToResponseConverter.toUserTypeResponse(userTypeRepository.getUserTypeByCode(code));
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.ezyfox.cvconnect.service;
 
+import com.ezyfox.cvconnect.constant.UserTypeCode;
 import com.ezyfox.cvconnect.model.AddUserTypeData;
 import com.ezyfox.cvconnect.model.EditUserTypeData;
 import com.ezyfox.cvconnect.response.UserTypeResponse;
@@ -12,7 +13,7 @@ public interface UserTypeService {
 
     void editUserType(EditUserTypeData data);
 
-    List<UserTypeResponse> getUserTypeByCode(String code);
+    UserTypeResponse getUserTypeByCode(UserTypeCode code);
 
     List<UserTypeResponse> getUserTypeByMeaning(String meaning);
 

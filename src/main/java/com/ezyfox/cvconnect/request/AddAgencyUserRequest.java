@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class AddAgencyUserRequest {
-    private int roleId;
-    private int companyId;
+    private long roleId;
+    private long companyId;
     private String description;
     private String information;
     private String birthDay;
