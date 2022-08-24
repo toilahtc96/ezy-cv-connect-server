@@ -39,7 +39,7 @@ public class UserRoleServiceImpl implements UserRoleService {
             throw new ResourceNotFoundException("UserRole");
         }
         if (!userRoleById.getStatus().equals(EntityStatus.ACTIVE)) {
-            throw new ResourceNotFoundException("UserRole By id Active");
+            throw new ResourceNotFoundException("UserRole Active by id");
         }
         userRoleById.setRoleId(data.getRoleId());
         userRoleById.setUserId(data.getUserId());

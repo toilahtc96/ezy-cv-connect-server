@@ -39,7 +39,7 @@ public class UserTypeServiceImpl implements UserTypeService {
             throw new ResourceNotFoundException("UserType");
         }
         if (userTypeById.getStatus().equals(EntityStatus.ACTIVE)) {
-            throw new ResourceNotFoundException("UserType By id Active");
+            throw new ResourceNotFoundException("UserType Active By id ");
         }
         if (data.getCode() != null) {
             userTypeById.setCode(UserTypeCode.of(data.getCode()));
