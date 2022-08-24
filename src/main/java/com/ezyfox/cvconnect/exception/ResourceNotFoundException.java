@@ -11,7 +11,7 @@ public class ResourceNotFoundException extends RuntimeException {
     private final String resource;
 
     public ResourceNotFoundException(String resource) {
-        this(resource, resource + "not found");
+        this(resource, resource + " not found");
     }
 
     public ResourceNotFoundException(String resource, String message) {
@@ -20,6 +20,6 @@ public class ResourceNotFoundException extends RuntimeException {
     }
 
     public Map<String, String> getResponseData() {
-        return Collections.singletonMap(resource, "notFound");
+        return Collections.singletonMap(resource, " not found");
     }
 }
