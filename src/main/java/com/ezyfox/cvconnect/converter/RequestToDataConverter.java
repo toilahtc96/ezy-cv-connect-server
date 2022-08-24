@@ -1,5 +1,6 @@
 package com.ezyfox.cvconnect.converter;
 
+import com.ezyfox.cvconnect.constant.UserStatus;
 import com.ezyfox.cvconnect.model.*;
 import com.ezyfox.cvconnect.request.*;
 import com.ezyfox.cvconnect.util.DateUtil;
@@ -9,8 +10,6 @@ import java.text.ParseException;
 
 @EzySingleton
 public class RequestToDataConverter {
-
-    private static final int ACTIVE = 1;
 
     public LoginData toDataFromLogin(LoginRequest loginRequest) {
         return
@@ -102,7 +101,7 @@ public class RequestToDataConverter {
     public EditUserTypeData toDataFromEditUserType(EditUserTypeRequest editUserTypeRequest) {
         return EditUserTypeData
             .builder()
-            .id(editUserTypeRequest.getId())
+            .userTypeId(editUserTypeRequest.getId())
             .code(editUserTypeRequest.getCode())
             .meaning(editUserTypeRequest.getMeaning())
             .status(editUserTypeRequest.getStatus())
@@ -121,7 +120,7 @@ public class RequestToDataConverter {
                         addAgencyUserRequest.getBirthDay(), DateUtil.DATE_DDMMYYYY_PATTERN
                     )
                 )
-                .status(ACTIVE)
+                .status(UserStatus.ACTIVE)
                 .star(-1)
                 .userName(addAgencyUserRequest.getUserName())
                 .password(addAgencyUserRequest.getPassword())
@@ -133,7 +132,7 @@ public class RequestToDataConverter {
                 .companyId(addAgencyUserRequest.getCompanyId())
                 .information(addAgencyUserRequest.getDescription())
                 .description(addAgencyUserRequest.getInformation())
-                .status(ACTIVE)
+                .status(UserStatus.ACTIVE)
                 .star(-1)
                 .userName(addAgencyUserRequest.getUserName())
                 .password(addAgencyUserRequest.getPassword())

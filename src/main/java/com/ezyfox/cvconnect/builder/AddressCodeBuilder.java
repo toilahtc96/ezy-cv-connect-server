@@ -20,8 +20,6 @@ public class AddressCodeBuilder {
         return this;
     }
 
-    // tuong tu voi nhung field khac
-
     public String build() {
         StringBuilder code = new StringBuilder("");
         switch (type) {

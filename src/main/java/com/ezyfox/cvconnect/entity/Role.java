@@ -1,5 +1,6 @@
 package com.ezyfox.cvconnect.entity;
 
+import com.ezyfox.cvconnect.constant.EntityStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,5 +22,5 @@ public class Role extends CommonEntity {
     private long id;
     private String name;
     private String code;
-    private int status;
+    private EntityStatus status;
 }

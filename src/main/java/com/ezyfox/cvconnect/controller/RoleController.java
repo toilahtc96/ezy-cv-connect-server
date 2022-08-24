@@ -36,26 +36,22 @@ public class RoleController {
     }
 
     @DoGet("/get-by-code")
-    public ResponseEntity getByCode(@RequestParam String code) {
-        List<RoleResponse> listByCode = roleService.getRoleByCodeActive(code);
-        return ResponseEntity.ok(listByCode);
+    public List<RoleResponse> getByCode(@RequestParam String code) {
+        return roleService.getRoleByCodeActive(code);
     }
 
     @DoGet("/get-by-name")
-    public ResponseEntity getByName(@RequestParam String name) {
-        List<RoleResponse> listByName = roleService.getRoleByNameActive(name);
-        return ResponseEntity.ok(listByName);
+    public List<RoleResponse> getByName(@RequestParam String name) {
+        return roleService.getRoleByNameActive(name);
     }
 
     @DoGet("/get-all-active")
-    public ResponseEntity getAllActive() {
-        List<RoleResponse> listActive = roleService.getAllRoleActive();
-        return ResponseEntity.ok(listActive);
+    public List<RoleResponse> getAllActive() {
+        return roleService.getAllRoleActive();
     }
 
     @DoGet("/get-all")
-    public ResponseEntity getAll() {
-        List<RoleResponse> listAll = roleService.getAllRole();
-        return ResponseEntity.ok(listAll);
+    public List<RoleResponse> getAll() {
+        return roleService.getAllRole();
     }
 }

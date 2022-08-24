@@ -1,5 +1,6 @@
 package com.ezyfox.cvconnect.model;
 
+import com.ezyfox.cvconnect.constant.EntityStatus;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -9,5 +10,5 @@ public class RoleData {
     private long id;
     private String code;
     private String name;
-    private int status;
+    private EntityStatus status;
 }

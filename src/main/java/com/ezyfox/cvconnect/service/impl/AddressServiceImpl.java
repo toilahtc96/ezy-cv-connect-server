@@ -2,10 +2,11 @@ package com.ezyfox.cvconnect.service.impl;
 
 import com.ezyfox.cvconnect.builder.AddressCodeBuilder;
 import com.ezyfox.cvconnect.constant.AddressType;
+import com.ezyfox.cvconnect.constant.EntityStatus;
 import com.ezyfox.cvconnect.converter.DataToEntityConverter;
 import com.ezyfox.cvconnect.converter.EntityToResponseConverter;
 import com.ezyfox.cvconnect.entity.Address;
-import com.ezyfox.cvconnect.exception.NotFoundException;
+import com.ezyfox.cvconnect.exception.ResourceNotFoundException;
 import com.ezyfox.cvconnect.model.AddAddressData;
 import com.ezyfox.cvconnect.model.AddressData;
 import com.ezyfox.cvconnect.repository.AddressRepository;
@@ -50,10 +51,10 @@ public class AddressServiceImpl implements AddressService {
     public void editAddress(AddressData data) {
         Address addressById = addressRepository.findById(data.getId());
         if (addressById == null) {
-            throw new NotFoundException("Address By Id Not Found");
+            throw new ResourceNotFoundException("Address");
         }
-        if (addressById.getStatus() != 1) {
-            throw new NotFoundException("Address By Id Not Active");
+        if (!addressById.getStatus().equals(EntityStatus.ACTIVE)) {
+            throw new ResourceNotFoundException("Address Active");
         }
         if (data.getType() != 0) {
             addressById.setType(data.getType());

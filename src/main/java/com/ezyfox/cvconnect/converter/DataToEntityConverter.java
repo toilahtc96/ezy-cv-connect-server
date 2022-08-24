@@ -1,5 +1,6 @@
 package com.ezyfox.cvconnect.converter;
 
+import com.ezyfox.cvconnect.constant.EntityStatus;
 import com.ezyfox.cvconnect.constant.UserStatus;
 import com.ezyfox.cvconnect.constant.UserTypeCode;
 import com.ezyfox.cvconnect.entity.*;
@@ -14,8 +15,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class DataToEntityConverter {
 
-    private static final int ACTIVE = 1;
-    private static final int BLOCK = 0;
 
     public User dataToUser(RegisterData registerData) {
         User user =  User.builder()
@@ -35,7 +34,7 @@ public class DataToEntityConverter {
             .type(addAddressData.getType())
             .name(addAddressData.getName())
             .parentId(addAddressData.getParentId())
-            .status(ACTIVE)
+            .status(EntityStatus.ACTIVE)
             .createdTime(LocalDateTime.now())
             .build();
     }
@@ -44,7 +43,7 @@ public class DataToEntityConverter {
         return Role.builder()
             .name(addRoleData.getName())
             .code(addRoleData.getCode())
-            .status(ACTIVE)
+            .status(EntityStatus.ACTIVE)
             .createdTime(LocalDateTime.now())
             .build();
     }
@@ -54,7 +53,7 @@ public class DataToEntityConverter {
             .builder()
             .code(UserTypeCode.of(addUserTypeData.getCode()))
             .meaning(addUserTypeData.getMeaning())
-            .status(ACTIVE)
+            .status(EntityStatus.ACTIVE)
             .createdTime(LocalDateTime.now())
             .build();
     }
@@ -62,7 +61,7 @@ public class DataToEntityConverter {
     public UserType dataToUserType(EditUserTypeData editUserTypeData) {
         return UserType
             .builder()
-            .id(editUserTypeData.getId())
+            .id(editUserTypeData.getUserTypeId())
             .code(UserTypeCode.of(editUserTypeData.getCode()))
             .meaning(editUserTypeData.getMeaning())
             .status(editUserTypeData.getStatus())
@@ -74,7 +73,7 @@ public class DataToEntityConverter {
             .builder()
             .birthDay(addAgencyData.getBirthDay())
             .companyId(addAgencyData.getCompanyId())
-            .status(UserStatus.of(addAgencyData.getStatus()))
+            .status(addAgencyData.getStatus())
             .name(addAgencyData.getName())
             .information(addAgencyData.getInformation())
             .description(addAgencyData.getDescription())

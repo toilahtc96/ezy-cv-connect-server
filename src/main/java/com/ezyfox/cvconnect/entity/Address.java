@@ -1,5 +1,6 @@
 package com.ezyfox.cvconnect.entity;
 
+import com.ezyfox.cvconnect.constant.EntityStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,5 +28,5 @@ public class Address extends CommonEntity {
     private long parentId;
     @Column(name = "created_id")
     private long createdId;
-    private int status;
+    private EntityStatus status;
 }

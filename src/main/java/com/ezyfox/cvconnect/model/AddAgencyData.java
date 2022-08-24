@@ -1,5 +1,6 @@
 package com.ezyfox.cvconnect.model;
 
+import com.ezyfox.cvconnect.constant.UserStatus;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +20,6 @@ public class AddAgencyData {
     private String userName;
     private String password;
     private long typeId;
-    private int status;
+    private UserStatus status;
     private int star;
 }

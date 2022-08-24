@@ -36,24 +36,20 @@ public class AddressController {
     }
 
     @DoGet("/get-by-type")
-    public ResponseEntity getByType(@RequestParam int type) {
-        List<AddressResponse> listByType = addressService.getAddressByType(type);
-        return ResponseEntity.ok(listByType);
+    public List<AddressResponse> getByType(@RequestParam int type) {
+        return addressService.getAddressByType(type);
     }
 
     @DoGet("/get-by-parentId")
-    public ResponseEntity getByParentId(@RequestParam long parentId) {
-        List<AddressResponse> listByParentId = addressService.getAddressByParentId(parentId);
-        return ResponseEntity.ok(listByParentId);
+    public List<AddressResponse> getByParentId(@RequestParam long parentId) {
+        return addressService.getAddressByParentId(parentId);
     }
 
     @DoGet("/get-by-type-and-parentId")
-    public ResponseEntity getByTypeAndParentId(
+    public List<AddressResponse> getByTypeAndParentId(
         @RequestParam("type") int type,
         @RequestParam("parentId") long parentId
     ) {
-        List<AddressResponse> listByTypeAndParentId = addressService
-            .getAddressByTypeAndParentId(type, parentId);
-        return ResponseEntity.ok(listByTypeAndParentId);
+        return addressService.getAddressByTypeAndParentId(type, parentId);
     }
 }
