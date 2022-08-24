@@ -1,5 +1,6 @@
 package com.ezyfox.cvconnect.converter;
 
+import com.ezyfox.cvconnect.constant.EntityStatus;
 import com.ezyfox.cvconnect.constant.UserStatus;
 import com.ezyfox.cvconnect.model.*;
 import com.ezyfox.cvconnect.request.*;
@@ -176,5 +177,23 @@ public class RequestToDataConverter {
                 .name(editAgencyUserRequest.getName())
                 .build();
         }
+    }
+
+    public AddUserRoleData toDataFromAddUserRole(AddUserRoleRequest addUserRoleRequest) {
+        return AddUserRoleData
+            .builder()
+            .userId(addUserRoleRequest.getUserId())
+            .roleId(addUserRoleRequest.getRoleId())
+            .status(EntityStatus.ACTIVE)
+            .build();
+    }
+
+    public EditUserRoleData toDataFromEditUserRole(EditUserRoleRequest editUserRoleRequest) {
+        return EditUserRoleData
+            .builder()
+            .userRoleId(editUserRoleRequest.getUserRoleId())
+            .userId(editUserRoleRequest.getUserId())
+            .roleId(editUserRoleRequest.getRoleId())
+            .build();
     }
 }

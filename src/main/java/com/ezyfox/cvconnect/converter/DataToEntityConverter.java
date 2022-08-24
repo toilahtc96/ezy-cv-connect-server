@@ -85,4 +85,12 @@ public class DataToEntityConverter {
             .createdTime(LocalDateTime.now())
             .build();
     }
+
+    public UserRole dataToUserRole(AddUserRoleData userRoleData) {
+        return UserRole.builder()
+            .userId(userRoleData.getUserId())
+            .roleId(userRoleData.getRoleId())
+            .status(EntityStatus.ACTIVE)
+            .build();
+    }
 }

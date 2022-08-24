@@ -2,9 +2,11 @@ package com.ezyfox.cvconnect.converter;
 
 import com.ezyfox.cvconnect.entity.Address;
 import com.ezyfox.cvconnect.entity.Role;
+import com.ezyfox.cvconnect.entity.UserRole;
 import com.ezyfox.cvconnect.entity.UserType;
 import com.ezyfox.cvconnect.response.AddressResponse;
 import com.ezyfox.cvconnect.response.RoleResponse;
+import com.ezyfox.cvconnect.response.UserRoleResponse;
 import com.ezyfox.cvconnect.response.UserTypeResponse;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 
@@ -51,5 +53,15 @@ public class EntityToResponseConverter {
 
     public List<UserTypeResponse> toListUserTypeResponse(List<UserType> userTypes) {
         return userTypes.stream().map(this::toUserTypeResponse).collect(Collectors.toList());
+    }
+
+    public UserRoleResponse toUserRoleResponse(UserRole userRole) {
+        return UserRoleResponse
+            .builder()
+            .userRoleId(userRole.getId())
+            .roleId(userRole.getRoleId())
+            .userId(userRole.getUserId())
+            .status(userRole.getStatus())
+            .build();
     }
 }
