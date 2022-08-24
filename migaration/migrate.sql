@@ -25,6 +25,7 @@ ALTER TABLE `cvdatabase`.`process`
 ADD COLUMN `created_time` TIME NULL AFTER `created_id`,
 ADD COLUMN `updated_time` TIME NULL AFTER `created_time`;
 alter table `cvdatabase`.`process` add column status int          null;
+alter table  `cvdatabase`.`process` change code code int not null;
 
 CREATE TABLE `cvdatabase`.`user_type` (
            `id` INT NOT NULL AUTO_INCREMENT,
