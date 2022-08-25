@@ -7,7 +7,7 @@ import lombok.Getter;
 @Builder
 @Getter
 public class EditProcessData {
-    private long id;
+    private long processId;
     private ProcessCode processCode;
     private String meaning;
 }

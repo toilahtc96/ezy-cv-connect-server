@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 public class AddProcessRequest {
-    private ProcessCode code;
+    private ProcessCode processCode;
     private String meaning;
 }

@@ -1,13 +1,11 @@
 package com.ezyfox.cvconnect.converter;
 
 import com.ezyfox.cvconnect.entity.Address;
+import com.ezyfox.cvconnect.entity.Process;
 import com.ezyfox.cvconnect.entity.Role;
 import com.ezyfox.cvconnect.entity.UserRole;
 import com.ezyfox.cvconnect.entity.UserType;
-import com.ezyfox.cvconnect.response.AddressResponse;
-import com.ezyfox.cvconnect.response.RoleResponse;
-import com.ezyfox.cvconnect.response.UserRoleResponse;
-import com.ezyfox.cvconnect.response.UserTypeResponse;
+import com.ezyfox.cvconnect.response.*;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 
 import java.util.List;
@@ -62,6 +60,16 @@ public class EntityToResponseConverter {
             .roleId(userRole.getRoleId())
             .userId(userRole.getUserId())
             .status(userRole.getStatus())
+            .build();
+    }
+
+    public ProcessResponse toProcessResponse(Process process) {
+        return ProcessResponse
+            .builder()
+            .processId(process.getId())
+            .code(process.getCode())
+            .meaning(process.getMeaning())
+            .status(process.getStatus())
             .build();
     }
 }

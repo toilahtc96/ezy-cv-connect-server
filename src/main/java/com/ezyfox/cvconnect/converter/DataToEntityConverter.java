@@ -4,6 +4,7 @@ import com.ezyfox.cvconnect.constant.EntityStatus;
 import com.ezyfox.cvconnect.constant.UserStatus;
 import com.ezyfox.cvconnect.constant.UserTypeCode;
 import com.ezyfox.cvconnect.entity.*;
+import com.ezyfox.cvconnect.entity.Process;
 import com.ezyfox.cvconnect.model.*;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import com.tvd12.ezyfox.sercurity.EzySHA256;
@@ -90,6 +91,14 @@ public class DataToEntityConverter {
         return UserRole.builder()
             .userId(userRoleData.getUserId())
             .roleId(userRoleData.getRoleId())
+            .status(EntityStatus.ACTIVE)
+            .build();
+    }
+
+    public Process dataToProcess(AddProcessData addProcessData) {
+        return Process.builder()
+            .code(addProcessData.getProcessCode())
+            .meaning(addProcessData.getMeaning())
             .status(EntityStatus.ACTIVE)
             .build();
     }

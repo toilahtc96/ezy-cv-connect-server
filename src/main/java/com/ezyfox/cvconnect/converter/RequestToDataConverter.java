@@ -197,4 +197,20 @@ public class RequestToDataConverter {
             .build();
     }
 
+    public AddProcessData toDataFromAddProcess(AddProcessRequest addProcessRequest) {
+        return AddProcessData
+            .builder()
+            .processCode(addProcessRequest.getProcessCode())
+            .meaning(addProcessRequest.getMeaning())
+            .build();
+    }
+
+    public EditProcessData toDataFromEditProcess(EditProcessRequest editProcessRequest) {
+        return EditProcessData
+            .builder()
+            .processId(editProcessRequest.getProcessId())
+            .processCode(editProcessRequest.getProcessCode())
+            .meaning(editProcessRequest.getMeaning())
+            .build();
+    }
 }

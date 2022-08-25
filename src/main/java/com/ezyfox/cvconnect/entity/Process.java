@@ -1,9 +1,11 @@
 package com.ezyfox.cvconnect.entity;
 
+import com.ezyfox.cvconnect.constant.EntityStatus;
 import com.ezyfox.cvconnect.constant.ProcessCode;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
@@ -12,6 +14,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "process")
+@SuperBuilder
 public class Process extends CommonEntity {
 
     @Id
@@ -19,4 +22,5 @@ public class Process extends CommonEntity {
     private long id;
     private ProcessCode code;
     private String meaning;
+    private EntityStatus status;
 }
