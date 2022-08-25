@@ -1,10 +1,7 @@
 package com.ezyfox.cvconnect.converter;
 
-import com.ezyfox.cvconnect.entity.Address;
+import com.ezyfox.cvconnect.entity.*;
 import com.ezyfox.cvconnect.entity.Process;
-import com.ezyfox.cvconnect.entity.Role;
-import com.ezyfox.cvconnect.entity.UserRole;
-import com.ezyfox.cvconnect.entity.UserType;
 import com.ezyfox.cvconnect.response.*;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 
@@ -70,6 +67,17 @@ public class EntityToResponseConverter {
             .code(process.getCode())
             .meaning(process.getMeaning())
             .status(process.getStatus())
+            .build();
+    }
+
+    public DealResponse toDealResponse(Deal deal) {
+        return DealResponse
+            .builder()
+            .dealId(deal.getId())
+            .agencyId(deal.getAgencyId())
+            .candidateId(deal.getCandidateId())
+            .processId(deal.getProcessId())
+            .status(deal.getStatus())
             .build();
     }
 }

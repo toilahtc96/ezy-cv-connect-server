@@ -18,7 +18,7 @@ public class DataToEntityConverter {
 
 
     public User dataToUser(RegisterData registerData) {
-        User user =  User.builder()
+        return User.builder()
             .birthDay(registerData.getBirthDay())
             .name(registerData.getName())
             .username(registerData.getUsername())
@@ -27,7 +27,6 @@ public class DataToEntityConverter {
             .status(UserStatus.ACTIVE)
             .createdTime(LocalDateTime.now())
             .build();
-        return user;
     }
 
     public Address dataToAddress(AddAddressData addAddressData) {
@@ -56,16 +55,6 @@ public class DataToEntityConverter {
             .meaning(addUserTypeData.getMeaning())
             .status(EntityStatus.ACTIVE)
             .createdTime(LocalDateTime.now())
-            .build();
-    }
-
-    public UserType dataToUserType(EditUserTypeData editUserTypeData) {
-        return UserType
-            .builder()
-            .id(editUserTypeData.getUserTypeId())
-            .code(UserTypeCode.of(editUserTypeData.getCode()))
-            .meaning(editUserTypeData.getMeaning())
-            .status(editUserTypeData.getStatus())
             .build();
     }
 
@@ -100,6 +89,17 @@ public class DataToEntityConverter {
             .code(addProcessData.getProcessCode())
             .meaning(addProcessData.getMeaning())
             .status(EntityStatus.ACTIVE)
+            .build();
+    }
+
+    public Deal dataToDeal(AddDealData addDealData) {
+        LocalDateTime now = LocalDateTime.now();
+        return Deal.builder()
+            .agencyId(addDealData.getAgencyId())
+            .candidateId(addDealData.getCandidateId())
+            .processId(addDealData.getProcessId())
+            .status(EntityStatus.ACTIVE)
+            .createdTime(now)
             .build();
     }
 }

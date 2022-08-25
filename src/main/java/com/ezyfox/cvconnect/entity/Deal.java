@@ -1,8 +1,10 @@
 package com.ezyfox.cvconnect.entity;
 
+import com.ezyfox.cvconnect.constant.EntityStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
@@ -11,6 +13,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "deal")
+@SuperBuilder
 public class Deal extends CommonEntity {
 
     @Id
@@ -20,7 +23,7 @@ public class Deal extends CommonEntity {
     private long agencyId;
     @Column(name = "candidate_id")
     private long candidateId;
-    private long status;
+    private EntityStatus status;
     @Column(name = "process_id")
     private long processId;
 }

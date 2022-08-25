@@ -213,4 +213,25 @@ public class RequestToDataConverter {
             .meaning(editProcessRequest.getMeaning())
             .build();
     }
+
+    public AddDealData toDataFromAddDeal(AddDealRequest addDealRequest) {
+        return AddDealData
+            .builder()
+            .agencyId(addDealRequest.getAgencyId())
+            .candidateId(addDealRequest.getCandidateId())
+            .processId(addDealRequest.getProcessId())
+            .status(addDealRequest.getStatus())
+            .build();
+    }
+
+    public EditDealData toDataFromEditDeal(EditDealRequest editDealRequest) {
+        return EditDealData
+            .builder()
+            .dealId(editDealRequest.getDealId())
+            .agencyId(editDealRequest.getAgencyId())
+            .candidateId(editDealRequest.getCandidateId())
+            .processId(editDealRequest.getProcessId())
+            .status(editDealRequest.getStatus())
+            .build();
+    }
 }
