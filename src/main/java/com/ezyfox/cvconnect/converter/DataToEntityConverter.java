@@ -102,4 +102,14 @@ public class DataToEntityConverter {
             .createdTime(now)
             .build();
     }
+
+    public Level dataToLevel(AddLevelData addLevelData) {
+        LocalDateTime now = LocalDateTime.now();
+        return Level.builder()
+            .name(addLevelData.getLevelName())
+            .meaning(addLevelData.getMeaning())
+            .status(EntityStatus.ACTIVE)
+            .createdTime(now)
+            .build();
+    }
 }

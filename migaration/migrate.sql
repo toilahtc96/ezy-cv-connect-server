@@ -40,7 +40,7 @@ DEFAULT CHARACTER SET = utf8;
 
 
 
-CREATE TABLE `cvdatabase`.`candidate_level` (
+CREATE TABLE `cvdatabase`.`level` (
                  `id` INT NOT NULL AUTO_INCREMENT,
                  `name` VARCHAR(45) NOT NULL COMMENT 'tên level; fresher,middle,v..v\n',
                  `meaning` VARCHAR(100) NULL COMMENT 'ý nghĩa',
@@ -50,6 +50,8 @@ CREATE TABLE `cvdatabase`.`candidate_level` (
                  PRIMARY KEY (`id`))
     ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
+alter table `level`  add column status int null;
+
 
 CREATE TABLE `cvdatabase`.`company` (
          `id` INT NOT NULL,

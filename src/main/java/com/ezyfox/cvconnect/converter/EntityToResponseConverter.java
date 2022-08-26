@@ -80,4 +80,14 @@ public class EntityToResponseConverter {
             .status(deal.getStatus())
             .build();
     }
+
+    public LevelResponse toLevelResponse(Level level) {
+        return LevelResponse
+            .builder()
+            .id(level.getId())
+            .levelName(level.getName())
+            .meaning(level.getMeaning())
+            .status(level.getStatus())
+            .build();
+    }
 }

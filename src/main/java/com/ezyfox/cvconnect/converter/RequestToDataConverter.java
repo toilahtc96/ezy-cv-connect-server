@@ -234,4 +234,22 @@ public class RequestToDataConverter {
             .status(editDealRequest.getStatus())
             .build();
     }
+
+    public AddLevelData toDataFromAddLevel(AddLevelRequest addLevelRequest) {
+        return AddLevelData
+            .builder()
+            .levelName(addLevelRequest.getName())
+            .meaning(addLevelRequest.getMeaning())
+            .build();
+    }
+
+    public EditLevelData toDataFromEditLevel(EditLevelRequest editLevelRequest) {
+        return EditLevelData
+            .builder()
+            .levelId(editLevelRequest.getLevelId())
+            .levelName(editLevelRequest.getName())
+            .meaning(editLevelRequest.getMeaning())
+            .status(editLevelRequest.getStatus())
+            .build();
+    }
 }
