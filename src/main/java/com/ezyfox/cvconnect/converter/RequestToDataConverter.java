@@ -252,4 +252,28 @@ public class RequestToDataConverter {
             .status(editLevelRequest.getStatus())
             .build();
     }
+
+    public AddReviewData toDataFromAddReview(AddReviewRequest addReviewRequest) {
+        return AddReviewData
+            .builder()
+            .description(addReviewRequest.getDescription())
+            .star(addReviewRequest.getStar())
+            .objectId(addReviewRequest.getObjectId())
+            .reviewOwner(addReviewRequest.getReviewOwner())
+            .type(addReviewRequest.getType())
+            .build();
+    }
+
+    public EditReviewData toDataFromEditReview(EditReviewRequest editReviewRequest) {
+        return EditReviewData
+            .builder()
+            .reviewId(editReviewRequest.getReviewId())
+            .description(editReviewRequest.getDescription())
+            .star(editReviewRequest.getStar())
+            .objectId(editReviewRequest.getObjectId())
+            .reviewOwner(editReviewRequest.getReviewOwner())
+            .type(editReviewRequest.getType())
+            .status(editReviewRequest.getStatus())
+            .build();
+    }
 }

@@ -141,6 +141,7 @@ CREATE TABLE `cvdatabase`.`review` (
         PRIMARY KEY (`id`))
     ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
+alter table `review`  add column status int null;
 
 CREATE TABLE `cvdatabase`.`deal` (
         `id` INT NOT NULL AUTO_INCREMENT,

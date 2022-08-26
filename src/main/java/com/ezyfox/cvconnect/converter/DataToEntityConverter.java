@@ -112,4 +112,17 @@ public class DataToEntityConverter {
             .createdTime(now)
             .build();
     }
+
+    public Review dataToReview(AddReviewData addReviewData) {
+        LocalDateTime now = LocalDateTime.now();
+        return Review.builder()
+            .description(addReviewData.getDescription())
+            .reviewOwner(addReviewData.getReviewOwner())
+            .star(addReviewData.getStar())
+            .objectId(addReviewData.getObjectId())
+            .type(addReviewData.getType())
+            .status(EntityStatus.ACTIVE)
+            .createdTime(now)
+            .build();
+    }
 }

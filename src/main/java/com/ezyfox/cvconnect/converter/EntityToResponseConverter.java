@@ -90,4 +90,17 @@ public class EntityToResponseConverter {
             .status(level.getStatus())
             .build();
     }
+
+    public ReviewResponse toReviewResponse(Review review) {
+        return ReviewResponse
+            .builder()
+            .id(review.getId())
+            .description(review.getDescription())
+            .star(review.getStar())
+            .objectId(review.getObjectId())
+            .reviewOwner(review.getReviewOwner())
+            .type(review.getType())
+            .status(review.getStatus())
+            .build();
+    }
 }
