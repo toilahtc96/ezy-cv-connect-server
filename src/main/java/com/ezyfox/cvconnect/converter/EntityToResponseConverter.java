@@ -103,4 +103,19 @@ public class EntityToResponseConverter {
             .status(review.getStatus())
             .build();
     }
+
+    public CompanyResponse toCompanyResponse(Company company) {
+        return CompanyResponse
+            .builder()
+            .id(company.getId())
+            .code(company.getCode())
+            .name(company.getName())
+            .provinceCode(company.getProvinceCode())
+            .districtCode(company.getDistrictCode())
+            .precinctCode(company.getPrecinctCode())
+            .information(company.getInformation())
+            .star(company.getStar())
+            .status(company.getStatus())
+            .build();
+    }
 }

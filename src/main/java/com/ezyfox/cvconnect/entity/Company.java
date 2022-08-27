@@ -1,5 +1,6 @@
 package com.ezyfox.cvconnect.entity;
 
+import com.ezyfox.cvconnect.constant.EntityStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,6 @@ public class Company extends CommonEntity {
     @Column(name = "precinct_code")
     private String precinctCode;
     private String information;
-    private long star;
-    private int status;
+    private int star;
+    private EntityStatus status;
 }

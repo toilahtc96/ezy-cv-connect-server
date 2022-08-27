@@ -125,4 +125,19 @@ public class DataToEntityConverter {
             .createdTime(now)
             .build();
     }
+
+    public Company dataToCompany(AddCompanyData addCompanyData) {
+        LocalDateTime now = LocalDateTime.now();
+        return Company.builder()
+            .code(addCompanyData.getCode())
+            .provinceCode(addCompanyData.getProvinceCode())
+            .districtCode(addCompanyData.getDistrictCode())
+            .precinctCode(addCompanyData.getPrecinctCode())
+            .information(addCompanyData.getInformation())
+            .name(addCompanyData.getName())
+            .star(addCompanyData.getStar())
+            .status(EntityStatus.ACTIVE)
+            .createdTime(now)
+            .build();
+    }
 }

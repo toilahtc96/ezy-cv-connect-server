@@ -276,4 +276,32 @@ public class RequestToDataConverter {
             .status(editReviewRequest.getStatus())
             .build();
     }
+
+    public AddCompanyData toDataFromAddCompany(AddCompanyRequest addCompanyRequest) {
+        return AddCompanyData
+            .builder()
+            .code(addCompanyRequest.getCode())
+            .name(addCompanyRequest.getName())
+            .provinceCode(addCompanyRequest.getProvinceCode())
+            .districtCode(addCompanyRequest.getDistrictCode())
+            .precinctCode(addCompanyRequest.getPrecinctCode())
+            .information(addCompanyRequest.getInformation())
+            .star(addCompanyRequest.getStar())
+            .build();
+    }
+
+    public EditCompanyData toDataFromEditCompany(EditCompanyRequest editCompanyRequest) {
+        return EditCompanyData
+            .builder()
+            .id(editCompanyRequest.getCompanyId())
+            .code(editCompanyRequest.getCode())
+            .name(editCompanyRequest.getName())
+            .provinceCode(editCompanyRequest.getProvinceCode())
+            .districtCode(editCompanyRequest.getDistrictCode())
+            .precinctCode(editCompanyRequest.getPrecinctCode())
+            .information(editCompanyRequest.getInformation())
+            .star(editCompanyRequest.getStar())
+            .status(editCompanyRequest.getStatus())
+            .build();
+    }
 }
