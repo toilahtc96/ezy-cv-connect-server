@@ -118,4 +118,24 @@ public class EntityToResponseConverter {
             .status(company.getStatus())
             .build();
     }
+
+    public MenuItemResponse toMenuItemResponse(MenuItem menuItem) {
+        return MenuItemResponse
+            .builder()
+            .name(menuItem.getName())
+            .parentId(menuItem.getParentId())
+            .status(menuItem.getStatus())
+            .path(menuItem.getPath())
+            .pathAddressPhysic(menuItem.getPathAddressPhysic())
+            .build();
+    }
+
+    public MenuUserResponse toMenuUserResponse(MenuUser menuUser) {
+        return MenuUserResponse
+            .builder()
+            .id(menuUser.getId())
+            .menuId(menuUser.getMenuId())
+            .userId(menuUser.getUserId())
+            .build();
+    }
 }

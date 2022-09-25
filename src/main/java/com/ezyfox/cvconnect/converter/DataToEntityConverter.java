@@ -140,4 +140,26 @@ public class DataToEntityConverter {
             .createdTime(now)
             .build();
     }
+
+    public MenuItem dataToMenuItem(AddMenuItemData addMenuItemData) {
+        LocalDateTime now = LocalDateTime.now();
+        return MenuItem
+            .builder()
+            .name(addMenuItemData.getName())
+            .createdTime(now)
+            .parentId(addMenuItemData.getParentId())
+            .type(addMenuItemData.getType())
+            .status(addMenuItemData.getStatus())
+            .path(addMenuItemData.getPath())
+            .pathAddressPhysic(addMenuItemData.getPathAddressPhysic())
+            .build();
+    }
+
+    public MenuUser dataToMenuUser(AddMenuUserData addMenuUserData) {
+        return MenuUser
+            .builder()
+            .menuId(addMenuUserData.getMenuId())
+            .userId(addMenuUserData.getUserId())
+            .build();
+    }
 }

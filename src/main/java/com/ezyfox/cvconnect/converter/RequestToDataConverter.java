@@ -304,4 +304,46 @@ public class RequestToDataConverter {
             .status(editCompanyRequest.getStatus())
             .build();
     }
+
+    public AddMenuItemData toDataFromAddMenuItem(AddMenuItemRequest addMenuItemRequest) {
+        return AddMenuItemData
+            .builder()
+            .name(addMenuItemRequest.getName())
+            .parentId(addMenuItemRequest.getParentId())
+            .path(addMenuItemRequest.getPath())
+            .pathAddressPhysic(addMenuItemRequest.getPathAddressPhysic())
+            .status(addMenuItemRequest.getStatus())
+            .type(addMenuItemRequest.getType())
+            .build();
+    }
+
+    public EditMenuItemData toDataFromEditMenuItem(EditMenuItemRequest editMenuItemData) {
+        return EditMenuItemData
+            .builder()
+            .id(editMenuItemData.getId())
+            .name(editMenuItemData.getName())
+            .parentId(editMenuItemData.getParentId())
+            .path(editMenuItemData.getPath())
+            .pathAddressPhysic(editMenuItemData.getPathAddressPhysic())
+            .status(editMenuItemData.getStatus())
+            .type(editMenuItemData.getType())
+            .build();
+    }
+
+    public AddMenuUserData toDataFromAddMenuUser(AddMenuUserRequest addMenuUserRequest) {
+        return AddMenuUserData
+            .builder()
+            .userId(addMenuUserRequest.getUserId())
+            .menuId(addMenuUserRequest.getMenuId())
+            .build();
+    }
+
+    public EditMenuUserData toDataFromEditMenuUser(EditMenuUserRequest editMenuUserRequest) {
+        return EditMenuUserData
+            .builder()
+            .id(editMenuUserRequest.getId())
+            .userId(editMenuUserRequest.getUserId())
+            .menuId(editMenuUserRequest.getMenuId())
+            .build();
+    }
 }
