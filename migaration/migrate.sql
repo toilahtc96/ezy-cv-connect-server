@@ -24,7 +24,8 @@ ALTER TABLE `cvdatabase`.`process`
     ADD COLUMN `created_id` INT NULL AFTER `meaning`,
 ADD COLUMN `created_time` TIME NULL AFTER `created_id`,
 ADD COLUMN `updated_time` TIME NULL AFTER `created_time`;
-
+alter table `cvdatabase`.`process` add column status int          null;
+alter table  `cvdatabase`.`process` change code code int not null;
 
 CREATE TABLE `cvdatabase`.`user_type` (
            `id` INT NOT NULL AUTO_INCREMENT,
@@ -39,7 +40,7 @@ DEFAULT CHARACTER SET = utf8;
 
 
 
-CREATE TABLE `cvdatabase`.`candidate_level` (
+CREATE TABLE `cvdatabase`.`level` (
                  `id` INT NOT NULL AUTO_INCREMENT,
                  `name` VARCHAR(45) NOT NULL COMMENT 'tên level; fresher,middle,v..v\n',
                  `meaning` VARCHAR(100) NULL COMMENT 'ý nghĩa',
@@ -49,6 +50,8 @@ CREATE TABLE `cvdatabase`.`candidate_level` (
                  PRIMARY KEY (`id`))
     ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
+alter table `level`  add column status int null;
+
 
 CREATE TABLE `cvdatabase`.`company` (
          `id` INT NOT NULL,
@@ -138,6 +141,7 @@ CREATE TABLE `cvdatabase`.`review` (
         PRIMARY KEY (`id`))
     ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
+alter table `review`  add column status int null;
 
 CREATE TABLE `cvdatabase`.`deal` (
         `id` INT NOT NULL AUTO_INCREMENT,

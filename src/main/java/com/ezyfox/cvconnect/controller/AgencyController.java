@@ -26,7 +26,7 @@ public class AgencyController {
         UserType userTypeAgency = userTypeRepository.getUserTypeByCode(UserTypeCode.AGENCY);
         AddAgencyData userAgency = requestToDataConverter.toDataFromAddAgency(addAgencyUserRequest);
         if (userTypeAgency == null) {
-            return ResponseEntity.badRequest("can't create agency ! Not found User Type Agency");
+            return ResponseEntity.notFound("can't create agency ! Not found User Type Agency");
         }
         userAgency.setTypeId(userTypeAgency.getId());
         userAgencyService.registerAgencyUser(userAgency);

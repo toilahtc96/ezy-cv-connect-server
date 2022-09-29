@@ -11,6 +11,7 @@ public enum UserTypeCode {
 
     AGENCY("agency"),
     CANDIDATE("candidate"),
+    ADMIN("admin")
     ;
 
     @Getter

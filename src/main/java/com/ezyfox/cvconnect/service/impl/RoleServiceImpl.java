@@ -1,9 +1,10 @@
 package com.ezyfox.cvconnect.service.impl;
 
+import com.ezyfox.cvconnect.constant.EntityStatus;
 import com.ezyfox.cvconnect.converter.DataToEntityConverter;
 import com.ezyfox.cvconnect.converter.EntityToResponseConverter;
 import com.ezyfox.cvconnect.entity.Role;
-import com.ezyfox.cvconnect.exception.NotFoundException;
+import com.ezyfox.cvconnect.exception.ResourceNotFoundException;
 import com.ezyfox.cvconnect.model.AddRoleData;
 import com.ezyfox.cvconnect.model.RoleData;
 import com.ezyfox.cvconnect.repository.RoleRepository;
@@ -22,7 +23,6 @@ public class RoleServiceImpl implements RoleService {
     private final RoleRepository roleRepository;
     private final DataToEntityConverter dataToEntityConverter;
     private final EntityToResponseConverter entityToResponseConverter;
-    private static final int ACTIVE = 1;
 
 
     @Override
@@ -35,10 +35,10 @@ public class RoleServiceImpl implements RoleService {
     public void editRole(RoleData roleData) {
         Role roleById = roleRepository.findById(roleData.getId());
         if (roleById == null) {
-            throw new NotFoundException("Role By Id Not Found");
+            throw new ResourceNotFoundException("Role By Id");
         }
-        if (roleById.getStatus() != 1) {
-            throw new NotFoundException("Role By Id Not Active");
+        if (!roleById.getStatus().equals(EntityStatus.ACTIVE)) {
+            throw new ResourceNotFoundException("Role Active");
         }
         if (roleData.getName() != null) {
             roleById.setName(roleData.getName());
@@ -54,21 +54,21 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<RoleResponse> getRoleByCodeActive(String code) {
         return entityToResponseConverter.toListRoleResponse(
-            roleRepository.getRoleByCodeAndStatus(code, ACTIVE)
+            roleRepository.getRoleByCodeAndStatus(code, EntityStatus.ACTIVE)
         );
     }
 
     @Override
     public List<RoleResponse> getRoleByNameActive(String name) {
         return entityToResponseConverter.toListRoleResponse(
-            roleRepository.getRoleByNameAndStatus(name, ACTIVE)
+            roleRepository.getRoleByNameAndStatus(name, EntityStatus.ACTIVE)
         );
     }
 
     @Override
     public List<RoleResponse> getAllRoleActive() {
         return entityToResponseConverter.toListRoleResponse(
-            roleRepository.getAllRoleByStatus(ACTIVE)
+            roleRepository.getAllRoleByStatus(EntityStatus.ACTIVE)
         );
     }
 

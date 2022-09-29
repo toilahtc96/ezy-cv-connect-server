@@ -1,11 +1,8 @@
 package com.ezyfox.cvconnect.converter;
 
-import com.ezyfox.cvconnect.entity.Address;
-import com.ezyfox.cvconnect.entity.Role;
-import com.ezyfox.cvconnect.entity.UserType;
-import com.ezyfox.cvconnect.response.AddressResponse;
-import com.ezyfox.cvconnect.response.RoleResponse;
-import com.ezyfox.cvconnect.response.UserTypeResponse;
+import com.ezyfox.cvconnect.entity.*;
+import com.ezyfox.cvconnect.entity.Process;
+import com.ezyfox.cvconnect.response.*;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 
 import java.util.List;
@@ -51,5 +48,94 @@ public class EntityToResponseConverter {
 
     public List<UserTypeResponse> toListUserTypeResponse(List<UserType> userTypes) {
         return userTypes.stream().map(this::toUserTypeResponse).collect(Collectors.toList());
+    }
+
+    public UserRoleResponse toUserRoleResponse(UserRole userRole) {
+        return UserRoleResponse
+            .builder()
+            .userRoleId(userRole.getId())
+            .roleId(userRole.getRoleId())
+            .userId(userRole.getUserId())
+            .status(userRole.getStatus())
+            .build();
+    }
+
+    public ProcessResponse toProcessResponse(Process process) {
+        return ProcessResponse
+            .builder()
+            .processId(process.getId())
+            .code(process.getCode())
+            .meaning(process.getMeaning())
+            .status(process.getStatus())
+            .build();
+    }
+
+    public DealResponse toDealResponse(Deal deal) {
+        return DealResponse
+            .builder()
+            .dealId(deal.getId())
+            .agencyId(deal.getAgencyId())
+            .candidateId(deal.getCandidateId())
+            .processId(deal.getProcessId())
+            .status(deal.getStatus())
+            .build();
+    }
+
+    public LevelResponse toLevelResponse(Level level) {
+        return LevelResponse
+            .builder()
+            .id(level.getId())
+            .levelName(level.getName())
+            .meaning(level.getMeaning())
+            .status(level.getStatus())
+            .build();
+    }
+
+    public ReviewResponse toReviewResponse(Review review) {
+        return ReviewResponse
+            .builder()
+            .id(review.getId())
+            .description(review.getDescription())
+            .star(review.getStar())
+            .objectId(review.getObjectId())
+            .reviewOwner(review.getReviewOwner())
+            .type(review.getType())
+            .status(review.getStatus())
+            .build();
+    }
+
+    public CompanyResponse toCompanyResponse(Company company) {
+        return CompanyResponse
+            .builder()
+            .id(company.getId())
+            .code(company.getCode())
+            .name(company.getName())
+            .provinceCode(company.getProvinceCode())
+            .districtCode(company.getDistrictCode())
+            .precinctCode(company.getPrecinctCode())
+            .information(company.getInformation())
+            .star(company.getStar())
+            .status(company.getStatus())
+            .build();
+    }
+
+    public MenuItemResponse toMenuItemResponse(MenuItem menuItem) {
+        return MenuItemResponse
+            .builder()
+            .name(menuItem.getName())
+            .parentId(menuItem.getParentId())
+            .status(menuItem.getStatus())
+            .path(menuItem.getPath())
+            .pathAddressPhysic(menuItem.getPathAddressPhysic())
+            .build();
+    }
+
+    public MenuUserResponse toMenuUserResponse(MenuUser menuUser) {
+        return MenuUserResponse
+            .builder()
+            .id(menuUser.getId())
+            .menuId(menuUser.getMenuId())
+            .userId(menuUser.getUserId())
+            .build();
     }
 }

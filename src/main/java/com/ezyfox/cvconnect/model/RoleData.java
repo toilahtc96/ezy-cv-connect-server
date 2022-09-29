@@ -1,5 +1,7 @@
 package com.ezyfox.cvconnect.model;
 
+import com.ezyfox.cvconnect.constant.EntityStatus;
+import com.ezyfox.cvconnect.constant.RoleCode;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -7,7 +9,7 @@ import lombok.Getter;
 @Getter
 public class RoleData {
     private long id;
-    private String code;
+    private RoleCode code;
     private String name;
-    private int status;
+    private EntityStatus status;
 }

@@ -1,10 +1,11 @@
 package com.ezyfox.cvconnect.service.impl;
 
+import com.ezyfox.cvconnect.constant.EntityStatus;
 import com.ezyfox.cvconnect.constant.UserTypeCode;
 import com.ezyfox.cvconnect.converter.DataToEntityConverter;
 import com.ezyfox.cvconnect.converter.EntityToResponseConverter;
 import com.ezyfox.cvconnect.entity.UserType;
-import com.ezyfox.cvconnect.exception.NotFoundException;
+import com.ezyfox.cvconnect.exception.ResourceNotFoundException;
 import com.ezyfox.cvconnect.model.AddUserTypeData;
 import com.ezyfox.cvconnect.model.EditUserTypeData;
 import com.ezyfox.cvconnect.repository.UserTypeRepository;
@@ -24,7 +25,6 @@ public class UserTypeServiceImpl implements UserTypeService {
     private final UserTypeRepository userTypeRepository;
     private final DataToEntityConverter dataToEntityConverter;
     private final EntityToResponseConverter entityToResponseConverter;
-    private static final int ACTIVE = 1;
 
     @Override
     public void saveUserType(AddUserTypeData data) {
@@ -34,12 +34,12 @@ public class UserTypeServiceImpl implements UserTypeService {
 
     @Override
     public void editUserType(EditUserTypeData data) {
-        UserType userTypeById = userTypeRepository.findById(data.getId());
+        UserType userTypeById = userTypeRepository.findById(data.getUserTypeId());
         if (userTypeById == null) {
-            throw new NotFoundException("User Type By Id Not Found");
+            throw new ResourceNotFoundException("UserType");
         }
-        if (userTypeById.getStatus() != ACTIVE) {
-            throw new NotFoundException("User Type By Id Not Active");
+        if (userTypeById.getStatus().equals(EntityStatus.ACTIVE)) {
+            throw new ResourceNotFoundException("UserType Active By id ");
         }
         if (data.getCode() != null) {
             userTypeById.setCode(UserTypeCode.of(data.getCode()));
@@ -75,7 +75,7 @@ public class UserTypeServiceImpl implements UserTypeService {
 
     @Override
     public List<UserTypeResponse> getAllUserTypeActive() {
-        return userTypeRepository.findByStatus(ACTIVE)
+        return userTypeRepository.findByStatus(EntityStatus.ACTIVE)
             .stream()
             .map(entityToResponseConverter::toUserTypeResponse)
             .collect(Collectors.toList());

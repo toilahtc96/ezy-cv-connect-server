@@ -49,13 +49,12 @@ public class UserTypeController {
     }
 
     @DoGet("/get-all")
-    public ResponseEntity getAll() {
-        List<UserTypeResponse> listAll = userTypeService.getAllUserType();
-        return ResponseEntity.ok(listAll);
+    public List<UserTypeResponse> getAll() {
+        return userTypeService.getAllUserType();
     }
 
     @DoGet("/get-by-id")
-    public ResponseEntity getById(@RequestParam long id) {
-        return ResponseEntity.ok(userTypeService.getById(id));
+    public UserTypeResponse getById(@RequestParam long id) {
+        return userTypeService.getById(id);
     }
 }

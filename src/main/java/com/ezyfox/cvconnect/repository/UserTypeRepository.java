@@ -1,5 +1,6 @@
 package com.ezyfox.cvconnect.repository;
 
+import com.ezyfox.cvconnect.constant.EntityStatus;
 import com.ezyfox.cvconnect.constant.UserTypeCode;
 import com.ezyfox.cvconnect.entity.UserType;
 import com.tvd12.ezydata.database.EzyDatabaseRepository;
@@ -18,5 +19,5 @@ public interface UserTypeRepository extends EzyDatabaseRepository<Long, UserType
     List<UserType> getUserTypeByMeaning(String meaning);
 
     @EzyQuery("select e from UserType e where e.status = ?0 ")
-    List<UserType> findByStatus(int status);
+    List<UserType> findByStatus(EntityStatus status);
 }
