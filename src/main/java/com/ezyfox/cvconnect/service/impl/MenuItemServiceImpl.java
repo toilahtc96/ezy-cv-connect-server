@@ -8,6 +8,7 @@ import com.ezyfox.cvconnect.model.AddMenuItemData;
 import com.ezyfox.cvconnect.model.EditMenuItemData;
 import com.ezyfox.cvconnect.repository.MenuItemRepository;
 import com.ezyfox.cvconnect.response.MenuItemResponse;
+import com.ezyfox.cvconnect.service.AuthenticationService;
 import com.ezyfox.cvconnect.service.MenuItemService;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import lombok.AllArgsConstructor;
@@ -24,8 +25,12 @@ public class MenuItemServiceImpl implements MenuItemService {
     private final MenuItemRepository menuItemRepository;
     private final DataToEntityConverter dataToEntityConverter;
 
+    private final AuthenticationService authenticationService;
+
     @Override
-    public List<MenuItemResponse> getByUserId(long userId) {
+    public List<MenuItemResponse> getMenuOfUser() {
+        //lay token ??
+        //lay id tu token
         return menuItemRepository
             .getByIdIn(userId, EntityStatus.ACTIVE)
             .stream()
