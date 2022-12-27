@@ -1,5 +1,6 @@
 package com.ezyfox.cvconnect.service.impl;
 
+import com.ezyfox.cvconnect.constant.EntityStatus;
 import com.ezyfox.cvconnect.converter.DataToEntityConverter;
 import com.ezyfox.cvconnect.entity.User;
 import com.ezyfox.cvconnect.model.LoginData;
@@ -25,6 +26,7 @@ public class UserServiceImpl extends EzyLoggable implements UserService {
     public void registerUser(RegisterData registerData) {
         userValidator.validateUserRegister(registerData);
         User newUser = dataToEntityConverter.dataToUser(registerData);
+        newUser.setStatus(null);
         userRepository.save(newUser);
     }
 

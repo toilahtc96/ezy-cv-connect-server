@@ -42,5 +42,6 @@ public class User extends CommonEntity {
     private String cvLink;
     private String username;
     private String password;
+    @Enumerated(EnumType.STRING)
     private UserStatus status;
 }

@@ -27,7 +27,7 @@ public class MenuItemServiceImpl implements MenuItemService {
     @Override
     public List<MenuItemResponse> getByUserId(long userId) {
         return menuItemRepository
-            .getByIdIn(userId, EntityStatus.ACTIVE)
+            .getByIdIn(userId, EntityStatus.ACTIVED)
             .stream()
             .map(
                 menuItem ->

@@ -74,7 +74,7 @@ public class DealServiceImpl implements DealService {
     @Override
     public List<DealResponse> getAllActiveOfAgency(long agencyId) {
         return dealRepository
-            .getActiveDealByAgencyId(agencyId, EntityStatus.ACTIVE)
+            .getActiveDealByAgencyId(agencyId, EntityStatus.ACTIVED)
             .stream()
             .map(entityToResponseConverter::toDealResponse)
             .collect(Collectors.toList());

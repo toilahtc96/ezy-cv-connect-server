@@ -33,16 +33,16 @@ public class AddressServiceImpl implements AddressService {
         Address newAddress = dataToEntityConverter.dataToAddress(data);
         String firstLetterName = data.getName().substring(0, 1);
         long countOfAddressByNameAndType = addressRepository
-            .getCountAddressByNameStartAndType(firstLetterName, data.getType());
+                .getCountAddressByNameStartAndType(firstLetterName, data.getType());
         Address parentAddress = addressRepository.findById(data.getParentId());
         AddressCodeBuilder addressCodeBuilder = AddressCodeBuilder.builder()
-            .name(data.getName())
-            .type(AddressType.of(data.getType()))
-            .parentAddress(parentAddress)
-            .countOfAddressByNameAndType(countOfAddressByNameAndType)
-            .build();
+                .name(data.getName())
+                .type(data.getType())
+                .parentAddress(parentAddress)
+                .countOfAddressByNameAndType(countOfAddressByNameAndType)
+                .build();
         newAddress.setCode(
-            addressCodeBuilder.build()
+                addressCodeBuilder.build()
         );
         addressRepository.save(newAddress);
     }
@@ -53,10 +53,10 @@ public class AddressServiceImpl implements AddressService {
         if (addressById == null) {
             throw new ResourceNotFoundException("Address");
         }
-        if (!addressById.getStatus().equals(EntityStatus.ACTIVE)) {
+        if (!addressById.getStatus().equals(EntityStatus.ACTIVED)) {
             throw new ResourceNotFoundException("Address Active");
         }
-        if (data.getType() != 0) {
+        if (data.getType() != null) {
             addressById.setType(data.getType());
         }
         if (data.getName() != null) {
@@ -67,16 +67,16 @@ public class AddressServiceImpl implements AddressService {
         }
         String firstLetterName = data.getName().substring(0, 1);
         long countOfAddressByNameAndType = addressRepository
-            .getCountAddressByNameStartAndType(firstLetterName, data.getType());
+                .getCountAddressByNameStartAndType(firstLetterName, data.getType());
         Address parentAddress = addressRepository.findById(data.getParentId());
         AddressCodeBuilder addressCodeBuilder = AddressCodeBuilder.builder()
-            .name(data.getName())
-            .type(AddressType.of(data.getType()))
-            .parentAddress(parentAddress)
-            .countOfAddressByNameAndType(countOfAddressByNameAndType)
-            .build();
+                .name(data.getName())
+                .type(data.getType())
+                .parentAddress(parentAddress)
+                .countOfAddressByNameAndType(countOfAddressByNameAndType)
+                .build();
         addressById.setCode(
-            addressCodeBuilder.build()
+                addressCodeBuilder.build()
         );
         addressById.setUpdatedTime(LocalDateTime.now());
         addressRepository.save(addressById);
@@ -84,13 +84,13 @@ public class AddressServiceImpl implements AddressService {
 
 
     @Override
-    public List<AddressResponse> getAddressByType(int type) {
+    public List<AddressResponse> getAddressByType(AddressType type) {
         List<Address> listByType = addressRepository.findAllByType(type);
         if (listByType != null && listByType.size() > 0) {
             return listByType
-                .stream()
-                .map(entityToResponseConverter::toResponse)
-                .collect(Collectors.toList());
+                    .stream()
+                    .map(entityToResponseConverter::toResponse)
+                    .collect(Collectors.toList());
         }
         return new ArrayList<>();
     }
@@ -105,14 +105,28 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public List<AddressResponse> getAddressByTypeAndParentId(int type, long parentId) {
+    public List<AddressResponse> getAddressByTypeAndParentId(AddressType type, long parentId) {
         List<Address> listByTypeAndParentId = addressRepository.findAllByTypeAndParentId(type, parentId);
         if (listByTypeAndParentId != null && listByTypeAndParentId.size() > 0) {
             return listByTypeAndParentId
+                    .stream()
+                    .map(entityToResponseConverter::toResponse)
+                    .collect(Collectors.toList());
+        }
+        return new ArrayList<>();
+    }
+
+    @Override
+    public List<AddressResponse> getAll() {
+        return addressRepository
+                .findAll()
                 .stream()
                 .map(entityToResponseConverter::toResponse)
                 .collect(Collectors.toList());
-        }
-        return new ArrayList<>();
+    }
+
+    @Override
+    public AddressResponse getById(long id) {
+        return entityToResponseConverter.toResponse(addressRepository.findById(id));
     }
 }

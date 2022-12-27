@@ -1,5 +1,6 @@
 package com.ezyfox.cvconnect.converter;
 
+import com.ezyfox.cvconnect.constant.AddressType;
 import com.ezyfox.cvconnect.entity.*;
 import com.ezyfox.cvconnect.entity.Process;
 import com.ezyfox.cvconnect.response.*;
@@ -20,6 +21,7 @@ public class EntityToResponseConverter {
             .id(address.getId())
             .code(address.getCode())
             .name(address.getName())
+            .status(address.getStatus())
             .build();
     }
 

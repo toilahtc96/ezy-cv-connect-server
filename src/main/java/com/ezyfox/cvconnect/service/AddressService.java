@@ -1,5 +1,6 @@
 package com.ezyfox.cvconnect.service;
 
+import com.ezyfox.cvconnect.constant.AddressType;
 import com.ezyfox.cvconnect.model.AddAddressData;
 import com.ezyfox.cvconnect.model.AddressData;
 import com.ezyfox.cvconnect.response.AddressResponse;
@@ -12,10 +13,14 @@ public interface AddressService {
 
     void editAddress(AddressData data);
 
-    List<AddressResponse> getAddressByType(int type);
+    List<AddressResponse> getAddressByType(AddressType type);
 
     List<AddressResponse> getAddressByParentId(long parentId);
 
-    List<AddressResponse> getAddressByTypeAndParentId(int type, long parentId);
+    List<AddressResponse> getAddressByTypeAndParentId(AddressType type, long parentId);
+
+    List<AddressResponse> getAll();
+
+    AddressResponse getById(long id);
 
 }

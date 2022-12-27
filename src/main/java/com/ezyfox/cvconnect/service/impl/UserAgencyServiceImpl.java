@@ -33,7 +33,7 @@ public class UserAgencyServiceImpl implements UserAgencyService {
         if (userById == null) {
             throw new ResourceNotFoundException("User By Id");
         }
-        if (!userById.getStatus().equals(UserStatus.ACTIVE)) {
+        if (!userById.getStatus().equals(UserStatus.ACTIVED)) {
             throw new ResourceNotFoundException("User By active");
         }
         userById.setUpdatedTime(LocalDateTime.now());
@@ -46,7 +46,7 @@ public class UserAgencyServiceImpl implements UserAgencyService {
         userById.setName(editAgencyData.getName());
         userById.setUsername(editAgencyData.getUserName());
         userById.setPassword(editAgencyData.getPassword());
-        userById.setStatus(UserStatus.ACTIVE);
+        userById.setStatus(UserStatus.ACTIVED);
         userById.setStar(editAgencyData.getStar());
         userRepository.save(userById);
     }

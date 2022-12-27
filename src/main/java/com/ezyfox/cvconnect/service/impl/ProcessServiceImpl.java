@@ -98,7 +98,7 @@ public class ProcessServiceImpl implements ProcessService {
         if (processById == null) {
             throw new ResourceNotFoundException("Process");
         }
-        if (!processById.getStatus().equals(EntityStatus.ACTIVE)) {
+        if (!processById.getStatus().equals(EntityStatus.ACTIVED)) {
             throw new ResourceNotFoundException("Process Active");
         }
         if (editProcessData.getProcessCode() != null) {

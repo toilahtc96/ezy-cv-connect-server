@@ -50,6 +50,6 @@ public class LevelController {
 
     @DoGet("/get-active")
     public List<LevelResponse> getLevelActive() {
-        return levelService.getByStatus(EntityStatus.ACTIVE);
+        return levelService.getByStatus(EntityStatus.ACTIVED);
     }
 }

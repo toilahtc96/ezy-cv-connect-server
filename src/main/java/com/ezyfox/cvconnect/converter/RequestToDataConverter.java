@@ -60,6 +60,7 @@ public class RequestToDataConverter {
             .parentId(addAddressRequest.getParentId())
             .type(addAddressRequest.getType())
             .name(addAddressRequest.getName())
+            .status(addAddressRequest.getStatus())
             .build();
     }
 
@@ -121,7 +122,7 @@ public class RequestToDataConverter {
                         addAgencyUserRequest.getBirthDay(), DateUtil.DATE_DDMMYYYY_PATTERN
                     )
                 )
-                .status(UserStatus.ACTIVE)
+                .status(UserStatus.ACTIVED)
                 .star(-1)
                 .userName(addAgencyUserRequest.getUserName())
                 .password(addAgencyUserRequest.getPassword())
@@ -133,7 +134,7 @@ public class RequestToDataConverter {
                 .companyId(addAgencyUserRequest.getCompanyId())
                 .information(addAgencyUserRequest.getDescription())
                 .description(addAgencyUserRequest.getInformation())
-                .status(UserStatus.ACTIVE)
+                .status(UserStatus.ACTIVED)
                 .star(-1)
                 .userName(addAgencyUserRequest.getUserName())
                 .password(addAgencyUserRequest.getPassword())
@@ -184,7 +185,7 @@ public class RequestToDataConverter {
             .builder()
             .userId(addUserRoleRequest.getUserId())
             .roleId(addUserRoleRequest.getRoleId())
-            .status(EntityStatus.ACTIVE)
+            .status(EntityStatus.ACTIVED)
             .build();
     }
 
@@ -287,6 +288,7 @@ public class RequestToDataConverter {
             .precinctCode(addCompanyRequest.getPrecinctCode())
             .information(addCompanyRequest.getInformation())
             .star(addCompanyRequest.getStar())
+            .status(addCompanyRequest.getStatus())
             .build();
     }
 

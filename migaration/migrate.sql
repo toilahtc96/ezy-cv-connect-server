@@ -24,7 +24,7 @@ ALTER TABLE `cvdatabase`.`process`
     ADD COLUMN `created_id` INT NULL AFTER `meaning`,
 ADD COLUMN `created_time` TIME NULL AFTER `created_id`,
 ADD COLUMN `updated_time` TIME NULL AFTER `created_time`;
-alter table `cvdatabase`.`process` add column status int          null;
+alter table `cvdatabase`.`process` add column status ENUM('ACTIVED','DISABLED') null;
 alter table  `cvdatabase`.`process` change code code int not null;
 
 CREATE TABLE `cvdatabase`.`user_type` (
@@ -50,7 +50,7 @@ CREATE TABLE `cvdatabase`.`level` (
                  PRIMARY KEY (`id`))
     ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
-alter table `level`  add column status int null;
+alter table `level`  add column status ENUM('ACTIVED','DISABLED') null;
 
 
 CREATE TABLE `cvdatabase`.`company` (
@@ -81,13 +81,13 @@ CREATE TABLE `cvdatabase`.`user` (
         `description` VARCHAR(500) NULL,
         `star` INT NULL COMMENT 'Đánh giá \ncho agency\n',
         `infomation` VARCHAR(500) NULL,
-        `birth_date` TIME NOT NULL,
+        `birth_date` TIME NULL,
         `name` VARCHAR(100) NOT NULL,
         `experience_year` INT NULL COMMENT 'số năm kinh nghiệm, cho candidate',
         `cv_link` VARCHAR(500) NULL COMMENT 'link cv của candidate',
         `username` VARCHAR(100) NOT NULL,
         `password` VARCHAR(100) NOT NULL,
-        `status` TINYINT(2) NULL COMMENT 'trạng thái\n1: hoạt động\n2: không hoạt động\n',
+        status ENUM('ACTIVED','DISABLED') null,
         PRIMARY KEY (`id`))
     ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
@@ -119,7 +119,7 @@ CREATE TABLE `cvdatabase`.`role` (
         `id` INT NOT NULL AUTO_INCREMENT,
         `code` VARCHAR(45) NOT NULL,
         `name` VARCHAR(45) NOT NULL,
-        `status` INT NULL,
+        `status` ENUM('ACTIVED','DISABLED') null,
         `created_id` INT NULL,
         `created_time` TIME NULL,
         `updated_time` TIME NULL,
@@ -141,13 +141,13 @@ CREATE TABLE `cvdatabase`.`review` (
         PRIMARY KEY (`id`))
     ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
-alter table `review`  add column status int null;
+alter table `review`  add column status ENUM('ACTIVED','DISABLED') null;
 
 CREATE TABLE `cvdatabase`.`deal` (
         `id` INT NOT NULL AUTO_INCREMENT,
         `agency_id` INT NOT NULL,
         `candidate_id` INT NOT NULL,
-        `status` INT NULL,
+        `status` ENUM('ACTIVED','DISABLED') null,
         `process_id` INT NOT NULL COMMENT 'thông tin tiến trình của deal',
         `created_id` INT NULL,
         `created_time` TIME NULL,
@@ -182,6 +182,6 @@ alter table user
     modify company_id INT null;
 
 alter table address add column parent_id long null;
-alter table address add column status int null;
-alter table company add column status int null;
-alter table user_type add column status int null;
+alter table address add column status ENUM('ACTIVED','DISABLED') null;
+alter table company add column status ENUM('ACTIVED','DISABLED') null;
+alter table user_type add column status ENUM('ACTIVED','DISABLED') null;

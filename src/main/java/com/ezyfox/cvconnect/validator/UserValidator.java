@@ -90,7 +90,7 @@ public class UserValidator {
         User userLogin = lstUserByUsername
             .stream()
             .filter(user ->
-                user.getStatus().equals(UserStatus.ACTIVE)
+                user.getStatus().equals(UserStatus.ACTIVED)
                     && user.getPassword().equals(
                     EzySHA256.cryptUtfToLowercase(logindata.getPassword())
                 )

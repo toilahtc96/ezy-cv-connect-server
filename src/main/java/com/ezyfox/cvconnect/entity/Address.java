@@ -1,5 +1,6 @@
 package com.ezyfox.cvconnect.entity;
 
+import com.ezyfox.cvconnect.constant.AddressType;
 import com.ezyfox.cvconnect.constant.EntityStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,12 +22,14 @@ public class Address extends CommonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private int type;
+    @Enumerated(EnumType.STRING)
+    private AddressType type;
     private String code;
     private String name;
     @Column(name = "parent_id")
     private long parentId;
     @Column(name = "created_id")
     private long createdId;
+    @Enumerated(EnumType.STRING)
     private EntityStatus status;
 }

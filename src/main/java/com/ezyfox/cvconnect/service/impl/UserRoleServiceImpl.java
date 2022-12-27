@@ -38,7 +38,7 @@ public class UserRoleServiceImpl implements UserRoleService {
         if (userRoleById == null) {
             throw new ResourceNotFoundException("UserRole");
         }
-        if (!userRoleById.getStatus().equals(EntityStatus.ACTIVE)) {
+        if (!userRoleById.getStatus().equals(EntityStatus.ACTIVED)) {
             throw new ResourceNotFoundException("UserRole Active by id");
         }
         userRoleById.setRoleId(data.getRoleId());
@@ -78,7 +78,7 @@ public class UserRoleServiceImpl implements UserRoleService {
     @Override
     public List<UserRoleResponse> getAllUserRoleActive() {
         return userRoleRepository
-            .findAllActive(EntityStatus.ACTIVE)
+            .findAllActive(EntityStatus.ACTIVED)
             .stream()
             .map(entityToResponseConverter::toUserRoleResponse)
             .collect(Collectors.toList());

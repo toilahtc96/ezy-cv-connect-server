@@ -1,5 +1,6 @@
 package com.ezyfox.cvconnect.controller;
 
+import com.ezyfox.cvconnect.constant.AddressType;
 import com.ezyfox.cvconnect.converter.RequestToDataConverter;
 import com.ezyfox.cvconnect.model.AddAddressData;
 import com.ezyfox.cvconnect.model.AddressData;
@@ -36,7 +37,7 @@ public class AddressController {
     }
 
     @DoGet("/get-by-type")
-    public List<AddressResponse> getByType(@RequestParam int type) {
+    public List<AddressResponse> getByType(@RequestParam("type") AddressType type) {
         return addressService.getAddressByType(type);
     }
 
@@ -47,9 +48,19 @@ public class AddressController {
 
     @DoGet("/get-by-type-and-parentId")
     public List<AddressResponse> getByTypeAndParentId(
-        @RequestParam("type") int type,
+        @RequestParam("type") AddressType type,
         @RequestParam("parentId") long parentId
     ) {
         return addressService.getAddressByTypeAndParentId(type, parentId);
+    }
+
+    @DoGet("/get-all")
+    public List<AddressResponse> getAll() {
+        return addressService.getAll();
+    }
+
+    @DoGet("/get-by-id")
+    public AddressResponse getById(@RequestParam long id) {
+        return addressService.getById(id);
     }
 }

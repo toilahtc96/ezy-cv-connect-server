@@ -54,7 +54,7 @@ public class ReviewController {
 
     @DoGet("/get-active")
     public List<ReviewResponse> getReviewActive() {
-        return reviewService.getByStatus(EntityStatus.ACTIVE);
+        return reviewService.getByStatus(EntityStatus.ACTIVED);
     }
 
     @DoGet("/get-by-object-id")

@@ -37,7 +37,7 @@ public class RoleServiceImpl implements RoleService {
         if (roleById == null) {
             throw new ResourceNotFoundException("Role By Id");
         }
-        if (!roleById.getStatus().equals(EntityStatus.ACTIVE)) {
+        if (!roleById.getStatus().equals(EntityStatus.ACTIVED)) {
             throw new ResourceNotFoundException("Role Active");
         }
         if (roleData.getName() != null) {
@@ -54,21 +54,21 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<RoleResponse> getRoleByCodeActive(String code) {
         return entityToResponseConverter.toListRoleResponse(
-            roleRepository.getRoleByCodeAndStatus(code, EntityStatus.ACTIVE)
+            roleRepository.getRoleByCodeAndStatus(code, EntityStatus.ACTIVED)
         );
     }
 
     @Override
     public List<RoleResponse> getRoleByNameActive(String name) {
         return entityToResponseConverter.toListRoleResponse(
-            roleRepository.getRoleByNameAndStatus(name, EntityStatus.ACTIVE)
+            roleRepository.getRoleByNameAndStatus(name, EntityStatus.ACTIVED)
         );
     }
 
     @Override
     public List<RoleResponse> getAllRoleActive() {
         return entityToResponseConverter.toListRoleResponse(
-            roleRepository.getAllRoleByStatus(EntityStatus.ACTIVE)
+            roleRepository.getAllRoleByStatus(EntityStatus.ACTIVED)
         );
     }
 

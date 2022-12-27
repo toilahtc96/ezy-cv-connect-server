@@ -38,7 +38,7 @@ public class UserTypeServiceImpl implements UserTypeService {
         if (userTypeById == null) {
             throw new ResourceNotFoundException("UserType");
         }
-        if (userTypeById.getStatus().equals(EntityStatus.ACTIVE)) {
+        if (userTypeById.getStatus().equals(EntityStatus.ACTIVED)) {
             throw new ResourceNotFoundException("UserType Active By id ");
         }
         if (data.getCode() != null) {
@@ -75,7 +75,7 @@ public class UserTypeServiceImpl implements UserTypeService {
 
     @Override
     public List<UserTypeResponse> getAllUserTypeActive() {
-        return userTypeRepository.findByStatus(EntityStatus.ACTIVE)
+        return userTypeRepository.findByStatus(EntityStatus.ACTIVED)
             .stream()
             .map(entityToResponseConverter::toUserTypeResponse)
             .collect(Collectors.toList());

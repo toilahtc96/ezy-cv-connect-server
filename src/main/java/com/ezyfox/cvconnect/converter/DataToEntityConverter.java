@@ -24,7 +24,7 @@ public class DataToEntityConverter {
             .username(registerData.getUsername())
             .password(EzySHA256.cryptUtfToLowercase(registerData.getPassword()))
             .typeId(registerData.getTypeId())
-            .status(UserStatus.ACTIVE)
+            .status(UserStatus.ACTIVED)
             .createdTime(LocalDateTime.now())
             .build();
     }
@@ -34,7 +34,7 @@ public class DataToEntityConverter {
             .type(addAddressData.getType())
             .name(addAddressData.getName())
             .parentId(addAddressData.getParentId())
-            .status(EntityStatus.ACTIVE)
+            .status(EntityStatus.ACTIVED)
             .createdTime(LocalDateTime.now())
             .build();
     }
@@ -43,7 +43,7 @@ public class DataToEntityConverter {
         return Role.builder()
             .name(addRoleData.getName())
             .code(addRoleData.getCode())
-            .status(EntityStatus.ACTIVE)
+            .status(EntityStatus.ACTIVED)
             .createdTime(LocalDateTime.now())
             .build();
     }
@@ -53,7 +53,7 @@ public class DataToEntityConverter {
             .builder()
             .code(UserTypeCode.of(addUserTypeData.getCode()))
             .meaning(addUserTypeData.getMeaning())
-            .status(EntityStatus.ACTIVE)
+            .status(EntityStatus.ACTIVED)
             .createdTime(LocalDateTime.now())
             .build();
     }
@@ -80,7 +80,7 @@ public class DataToEntityConverter {
         return UserRole.builder()
             .userId(userRoleData.getUserId())
             .roleId(userRoleData.getRoleId())
-            .status(EntityStatus.ACTIVE)
+            .status(EntityStatus.ACTIVED)
             .build();
     }
 
@@ -88,7 +88,7 @@ public class DataToEntityConverter {
         return Process.builder()
             .code(addProcessData.getProcessCode())
             .meaning(addProcessData.getMeaning())
-            .status(EntityStatus.ACTIVE)
+            .status(EntityStatus.ACTIVED)
             .build();
     }
 
@@ -98,7 +98,7 @@ public class DataToEntityConverter {
             .agencyId(addDealData.getAgencyId())
             .candidateId(addDealData.getCandidateId())
             .processId(addDealData.getProcessId())
-            .status(EntityStatus.ACTIVE)
+            .status(EntityStatus.ACTIVED)
             .createdTime(now)
             .build();
     }
@@ -108,7 +108,7 @@ public class DataToEntityConverter {
         return Level.builder()
             .name(addLevelData.getLevelName())
             .meaning(addLevelData.getMeaning())
-            .status(EntityStatus.ACTIVE)
+            .status(EntityStatus.ACTIVED)
             .createdTime(now)
             .build();
     }
@@ -121,7 +121,7 @@ public class DataToEntityConverter {
             .star(addReviewData.getStar())
             .objectId(addReviewData.getObjectId())
             .type(addReviewData.getType())
-            .status(EntityStatus.ACTIVE)
+            .status(EntityStatus.ACTIVED)
             .createdTime(now)
             .build();
     }
@@ -136,7 +136,7 @@ public class DataToEntityConverter {
             .information(addCompanyData.getInformation())
             .name(addCompanyData.getName())
             .star(addCompanyData.getStar())
-            .status(EntityStatus.ACTIVE)
+            .status(EntityStatus.ACTIVED)
             .createdTime(now)
             .build();
     }

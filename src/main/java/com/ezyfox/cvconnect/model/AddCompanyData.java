@@ -1,5 +1,6 @@
 package com.ezyfox.cvconnect.model;
 
+import com.ezyfox.cvconnect.constant.EntityStatus;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -13,4 +14,5 @@ public class AddCompanyData {
     private String information;
     private String name;
     private int star;
+    private EntityStatus status;
 }
