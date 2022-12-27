@@ -19,9 +19,9 @@ public class MenuItemController {
     private final MenuItemService menuItemService;
     private final RequestToDataConverter requestToDataConverter;
 
-    @DoGet("/user/{userId}")
-    public List<MenuItemResponse> getMenuOfUser(@PathVariable long userId) {
-        return menuItemService.getByUserId(userId);
+    @DoGet("/user")
+    public List<MenuItemResponse> getMenuOfUser() {
+        return menuItemService.getMenuOfUser();
     }
 
     @DoPost("/add")
