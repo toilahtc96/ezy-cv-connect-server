@@ -127,9 +127,9 @@ public class CompanyServiceImpl implements CompanyServie {
 
     @Override
     public List<CompanyResponse> getPaging(int page, int size) {
-        int skip = page*size;
+        int skip = page * size;
         return companyRepository
-            .findAll(skip,size)
+            .findAll(skip, size)
             .stream()
             .map(entityToResponseConverter::toCompanyResponse)
             .collect(Collectors.toList());
