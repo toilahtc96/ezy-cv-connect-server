@@ -136,7 +136,7 @@ public class DataToEntityConverter {
             .information(addCompanyData.getInformation())
             .name(addCompanyData.getName())
             .star(addCompanyData.getStar())
-            .status(EntityStatus.ACTIVED)
+            .status(EntityStatus.ACTIVED.name())
             .createdTime(now)
             .build();
     }

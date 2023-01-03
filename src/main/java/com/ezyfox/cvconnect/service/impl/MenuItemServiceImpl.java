@@ -28,7 +28,7 @@ public class MenuItemServiceImpl implements MenuItemService {
     private final AuthenticationService authenticationService;
 
     @Override
-    public List<MenuItemResponse> getMenuOfUser() {
+    public List<MenuItemResponse> getMenuOfUser(long userId) {
         //lay token ??
         //lay id tu token
         return menuItemRepository

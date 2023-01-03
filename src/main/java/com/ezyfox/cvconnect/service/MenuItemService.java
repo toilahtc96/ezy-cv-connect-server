@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface MenuItemService {
 
-    List<MenuItemResponse> getMenuOfUser();
+    List<MenuItemResponse> getMenuOfUser(long userId);
 
     List<MenuItemResponse> getAll();
 

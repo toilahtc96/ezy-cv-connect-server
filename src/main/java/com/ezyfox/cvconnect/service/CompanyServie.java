@@ -30,4 +30,6 @@ public interface CompanyServie {
     CompanyResponse getById(long companyId);
 
     List<CompanyResponse> getAll();
+
+    List<CompanyResponse> getPaging(int page, int size);
 }

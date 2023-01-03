@@ -1,6 +1,5 @@
 package com.ezyfox.cvconnect.service.impl;
 
-import com.ezyfox.cvconnect.constant.EntityStatus;
 import com.ezyfox.cvconnect.converter.DataToEntityConverter;
 import com.ezyfox.cvconnect.entity.User;
 import com.ezyfox.cvconnect.model.LoginData;

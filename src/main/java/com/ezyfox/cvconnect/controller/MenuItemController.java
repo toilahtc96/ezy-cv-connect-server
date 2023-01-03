@@ -20,8 +20,8 @@ public class MenuItemController {
     private final RequestToDataConverter requestToDataConverter;
 
     @DoGet("/user")
-    public List<MenuItemResponse> getMenuOfUser() {
-        return menuItemService.getMenuOfUser();
+    public List<MenuItemResponse> getMenuOfUser(@RequestParam long userId) {
+        return menuItemService.getMenuOfUser(userId);
     }
 
     @DoPost("/add")

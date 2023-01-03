@@ -43,7 +43,7 @@ public class CompanyServiceImpl implements CompanyServie {
         companyFromId.setDistrictCode(editCompanyData.getDistrictCode());
         companyFromId.setPrecinctCode(editCompanyData.getPrecinctCode());
         companyFromId.setStar(editCompanyData.getStar());
-        companyFromId.setStatus(editCompanyData.getStatus());
+        companyFromId.setStatus(editCompanyData.getStatus().name());
         companyFromId.setInformation(editCompanyData.getInformation());
         companyRepository.save(companyFromId);
     }
@@ -120,6 +120,16 @@ public class CompanyServiceImpl implements CompanyServie {
     public List<CompanyResponse> getAll() {
         return companyRepository
             .findAll()
+            .stream()
+            .map(entityToResponseConverter::toCompanyResponse)
+            .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CompanyResponse> getPaging(int page, int size) {
+        int skip = page*size;
+        return companyRepository
+            .findAll(skip,size)
             .stream()
             .map(entityToResponseConverter::toCompanyResponse)
             .collect(Collectors.toList());

@@ -28,5 +28,5 @@ public class Company extends CommonEntity {
     private String precinctCode;
     private String information;
     private int star;
-    private EntityStatus status;
+    private String status;
 }
