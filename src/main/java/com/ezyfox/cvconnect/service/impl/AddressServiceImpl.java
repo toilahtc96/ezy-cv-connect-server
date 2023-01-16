@@ -33,7 +33,7 @@ public class AddressServiceImpl implements AddressService {
         Address newAddress = dataToEntityConverter.dataToAddress(data);
         String firstLetterName = data.getName().substring(0, 1);
         long countOfAddressByNameAndType = addressRepository
-                .getCountAddressByNameStartAndType(firstLetterName, data.getType());
+                .getCountAddressByNameStartAndType("%"+firstLetterName+"%", data.getType());
         Address parentAddress = addressRepository.findById(data.getParentId());
         AddressCodeBuilder addressCodeBuilder = AddressCodeBuilder.builder()
                 .name(data.getName())
