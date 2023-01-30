@@ -23,4 +23,6 @@ public interface AddressService {
 
     AddressResponse getById(long id);
 
+    List<AddressResponse> getByParentCode(String code);
+
 }

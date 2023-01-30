@@ -22,6 +22,8 @@ public class Role extends CommonEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
+    @Enumerated(EnumType.STRING)
     private RoleCode code;
+    @Enumerated(EnumType.STRING)
     private EntityStatus status;
 }

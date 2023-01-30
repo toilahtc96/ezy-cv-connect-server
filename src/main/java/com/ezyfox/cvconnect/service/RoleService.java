@@ -20,4 +20,8 @@ public interface RoleService {
 
     List<RoleResponse> getAllRole();
 
+    List<RoleResponse> getPaging(int page, int size);
+
+    RoleResponse getById(long id);
+
 }

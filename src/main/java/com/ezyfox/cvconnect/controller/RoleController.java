@@ -35,6 +35,11 @@ public class RoleController {
         return ResponseEntity.noContent();
     }
 
+    @DoGet("/get-by-id")
+    public RoleResponse getById(@RequestParam long id) {
+        return roleService.getById(id);
+    }
+
     @DoGet("/get-by-code")
     public List<RoleResponse> getByCode(@RequestParam String code) {
         return roleService.getRoleByCodeActive(code);
@@ -53,5 +58,10 @@ public class RoleController {
     @DoGet("/get-all")
     public List<RoleResponse> getAll() {
         return roleService.getAllRole();
+    }
+
+    @DoGet("/get-page")
+    public List<RoleResponse> getPage(@RequestParam int page, @RequestParam int size) {
+        return roleService.getPaging(page, size);
     }
 }

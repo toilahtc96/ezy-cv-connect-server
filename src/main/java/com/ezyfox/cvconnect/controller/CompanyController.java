@@ -81,4 +81,27 @@ public class CompanyController {
     public List<CompanyResponse> getAll() {
         return companyServie.getAll();
     }
+
+    @DoGet("/get-by-field")
+    public List<CompanyResponse> getByField(@RequestParam String companyName,
+                                            @RequestParam String companyCode,
+                                            @RequestParam String provinceCode,
+                                            @RequestParam String districtCode,
+                                            @RequestParam String precinctCode,
+                                            @RequestParam int star,
+                                            @RequestParam String information,
+                                            @RequestParam EntityStatus status
+                                            ) {
+        return companyServie.getByField(requestToDataConverter
+                .toDataFromSearchCompany(
+                        companyCode.trim(),
+                        companyName.trim(),
+                        provinceCode.trim(),
+                        districtCode.trim(),
+                        precinctCode.trim(),
+                        information.trim(),
+                        status,
+                        star
+                ));
+    }
 }

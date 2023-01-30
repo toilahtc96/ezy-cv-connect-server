@@ -9,9 +9,9 @@ import java.util.Map;
 @AllArgsConstructor
 public enum RoleCode {
 
-    AGENCY("agency"),
-    CANDIDATE("candidate"),
-    ADMIN("admin")
+    AGENCY("AGENCY"),
+    CANDIDATE("CANDIDATE"),
+    ADMIN("ADMIN")
     ;
 
     @Getter

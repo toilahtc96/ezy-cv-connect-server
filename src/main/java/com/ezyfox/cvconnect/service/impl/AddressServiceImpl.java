@@ -33,7 +33,7 @@ public class AddressServiceImpl implements AddressService {
         Address newAddress = dataToEntityConverter.dataToAddress(data);
         String firstLetterName = data.getName().substring(0, 1);
         long countOfAddressByNameAndType = addressRepository
-                .getCountAddressByNameStartAndType("%"+firstLetterName+"%", data.getType());
+                .getCountAddressByNameStartAndType("%" + firstLetterName + "%", data.getType());
         Address parentAddress = addressRepository.findById(data.getParentId());
         AddressCodeBuilder addressCodeBuilder = AddressCodeBuilder.builder()
                 .name(data.getName())
@@ -128,5 +128,19 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public AddressResponse getById(long id) {
         return entityToResponseConverter.toResponse(addressRepository.findById(id));
+    }
+
+    @Override
+    public List<AddressResponse> getByParentCode(String code) {
+        Address parentAddress = addressRepository.findByField("code", code);
+        if (parentAddress == null) {
+            return new ArrayList<>();
+        } else {
+            return addressRepository
+                    .findAllByParentId(parentAddress.getId())
+                    .stream()
+                    .map(entityToResponseConverter::toResponse)
+                    .collect(Collectors.toList());
+        }
     }
 }

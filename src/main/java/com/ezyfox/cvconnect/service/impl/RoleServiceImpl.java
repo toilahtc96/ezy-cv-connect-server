@@ -15,6 +15,7 @@ import lombok.AllArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @EzySingleton
 @AllArgsConstructor
@@ -36,9 +37,6 @@ public class RoleServiceImpl implements RoleService {
         Role roleById = roleRepository.findById(roleData.getId());
         if (roleById == null) {
             throw new ResourceNotFoundException("Role By Id");
-        }
-        if (!roleById.getStatus().equals(EntityStatus.ACTIVED)) {
-            throw new ResourceNotFoundException("Role Active");
         }
         if (roleData.getName() != null) {
             roleById.setName(roleData.getName());
@@ -75,5 +73,20 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<RoleResponse> getAllRole() {
         return entityToResponseConverter.toListRoleResponse(roleRepository.getAllRole());
+    }
+
+    @Override
+    public List<RoleResponse> getPaging(int page, int size) {
+        int skip = page * size;
+        return roleRepository
+                .findAll(skip, size)
+                .stream()
+                .map(entityToResponseConverter::toRoleResponse)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public RoleResponse getById(long id) {
+        return entityToResponseConverter.toRoleResponse(roleRepository.findById(id));
     }
 }

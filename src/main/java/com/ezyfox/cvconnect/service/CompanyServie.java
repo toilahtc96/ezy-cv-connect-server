@@ -3,6 +3,7 @@ package com.ezyfox.cvconnect.service;
 import com.ezyfox.cvconnect.constant.EntityStatus;
 import com.ezyfox.cvconnect.model.AddCompanyData;
 import com.ezyfox.cvconnect.model.EditCompanyData;
+import com.ezyfox.cvconnect.model.SearchCompanyData;
 import com.ezyfox.cvconnect.response.CompanyResponse;
 
 import java.util.List;
@@ -32,4 +33,6 @@ public interface CompanyServie {
     List<CompanyResponse> getAll();
 
     List<CompanyResponse> getPaging(int page, int size);
+
+    List<CompanyResponse> getByField(SearchCompanyData searchCompanyData);
 }

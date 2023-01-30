@@ -14,13 +14,13 @@ public interface AddressRepository extends EzyDatabaseRepository<Long, Address> 
     @EzyQuery("select count(e) from Address e where e.name like ?0 and e.type = ?1")
     long getCountAddressByNameStartAndType(String startOfName, AddressType type);
 
-    @EzyQuery("select e from Address e where e.type = ?0 and e.status = 1")
+    @EzyQuery("select e from Address e where e.type = ?0 ")
     List<Address> findAllByType(AddressType type);
 
-    @EzyQuery("select e from Address e where e.parentId = ?0  and e.status = 1 ")
+    @EzyQuery("select e from Address e where e.parentId = ?0  ")
     List<Address> findAllByParentId(long parentId);
 
-    @EzyQuery("select e from Address e where e.type = ?0 and e.parentId = ?1  and e.status = 1 ")
+    @EzyQuery("select e from Address e where e.type = ?0 and e.parentId = ?1 ")
     List<Address> findAllByTypeAndParentId(AddressType type, long parentId);
 
 }

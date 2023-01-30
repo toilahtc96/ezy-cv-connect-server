@@ -1,10 +1,11 @@
 package com.ezyfox.cvconnect.converter;
 
-import com.ezyfox.cvconnect.entity.*;
 import com.ezyfox.cvconnect.entity.Process;
+import com.ezyfox.cvconnect.entity.*;
 import com.ezyfox.cvconnect.response.*;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 
+import javax.persistence.Tuple;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -120,6 +121,13 @@ public class EntityToResponseConverter {
             .build();
     }
 
+    public CompanyResponse toCompanyResponse(Tuple company) {
+        return CompanyResponse
+                .builder()
+                .id(Long.parseLong((String) company.get("id")))
+                .build();
+    }
+
     public MenuItemResponse toMenuItemResponse(MenuItem menuItem) {
         return MenuItemResponse
             .builder()
@@ -138,5 +146,15 @@ public class EntityToResponseConverter {
             .menuId(menuUser.getMenuId())
             .userId(menuUser.getUserId())
             .build();
+    }
+
+    public RoleResponse toRoleResponse(Role role) {
+        return RoleResponse
+                .builder()
+                .id(role.getId())
+                .code(role.getCode())
+                .name(role.getName())
+                .status(role.getStatus())
+                .build();
     }
 }

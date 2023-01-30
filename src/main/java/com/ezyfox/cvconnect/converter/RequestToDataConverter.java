@@ -6,6 +6,7 @@ import com.ezyfox.cvconnect.model.*;
 import com.ezyfox.cvconnect.request.*;
 import com.ezyfox.cvconnect.util.DateUtil;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
+import com.tvd12.ezyfox.io.EzyStrings;
 
 import java.text.ParseException;
 
@@ -347,5 +348,26 @@ public class RequestToDataConverter {
             .userId(editMenuUserRequest.getUserId())
             .menuId(editMenuUserRequest.getMenuId())
             .build();
+    }
+
+    public SearchCompanyData toDataFromSearchCompany(String companyCode,
+                                                     String companyName,
+                                                     String provinceCode,
+                                                     String districtCode,
+                                                     String precinctCode,
+                                                     String information,
+                                                     EntityStatus status,
+                                                     int star) {
+        return SearchCompanyData
+                .builder()
+                .companyCode(EzyStrings.isBlank(companyCode) ? null : companyCode)
+                .companyName(EzyStrings.isBlank(companyName) ? null : companyName)
+                .districtCode(EzyStrings.isBlank(districtCode) ? null : districtCode)
+                .provinceCode(EzyStrings.isBlank(provinceCode) ? null : provinceCode)
+                .precinctCode(EzyStrings.isBlank(precinctCode) ? null : precinctCode)
+                .status(status)
+                .information(information.equalsIgnoreCase("") ? null : information)
+                .star(star)
+                .build();
     }
 }

@@ -63,4 +63,9 @@ public class AddressController {
     public AddressResponse getById(@RequestParam long id) {
         return addressService.getById(id);
     }
+
+    @DoGet("/get-by-parent-code")
+    public List<AddressResponse> getByCode(@RequestParam String code) {
+        return addressService.getByParentCode(code);
+    }
 }
