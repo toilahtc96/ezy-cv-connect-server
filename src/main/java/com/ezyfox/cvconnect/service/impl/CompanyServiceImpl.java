@@ -138,13 +138,16 @@ public class CompanyServiceImpl implements CompanyServie {
 
     @Override
     public List<CompanyResponse> getByField(SearchCompanyData searchCompanyData) {
+        int skip = searchCompanyData.getPage() * searchCompanyData.getSize();
         return companyRepository.searchCompany(
                         searchCompanyData.getCompanyName(),
                         searchCompanyData.getCompanyCode(),
                         searchCompanyData.getProvinceCode(),
                         searchCompanyData.getDistrictCode(),
-                        searchCompanyData.getPrecinctCode()
-                )
+                        searchCompanyData.getPrecinctCode(),
+                        searchCompanyData.getSize(),
+                        skip
+                        )
                 .stream()
                 .map(entityToResponseConverter::toCompanyResponse)
                 .collect(Collectors.toList());

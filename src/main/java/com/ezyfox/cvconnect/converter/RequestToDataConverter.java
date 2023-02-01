@@ -357,7 +357,9 @@ public class RequestToDataConverter {
                                                      String precinctCode,
                                                      String information,
                                                      EntityStatus status,
-                                                     int star) {
+                                                     int star,
+                                                     int page,
+                                                     int size) {
         return SearchCompanyData
                 .builder()
                 .companyCode(EzyStrings.isBlank(companyCode) ? null : companyCode)
@@ -368,6 +370,8 @@ public class RequestToDataConverter {
                 .status(status)
                 .information(information.equalsIgnoreCase("") ? null : information)
                 .star(star)
+                .page(page)
+                .size(size)
                 .build();
     }
 }

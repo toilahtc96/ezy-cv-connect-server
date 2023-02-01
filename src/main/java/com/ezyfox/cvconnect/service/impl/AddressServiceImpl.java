@@ -17,6 +17,7 @@ import lombok.AllArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,7 +30,7 @@ public class AddressServiceImpl implements AddressService {
     private final EntityToResponseConverter entityToResponseConverter;
 
     @Override
-    public void saveAddress(AddAddressData data) {
+    public void saveAddress(AddAddressData data) throws IllegalAccessException {
         Address newAddress = dataToEntityConverter.dataToAddress(data);
         String firstLetterName = data.getName().substring(0, 1);
         long countOfAddressByNameAndType = addressRepository
@@ -44,11 +45,17 @@ public class AddressServiceImpl implements AddressService {
         newAddress.setCode(
                 addressCodeBuilder.build()
         );
+        Address checkAddressExistedByCode = addressRepository
+                .findByCodeAndType(newAddress.getCode(), newAddress.getType());
+        if (checkAddressExistedByCode != null
+                && checkAddressExistedByCode.getParentId() == parentAddress.getId()) {
+            throw new IllegalAccessException("Đã tồn tại Địa chỉ với thông tin này");
+        }
         addressRepository.save(newAddress);
     }
 
     @Override
-    public void editAddress(AddressData data) {
+    public void editAddress(AddressData data) throws IllegalAccessException {
         Address addressById = addressRepository.findById(data.getId());
         if (addressById == null) {
             throw new ResourceNotFoundException("Address");
@@ -79,6 +86,12 @@ public class AddressServiceImpl implements AddressService {
                 addressCodeBuilder.build()
         );
         addressById.setUpdatedTime(LocalDateTime.now());
+        Address checkAddressExistedByCode = addressRepository
+                .findByCodeAndType(addressById.getCode(), addressById.getType());
+        if (checkAddressExistedByCode != null
+                && checkAddressExistedByCode.getParentId() == parentAddress.getId()) {
+            throw new IllegalAccessException("Đã tồn tại Địa chỉ với thông tin này");
+        }
         addressRepository.save(addressById);
     }
 
@@ -122,6 +135,7 @@ public class AddressServiceImpl implements AddressService {
                 .findAll()
                 .stream()
                 .map(entityToResponseConverter::toResponse)
+                .sorted(Comparator.comparing(AddressResponse::getParentId))
                 .collect(Collectors.toList());
     }
 
@@ -142,5 +156,11 @@ public class AddressServiceImpl implements AddressService {
                     .map(entityToResponseConverter::toResponse)
                     .collect(Collectors.toList());
         }
+    }
+
+    @Override
+    public AddressResponse getByCodeAndType(String code, AddressType type) {
+        return addressRepository.findByCodeAndType(code, type) == null
+                ? null : entityToResponseConverter.toResponse(addressRepository.findByCodeAndType(code, type));
     }
 }

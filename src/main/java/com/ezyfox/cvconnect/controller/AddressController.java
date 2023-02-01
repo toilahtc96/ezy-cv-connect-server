@@ -23,14 +23,16 @@ public class AddressController {
     private final RequestToDataConverter requestToDataConverter;
 
     @DoPost("/add")
-    public ResponseEntity addAddress(@RequestBody AddAddressRequest addAddressRequest) {
+    public ResponseEntity addAddress(@RequestBody AddAddressRequest addAddressRequest)
+            throws IllegalAccessException {
         AddAddressData addAddressData = requestToDataConverter.toDataFromAddAddress(addAddressRequest);
         addressService.saveAddress(addAddressData);
         return ResponseEntity.noContent();
     }
 
     @DoPost("/edit")
-    public ResponseEntity editAddress(@RequestBody EditAddressRequest editAddressRequest) {
+    public ResponseEntity editAddress(@RequestBody EditAddressRequest editAddressRequest)
+            throws IllegalAccessException {
         AddressData addressData = requestToDataConverter.toDataFromEditAddress(editAddressRequest);
         addressService.editAddress(addressData);
         return ResponseEntity.noContent();
@@ -48,8 +50,8 @@ public class AddressController {
 
     @DoGet("/get-by-type-and-parentId")
     public List<AddressResponse> getByTypeAndParentId(
-        @RequestParam("type") AddressType type,
-        @RequestParam("parentId") long parentId
+            @RequestParam("type") AddressType type,
+            @RequestParam("parentId") long parentId
     ) {
         return addressService.getAddressByTypeAndParentId(type, parentId);
     }
@@ -68,4 +70,10 @@ public class AddressController {
     public List<AddressResponse> getByCode(@RequestParam String code) {
         return addressService.getByParentCode(code);
     }
+
+    @DoGet("/get-by-code-and-type")
+    public AddressResponse getByCodeAndType(@RequestParam String code, @RequestParam AddressType type) {
+        return addressService.getByCodeAndType(code, type);
+    }
+
 }

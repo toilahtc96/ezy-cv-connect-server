@@ -23,4 +23,7 @@ public interface AddressRepository extends EzyDatabaseRepository<Long, Address> 
     @EzyQuery("select e from Address e where e.type = ?0 and e.parentId = ?1 ")
     List<Address> findAllByTypeAndParentId(AddressType type, long parentId);
 
+    @EzyQuery("select e from Address e where e.code = ?0 and e.type=?1 and e.status ='ACTIVED' ")
+    Address findByCodeAndType(String code, AddressType type);
+
 }

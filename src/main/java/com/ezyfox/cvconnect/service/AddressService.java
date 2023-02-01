@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface AddressService {
 
-    void saveAddress(AddAddressData data);
+    void saveAddress(AddAddressData data) throws IllegalAccessException;
 
-    void editAddress(AddressData data);
+    void editAddress(AddressData data) throws IllegalAccessException;
 
     List<AddressResponse> getAddressByType(AddressType type);
 
@@ -25,4 +25,5 @@ public interface AddressService {
 
     List<AddressResponse> getByParentCode(String code);
 
+    AddressResponse getByCodeAndType(String code, AddressType type);
 }

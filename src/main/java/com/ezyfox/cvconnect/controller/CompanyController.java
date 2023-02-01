@@ -90,18 +90,23 @@ public class CompanyController {
                                             @RequestParam String precinctCode,
                                             @RequestParam int star,
                                             @RequestParam String information,
-                                            @RequestParam EntityStatus status
+                                            @RequestParam EntityStatus status,
+                                            @RequestParam int page,
+                                            @RequestParam int size
                                             ) {
+        if(size == 0) {size = 10;}
         return companyServie.getByField(requestToDataConverter
                 .toDataFromSearchCompany(
-                        companyCode.trim(),
-                        companyName.trim(),
-                        provinceCode.trim(),
-                        districtCode.trim(),
-                        precinctCode.trim(),
-                        information.trim(),
+                        companyCode == null ? "" : companyCode.trim(),
+                        companyName == null ? "" :  companyName.trim(),
+                        provinceCode == null ? "" : provinceCode.trim(),
+                        districtCode == null ? "" : districtCode.trim(),
+                        precinctCode == null ? "" : precinctCode.trim(),
+                        information == null ? "": information.trim(),
                         status,
-                        star
+                        star,
+                        page,
+                        size
                 ));
     }
 }

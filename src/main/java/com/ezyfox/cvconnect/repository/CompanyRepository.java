@@ -32,18 +32,20 @@ public interface CompanyRepository extends EzyDatabaseRepository<Long, Company> 
     @EzyQuery("select e from Company e where e.name = ?0")
     List<Company> getByName(String name);
 
-    @EzyQuery(value = "select e from Company e where  " +
+    @EzyQuery(value = "select * from Company e where 1 = 1 and " +
             " (?0 is null OR e.name like concat('%',?0,'%')  )  and" +
-            " (?1 is null OR e.code = ?1 ) and " +
-            " (?2 is null OR e.provinceCode = ?2 ) and  " +
-            " (?3 is null OR e.districtCode = ?3  ) and " +
-            " (?4 is null OR e.precinctCode = ?4  ) " +
-            "")
+            " (?1 is null OR e.code like concat('%',?1,'%') ) and " +
+            " (?2 is null OR e.province_code = ?2 ) and  " +
+            " (?3 is null OR e.district_code = ?3  ) and " +
+            " (?4 is null OR e.precinct_code = ?4  ) " +
+            " limit ?5 offset ?6 ", nativeQuery = true)
     List<Company> searchCompany(
             String companyName,
             String companyCode,
             String provinceCode,
             String districtCode,
-            String precinctCode
-    );
+            String precinctCode,
+            int size,
+            int skip
+            );
 }

@@ -15,4 +15,6 @@ public class SearchCompanyData {
     private EntityStatus status;
     private int star;
     private String information;
+    private int page;
+    private int size;
 }
