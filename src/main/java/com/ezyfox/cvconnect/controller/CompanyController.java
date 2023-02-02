@@ -11,6 +11,7 @@ import com.tvd12.ezyhttp.server.core.annotation.*;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller("api/v1/company")
 @AllArgsConstructor
@@ -83,18 +84,17 @@ public class CompanyController {
     }
 
     @DoGet("/get-by-field")
-    public List<CompanyResponse> getByField(@RequestParam String companyName,
-                                            @RequestParam String companyCode,
-                                            @RequestParam String provinceCode,
-                                            @RequestParam String districtCode,
-                                            @RequestParam String precinctCode,
-                                            @RequestParam int star,
-                                            @RequestParam String information,
-                                            @RequestParam EntityStatus status,
-                                            @RequestParam int page,
-                                            @RequestParam int size
+    public Map<String,Object> getByField(@RequestParam("companyName") String companyName,
+                                         @RequestParam("companyCode") String companyCode,
+                                         @RequestParam("provinceCode") String provinceCode,
+                                         @RequestParam("districtCode") String districtCode,
+                                         @RequestParam("precinctCode") String precinctCode,
+                                         @RequestParam("star") int star,
+                                         @RequestParam("information") String information,
+                                         @RequestParam("status") EntityStatus status,
+                                         @RequestParam("page") int page,
+                                         @RequestParam("size") int size
                                             ) {
-        if(size == 0) {size = 10;}
         return companyServie.getByField(requestToDataConverter
                 .toDataFromSearchCompany(
                         companyCode == null ? "" : companyCode.trim(),

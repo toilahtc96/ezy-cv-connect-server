@@ -7,6 +7,7 @@ import com.ezyfox.cvconnect.model.SearchCompanyData;
 import com.ezyfox.cvconnect.response.CompanyResponse;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CompanyServie {
 
@@ -34,5 +35,5 @@ public interface CompanyServie {
 
     List<CompanyResponse> getPaging(int page, int size);
 
-    List<CompanyResponse> getByField(SearchCompanyData searchCompanyData);
+    Map<String,Object> getByField(SearchCompanyData searchCompanyData);
 }

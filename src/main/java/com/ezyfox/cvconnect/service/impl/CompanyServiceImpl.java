@@ -15,7 +15,10 @@ import com.ezyfox.cvconnect.service.CompanyServie;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import lombok.AllArgsConstructor;
 
+import java.math.BigInteger;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @EzySingleton
@@ -137,9 +140,10 @@ public class CompanyServiceImpl implements CompanyServie {
     }
 
     @Override
-    public List<CompanyResponse> getByField(SearchCompanyData searchCompanyData) {
+    public Map<String, Object> getByField(SearchCompanyData searchCompanyData) {
         int skip = searchCompanyData.getPage() * searchCompanyData.getSize();
-        return companyRepository.searchCompany(
+        Map<String, Object> mapData = new HashMap<>();
+        List<CompanyResponse> listData = companyRepository.searchCompany(
                         searchCompanyData.getCompanyName(),
                         searchCompanyData.getCompanyCode(),
                         searchCompanyData.getProvinceCode(),
@@ -147,9 +151,19 @@ public class CompanyServiceImpl implements CompanyServie {
                         searchCompanyData.getPrecinctCode(),
                         searchCompanyData.getSize(),
                         skip
-                        )
+                )
                 .stream()
                 .map(entityToResponseConverter::toCompanyResponse)
                 .collect(Collectors.toList());
+        BigInteger totalElementByField = companyRepository.totalSearchCompany(
+                searchCompanyData.getCompanyName(),
+                searchCompanyData.getCompanyCode(),
+                searchCompanyData.getProvinceCode(),
+                searchCompanyData.getDistrictCode(),
+                searchCompanyData.getPrecinctCode()
+        );
+        mapData.put("data", listData);
+        mapData.put("total", totalElementByField);
+        return mapData;
     }
 }
