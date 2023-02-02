@@ -55,7 +55,7 @@ public interface CompanyRepository extends EzyDatabaseRepository<Long, Company> 
             " (?1 is null OR e.code like concat('%',?1,'%') ) and " +
             " (?2 is null OR e.province_code = ?2 ) and  " +
             " (?3 is null OR e.district_code = ?3  ) and " +
-            " (?4 is null OR e.precinct_code = ?4  ) " , nativeQuery = true)
+            " (?4 is null OR e.precinct_code = ?4  ) ", nativeQuery = true)
     BigInteger totalSearchCompany(
             String companyName,
             String companyCode,

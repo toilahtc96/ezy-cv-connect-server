@@ -84,7 +84,7 @@ public class CompanyController {
     }
 
     @DoGet("/get-by-field")
-    public Map<String,Object> getByField(@RequestParam("companyName") String companyName,
+    public Map<String, Object> getByField(@RequestParam("companyName") String companyName,
                                          @RequestParam("companyCode") String companyCode,
                                          @RequestParam("provinceCode") String provinceCode,
                                          @RequestParam("districtCode") String districtCode,
@@ -93,8 +93,7 @@ public class CompanyController {
                                          @RequestParam("information") String information,
                                          @RequestParam("status") EntityStatus status,
                                          @RequestParam("page") int page,
-                                         @RequestParam("size") int size
-                                            ) {
+                                         @RequestParam("size") int size) {
         return companyServie.getByField(requestToDataConverter
                 .toDataFromSearchCompany(
                         companyCode == null ? "" : companyCode.trim(),
@@ -102,7 +101,7 @@ public class CompanyController {
                         provinceCode == null ? "" : provinceCode.trim(),
                         districtCode == null ? "" : districtCode.trim(),
                         precinctCode == null ? "" : precinctCode.trim(),
-                        information == null ? "": information.trim(),
+                        information == null ? "" : information.trim(),
                         status,
                         star,
                         page,

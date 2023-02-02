@@ -35,5 +35,5 @@ public interface CompanyServie {
 
     List<CompanyResponse> getPaging(int page, int size);
 
-    Map<String,Object> getByField(SearchCompanyData searchCompanyData);
+    Map<String, Object> getByField(SearchCompanyData searchCompanyData);
 }
