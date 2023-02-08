@@ -36,7 +36,7 @@ public class RequestToDataConverter {
                 .status(registerRequest.getStatus())
                 .typeId(registerRequest.getTypeId())
                 .password(registerRequest.getPassword())
-                .yearExperience(registerRequest.getYearExperience())
+                .experienceYear(registerRequest.getExperienceYear())
                 .username(registerRequest.getUsername())
                 .build();
         } catch (ParseException parseException) {
@@ -48,7 +48,7 @@ public class RequestToDataConverter {
                 .status(registerRequest.getStatus())
                 .typeId(registerRequest.getTypeId())
                 .password(registerRequest.getPassword())
-                .yearExperience(registerRequest.getYearExperience())
+                .experienceYear(registerRequest.getExperienceYear())
                 .username(registerRequest.getUsername())
                 .build();
         }

@@ -23,7 +23,7 @@ public class DataToEntityConverter {
             .name(registerData.getName())
             .username(registerData.getUsername())
             .password(EzySHA256.cryptUtfToLowercase(registerData.getPassword()))
-            .typeId(registerData.getTypeId())
+            .typeId(registerData.getTypeId().longValue())
             .status(UserStatus.ACTIVED)
             .createdTime(LocalDateTime.now())
             .build();

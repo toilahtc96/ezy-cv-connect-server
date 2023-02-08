@@ -13,7 +13,7 @@ public class RegisterData {
     private Date birthDay;
     private String name;
     private Integer levelId;
-    private Integer yearExperience;
+    private Integer experienceYear;
     private String cvLink;
     private String username;
     private String password;

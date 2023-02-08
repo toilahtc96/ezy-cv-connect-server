@@ -157,4 +157,14 @@ public class EntityToResponseConverter {
                 .status(role.getStatus())
                 .build();
     }
+
+    public UserResponse toUserResponse(User user) {
+        return UserResponse
+                .builder()
+                .roleId(user.getRoleId())
+                .status(user.getStatus())
+                .name(user.getName())
+                .username(user.getUsername())
+                .build();
+    }
 }

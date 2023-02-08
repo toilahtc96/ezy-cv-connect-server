@@ -23,21 +23,21 @@ public class User extends CommonEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(name = "role_id")
-    private long roleId;
+    private Long roleId;
     @Column(name = "company_id")
-    private long companyId;
+    private Long companyId;
     @Column(name = "type_id")
-    private long typeId;
+    private Long typeId;
     private String description;
-    private int star;
+    private Integer star;
     private String information;
     @Column(name = "birth_day")
     private Date birthDay;
     private String name;
     @Column(name = "level_id")
-    private int levelId;
-    @Column(name = "year_experience")
-    private int yearExperience;
+    private Integer levelId;
+    @Column(name = "experience_year")
+    private Integer experienceYear;
     @Column(name = "cv_link")
     private String cvLink;
     private String username;

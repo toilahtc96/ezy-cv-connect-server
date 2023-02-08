@@ -1,10 +1,12 @@
 package com.ezyfox.cvconnect.repository;
 
+import com.ezyfox.cvconnect.constant.EntityStatus;
 import com.ezyfox.cvconnect.entity.User;
 import com.tvd12.ezydata.database.EzyDatabaseRepository;
 import com.tvd12.ezyfox.database.annotation.EzyQuery;
 import com.tvd12.ezyfox.database.annotation.EzyRepository;
 
+import java.math.BigInteger;
 import java.util.List;
 
 @EzyRepository
@@ -47,5 +49,41 @@ public interface UserRepository extends EzyDatabaseRepository<Long, User> {
     @EzyQuery("select e from User e where e.typeId = ?0 and e.status =?1 and e.username =?2")
     User getByTypeAndStatusAndUserName(long typeId, int status, String userName);
 
+    @EzyQuery(value = "select * from User e where 1 = 1 and " +
+            " (?0 is null OR e.username like concat('%',?0,'%')  )  and" +
+            " (?1 is null OR e.type_id = ?1 ) and  " +
+            " (?2 is null OR e.company_id = ?2 ) and  " +
+            " (?3 is null OR e.experience_year = ?3 ) and  " +
+            " (?4 is null OR e.status = ?4 ) and  " +
+            " (?5 is null OR e.level_id = ?5  ) " +
+            " limit ?6 offset ?7 ", nativeQuery = true)
+    List<User> searchUser(
+            String username,
+            Long typeId,
+            Long companyId,
+            Integer experienceYear,
+            EntityStatus status,
+            Long levelId,
+            int size,
+            int skip
+    );
+
+    @EzyQuery(value = "select count(*) from User e where 1 = 1 and " +
+            " (?0 is null OR e.username like concat('%',?0,'%')  )  and" +
+            " (?1 is null OR e.type_id = ?1 ) and  " +
+            " (?2 is null OR e.company_id = ?2 ) and  " +
+            " (?3 is null OR e.experience_year = ?3 ) and  " +
+            " (?4 is null OR e.status = ?4 ) and  " +
+            " (?5 is null OR e.level_id = ?5  ) ", nativeQuery = true)
+    BigInteger totalSearchCompany(
+            String username,
+            Long typeId,
+            Long companyId,
+            Integer experienceYear,
+            EntityStatus status,
+            Long levelId,
+            int size,
+            int skip
+    );
 }
 
