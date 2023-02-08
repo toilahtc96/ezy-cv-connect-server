@@ -11,7 +11,7 @@ public interface AddressService {
 
     void saveAddress(AddAddressData data) throws IllegalAccessException;
 
-    void editAddress(AddressData data) throws IllegalAccessException;
+    void editAddress(AddressData data);
 
     List<AddressResponse> getAddressByType(AddressType type);
 

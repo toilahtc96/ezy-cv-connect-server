@@ -1,6 +1,7 @@
 package com.ezyfox.cvconnect.model;
 
 import com.ezyfox.cvconnect.constant.AddressType;
+import com.ezyfox.cvconnect.constant.EntityStatus;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -12,4 +13,5 @@ public class AddressData {
     private String code;
     private String name;
     private long parentId;
+    private EntityStatus status;
 }

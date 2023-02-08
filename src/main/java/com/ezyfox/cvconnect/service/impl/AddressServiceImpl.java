@@ -45,17 +45,17 @@ public class AddressServiceImpl implements AddressService {
         newAddress.setCode(
                 addressCodeBuilder.build()
         );
-        Address checkAddressExistedByCode = addressRepository
-                .findByCodeAndType(newAddress.getCode(), newAddress.getType());
-        if (checkAddressExistedByCode != null
-                && checkAddressExistedByCode.getParentId() == parentAddress.getId()) {
+        Address checkAddressExistedByName = addressRepository
+                .findByNameAndType(newAddress.getName(), newAddress.getType());
+        if (checkAddressExistedByName != null
+                && checkAddressExistedByName.getParentId() == parentAddress.getId()) {
             throw new IllegalAccessException("Đã tồn tại Địa chỉ với thông tin này");
         }
         addressRepository.save(newAddress);
     }
 
     @Override
-    public void editAddress(AddressData data) throws IllegalAccessException {
+    public void editAddress(AddressData data) {
         Address addressById = addressRepository.findById(data.getId());
         if (addressById == null) {
             throw new ResourceNotFoundException("Address");
@@ -72,6 +72,7 @@ public class AddressServiceImpl implements AddressService {
         if (data.getParentId() != 0) {
             addressById.setParentId(data.getParentId());
         }
+        addressById.setStatus(data.getStatus());
         String firstLetterName = data.getName().substring(0, 1);
         long countOfAddressByNameAndType = addressRepository
                 .getCountAddressByNameStartAndType(firstLetterName, data.getType());
@@ -86,12 +87,6 @@ public class AddressServiceImpl implements AddressService {
                 addressCodeBuilder.build()
         );
         addressById.setUpdatedTime(LocalDateTime.now());
-        Address checkAddressExistedByCode = addressRepository
-                .findByCodeAndType(addressById.getCode(), addressById.getType());
-        if (checkAddressExistedByCode != null
-                && checkAddressExistedByCode.getParentId() == parentAddress.getId()) {
-            throw new IllegalAccessException("Đã tồn tại Địa chỉ với thông tin này");
-        }
         addressRepository.save(addressById);
     }
 

@@ -26,4 +26,6 @@ public interface AddressRepository extends EzyDatabaseRepository<Long, Address> 
     @EzyQuery("select e from Address e where e.code = ?0 and e.type=?1 and e.status ='ACTIVED' ")
     Address findByCodeAndType(String code, AddressType type);
 
+    @EzyQuery("select e from Address e where LOWER(e.name) = LOWER(?0) and e.type=?1 and e.status ='ACTIVED' ")
+    Address findByNameAndType(String name, AddressType type);
 }

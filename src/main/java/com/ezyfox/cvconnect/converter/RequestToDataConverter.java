@@ -72,6 +72,7 @@ public class RequestToDataConverter {
             .name(editAddressRequest.getName())
             .parentId(editAddressRequest.getParentId())
             .type(editAddressRequest.getType())
+            .status(editAddressRequest.getStatus())
             .build();
     }
 

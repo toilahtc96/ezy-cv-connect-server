@@ -23,16 +23,18 @@ public class AddressController {
     private final RequestToDataConverter requestToDataConverter;
 
     @DoPost("/add")
-    public ResponseEntity addAddress(@RequestBody AddAddressRequest addAddressRequest)
-            throws IllegalAccessException {
+    public ResponseEntity addAddress(@RequestBody AddAddressRequest addAddressRequest) {
         AddAddressData addAddressData = requestToDataConverter.toDataFromAddAddress(addAddressRequest);
-        addressService.saveAddress(addAddressData);
+        try {
+            addressService.saveAddress(addAddressData);
+        } catch (IllegalAccessException e) {
+            return ResponseEntity.badRequest(e.getMessage());
+        }
         return ResponseEntity.noContent();
     }
 
     @DoPost("/edit")
-    public ResponseEntity editAddress(@RequestBody EditAddressRequest editAddressRequest)
-            throws IllegalAccessException {
+    public ResponseEntity editAddress(@RequestBody EditAddressRequest editAddressRequest) {
         AddressData addressData = requestToDataConverter.toDataFromEditAddress(editAddressRequest);
         addressService.editAddress(addressData);
         return ResponseEntity.noContent();
