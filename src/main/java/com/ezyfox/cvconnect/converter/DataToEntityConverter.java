@@ -1,21 +1,26 @@
 package com.ezyfox.cvconnect.converter;
 
 import com.ezyfox.cvconnect.constant.EntityStatus;
+import com.ezyfox.cvconnect.constant.RoleCode;
 import com.ezyfox.cvconnect.constant.UserStatus;
 import com.ezyfox.cvconnect.constant.UserTypeCode;
-import com.ezyfox.cvconnect.entity.*;
 import com.ezyfox.cvconnect.entity.Process;
+import com.ezyfox.cvconnect.entity.*;
 import com.ezyfox.cvconnect.model.*;
+import com.ezyfox.cvconnect.service.AuthenticationService;
+import com.ezyfox.cvconnect.service.RoleService;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import com.tvd12.ezyfox.sercurity.EzySHA256;
 import lombok.AllArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @EzySingleton
 @AllArgsConstructor
 public class DataToEntityConverter {
 
+    private final AuthenticationService authenticationService;
 
     public User dataToUser(RegisterData registerData) {
         return User.builder()
@@ -23,7 +28,7 @@ public class DataToEntityConverter {
             .name(registerData.getName())
             .username(registerData.getUsername())
             .password(EzySHA256.cryptUtfToLowercase(registerData.getPassword()))
-            .typeId(registerData.getTypeId().longValue())
+            .typeId(registerData.getTypeId())
             .status(UserStatus.ACTIVED)
             .createdTime(LocalDateTime.now())
             .build();
@@ -43,7 +48,7 @@ public class DataToEntityConverter {
         return Role.builder()
             .name(addRoleData.getName())
             .code(addRoleData.getCode())
-            .status(EntityStatus.ACTIVED)
+            .status(addRoleData.getStatus())
             .createdTime(LocalDateTime.now())
             .build();
     }
@@ -53,7 +58,7 @@ public class DataToEntityConverter {
             .builder()
             .code(UserTypeCode.of(addUserTypeData.getCode()))
             .meaning(addUserTypeData.getMeaning())
-            .status(EntityStatus.ACTIVED)
+            .status(addUserTypeData.getStatus())
             .createdTime(LocalDateTime.now())
             .build();
     }
@@ -88,7 +93,7 @@ public class DataToEntityConverter {
         return Process.builder()
             .code(addProcessData.getProcessCode())
             .meaning(addProcessData.getMeaning())
-            .status(EntityStatus.ACTIVED)
+            .status(addProcessData.getStatus())
             .build();
     }
 

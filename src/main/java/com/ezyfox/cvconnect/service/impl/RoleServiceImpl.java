@@ -1,6 +1,7 @@
 package com.ezyfox.cvconnect.service.impl;
 
 import com.ezyfox.cvconnect.constant.EntityStatus;
+import com.ezyfox.cvconnect.constant.RoleCode;
 import com.ezyfox.cvconnect.converter.DataToEntityConverter;
 import com.ezyfox.cvconnect.converter.EntityToResponseConverter;
 import com.ezyfox.cvconnect.entity.Role;
@@ -50,7 +51,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public List<RoleResponse> getRoleByCodeActive(String code) {
+    public List<RoleResponse> getRoleByCodeActive(RoleCode code) {
         return entityToResponseConverter.toListRoleResponse(
             roleRepository.getRoleByCodeAndStatus(code, EntityStatus.ACTIVED)
         );

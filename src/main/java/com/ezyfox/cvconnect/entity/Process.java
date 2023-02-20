@@ -20,7 +20,9 @@ public class Process extends CommonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Enumerated(EnumType.STRING)
     private ProcessCode code;
     private String meaning;
+    @Enumerated(EnumType.STRING)
     private EntityStatus status;
 }

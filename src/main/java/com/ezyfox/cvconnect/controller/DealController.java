@@ -1,6 +1,7 @@
 package com.ezyfox.cvconnect.controller;
 
 import com.ezyfox.cvconnect.converter.RequestToDataConverter;
+import com.ezyfox.cvconnect.model.SearchDealData;
 import com.ezyfox.cvconnect.request.AddDealRequest;
 import com.ezyfox.cvconnect.request.EditDealRequest;
 import com.ezyfox.cvconnect.response.DealResponse;
@@ -10,6 +11,7 @@ import com.tvd12.ezyhttp.server.core.annotation.*;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller("api/v1/deal")
 @AllArgsConstructor
@@ -49,5 +51,17 @@ public class DealController {
     @DoGet("/get-active-of-agency")
     public List<DealResponse> getActiveOfAgency(@RequestParam long agencyId) {
         return dealService.getAllActiveOfAgency(agencyId);
+    }
+
+    @DoGet("/get-page")
+    public Map<String, Object> getPage(@RequestParam int page, @RequestParam int size) {
+        int skip = size * page;
+        SearchDealData searchDealData = SearchDealData.builder().size(size).skip(skip).build();
+        return dealService.getDealPaging(searchDealData);
+    }
+
+    @DoGet("/get-by-id")
+    public DealResponse getById(@RequestParam long id) {
+        return dealService.getById(id);
     }
 }

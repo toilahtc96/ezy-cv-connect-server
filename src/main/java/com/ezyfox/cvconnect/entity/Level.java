@@ -20,7 +20,9 @@ public class Level extends CommonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Enumerated(EnumType.STRING)
     private LevelName name;
     private String meaning;
+    @Enumerated(EnumType.STRING)
     private EntityStatus status;
 }

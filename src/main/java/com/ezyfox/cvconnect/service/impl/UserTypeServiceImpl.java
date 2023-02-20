@@ -8,14 +8,18 @@ import com.ezyfox.cvconnect.entity.UserType;
 import com.ezyfox.cvconnect.exception.ResourceNotFoundException;
 import com.ezyfox.cvconnect.model.AddUserTypeData;
 import com.ezyfox.cvconnect.model.EditUserTypeData;
+import com.ezyfox.cvconnect.model.SearchUserTypeData;
 import com.ezyfox.cvconnect.repository.UserTypeRepository;
 import com.ezyfox.cvconnect.response.UserTypeResponse;
 import com.ezyfox.cvconnect.service.UserTypeService;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import lombok.AllArgsConstructor;
 
+import java.math.BigInteger;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @EzySingleton
@@ -38,15 +42,15 @@ public class UserTypeServiceImpl implements UserTypeService {
         if (userTypeById == null) {
             throw new ResourceNotFoundException("UserType");
         }
-        if (userTypeById.getStatus().equals(EntityStatus.ACTIVED)) {
-            throw new ResourceNotFoundException("UserType Active By id ");
-        }
         if (data.getCode() != null) {
             userTypeById.setCode(UserTypeCode.of(data.getCode()));
         }
         userTypeById.setStatus(data.getStatus());
         if (data.getMeaning() != null) {
             userTypeById.setMeaning(data.getMeaning());
+        }
+        if (data.getStatus() != null) {
+            userTypeById.setStatus(data.getStatus());
         }
         userTypeById.setUpdatedTime(LocalDateTime.now());
         userTypeRepository.save(userTypeById);
@@ -84,5 +88,26 @@ public class UserTypeServiceImpl implements UserTypeService {
     @Override
     public UserTypeResponse getById(long id) {
         return entityToResponseConverter.toUserTypeResponse(userTypeRepository.findById(id));
+    }
+
+    @Override
+    public Map<String, Object> getUserTypePaging(SearchUserTypeData searchUserTypeData) {
+        Map<String, Object> mapData = new HashMap<>();
+        List<UserTypeResponse> listData = userTypeRepository.searchUserType(
+            searchUserTypeData.getMeaning(),
+            searchUserTypeData.getCode(),
+            searchUserTypeData.getStatus(),
+            searchUserTypeData.getSize(),
+            searchUserTypeData.getSkip()
+        ).stream().map(entityToResponseConverter::toUserTypeResponse).collect(Collectors.toList());
+
+        BigInteger totalElementByField = userTypeRepository.totalSearchUserType(
+            searchUserTypeData.getMeaning(),
+            searchUserTypeData.getCode(),
+            searchUserTypeData.getStatus()
+        );
+        mapData.put("data", listData);
+        mapData.put("total", totalElementByField);
+        return mapData;
     }
 }

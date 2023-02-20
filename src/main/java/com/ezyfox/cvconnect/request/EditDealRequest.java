@@ -5,9 +5,9 @@ import lombok.Data;
 
 @Data
 public class EditDealRequest {
-    private long dealId;
-    private long agencyId;
-    private long candidateId;
+    private long id;
+    private Long agencyId;
+    private Long candidateId;
     private EntityStatus status;
-    private long processId;
+    private Long processId;
 }

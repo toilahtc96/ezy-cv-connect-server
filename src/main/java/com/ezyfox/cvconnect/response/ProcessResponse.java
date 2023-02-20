@@ -8,7 +8,7 @@ import lombok.Getter;
 @Builder
 @Getter
 public class ProcessResponse {
-    private long processId;
+    private long id;
     private ProcessCode code;
     private String meaning;
     private EntityStatus status;

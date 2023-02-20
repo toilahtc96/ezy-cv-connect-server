@@ -1,5 +1,6 @@
 package com.ezyfox.cvconnect.service;
 
+import com.ezyfox.cvconnect.constant.RoleCode;
 import com.ezyfox.cvconnect.model.AddRoleData;
 import com.ezyfox.cvconnect.model.RoleData;
 import com.ezyfox.cvconnect.response.RoleResponse;
@@ -12,7 +13,7 @@ public interface RoleService {
 
     void editRole(RoleData roleData);
 
-    List<RoleResponse> getRoleByCodeActive(String code);
+    List<RoleResponse> getRoleByCodeActive(RoleCode code);
 
     List<RoleResponse> getRoleByNameActive(String name);
 

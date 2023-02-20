@@ -23,6 +23,7 @@ public class Deal extends CommonEntity {
     private long agencyId;
     @Column(name = "candidate_id")
     private long candidateId;
+    @Enumerated(EnumType.STRING)
     private EntityStatus status;
     @Column(name = "process_id")
     private long processId;

@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 @Builder
 public class EditDealData {
-    private long dealId;
+    private long id;
     private long agencyId;
     private long candidateId;
     private EntityStatus status;

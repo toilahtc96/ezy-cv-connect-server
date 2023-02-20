@@ -4,17 +4,17 @@ import com.ezyfox.cvconnect.constant.EntityStatus;
 import lombok.Builder;
 import lombok.Getter;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
 @Getter
 @Builder
-public class SearchUserData {
-    private Long typeId;
-    private String name;
-    private String username;
-    private Long companyId;
-    private Long levelId;
-    private Integer experienceYear;
+public class SearchDealData {
+    @Enumerated(EnumType.STRING)
     private EntityStatus status;
-    private Long roleId;
+    private Long agencyId;
+    private Long candidateId;
+    private Long processId;
     private int size;
     private int skip;
 }

@@ -5,10 +5,12 @@ import com.ezyfox.cvconnect.constant.ProcessCode;
 import com.ezyfox.cvconnect.entity.Process;
 import com.ezyfox.cvconnect.model.AddProcessData;
 import com.ezyfox.cvconnect.model.EditProcessData;
+import com.ezyfox.cvconnect.model.SearchProcessData;
 import com.ezyfox.cvconnect.response.ProcessResponse;
 import com.tvd12.ezyhttp.core.response.ResponseEntity;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ProcessService {
 
@@ -29,4 +31,6 @@ public interface ProcessService {
     List<ProcessResponse> getAll();
 
     ProcessResponse getById(long processId);
+
+    Map<String, Object> getProcessPaging(SearchProcessData searchProcessData);
 }

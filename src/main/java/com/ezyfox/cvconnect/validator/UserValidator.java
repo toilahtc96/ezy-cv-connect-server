@@ -27,9 +27,9 @@ public class UserValidator {
 
     public void validRegisterRequest(RegisterData registerData) {
         Map<String, String> errors = new HashMap<>();
-        if (EzyStrings.isBlank(registerData.getName())) {
-            errors.put("name", "required");
-        }
+//        if (EzyStrings.isBlank(registerData.getName())) {
+//            errors.put("name", "required");
+//        }
         if (EzyStrings.isBlank(registerData.getUsername())) {
             errors.put("username", "required");
         }
@@ -105,15 +105,15 @@ public class UserValidator {
         validUsername(userByUsername);
     }
 
-    public void validateDateFromUserRegister(RegisterRequest registerRequest) {
-        if (registerRequest.getBirthDay() != null) {
-            try {
-                DateUtil.parseFromStringFormat(
-                    registerRequest.getBirthDay(), DateUtil.DATE_DDMMYYYY_PATTERN
-                );
-            } catch (ParseException parseException) {
-                throw new HttpNotFoundException("Date format is " + DateUtil.DATE_DDMMYYYY_PATTERN);
-            }
-        }
-    }
+//    public void validateDateFromUserRegister(RegisterRequest registerRequest) {
+//        if (registerRequest.getBirthDay() != null) {
+//            try {
+//                DateUtil.parseFromStringFormat(
+//                    registerRequest.getBirthDay(), DateUtil.DATE_DDMMYYYY_PATTERN
+//                );
+//            } catch (ParseException parseException) {
+//                throw new HttpNotFoundException("Date format is " + DateUtil.DATE_DDMMYYYY_PATTERN);
+//            }
+//        }
+//    }
 }

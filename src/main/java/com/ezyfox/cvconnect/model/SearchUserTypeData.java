@@ -6,15 +6,10 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class SearchUserData {
-    private Long typeId;
-    private String name;
-    private String username;
-    private Long companyId;
-    private Long levelId;
-    private Integer experienceYear;
+public class SearchUserTypeData {
+    private String meaning;
+    private String code;
     private EntityStatus status;
-    private Long roleId;
     private int size;
     private int skip;
 }

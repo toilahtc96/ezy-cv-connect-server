@@ -23,7 +23,7 @@ public class AuthenticationController {
 
     @DoPost("/register")
     public ResponseEntity register(@RequestBody RegisterRequest registerRequest) {
-        userValidator.validateDateFromUserRegister(registerRequest);
+//        userValidator.validateDateFromUserRegister(registerRequest);
         userService.registerUser(requestToDataConverter.toDataFromRegister(registerRequest));
         return ResponseEntity.noContent();
     }

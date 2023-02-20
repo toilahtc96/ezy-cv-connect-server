@@ -5,7 +5,7 @@ import com.ezyfox.cvconnect.model.RegisterData;
 import com.ezyfox.cvconnect.model.SearchUserData;
 import com.ezyfox.cvconnect.response.UserResponse;
 
-import java.util.List;
+import java.util.Map;
 
 public interface UserService {
 
@@ -13,5 +13,7 @@ public interface UserService {
 
     String login(LoginData registerData);
 
-    List<UserResponse> getUserPaging(SearchUserData searchUserData);
+    Map<String, Object> getUserPaging(SearchUserData searchUserData);
+
+    UserResponse getUserById(long id);
 }

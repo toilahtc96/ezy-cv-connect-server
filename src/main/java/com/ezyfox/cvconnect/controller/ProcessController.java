@@ -7,6 +7,7 @@ import com.ezyfox.cvconnect.converter.RequestToDataConverter;
 import com.ezyfox.cvconnect.entity.Process;
 import com.ezyfox.cvconnect.model.AddProcessData;
 import com.ezyfox.cvconnect.model.EditProcessData;
+import com.ezyfox.cvconnect.model.SearchProcessData;
 import com.ezyfox.cvconnect.repository.ProcessRepository;
 import com.ezyfox.cvconnect.request.AddProcessRequest;
 import com.ezyfox.cvconnect.request.EditProcessRequest;
@@ -18,6 +19,7 @@ import com.tvd12.ezyhttp.server.core.annotation.*;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller("api/v1/process")
 @AllArgsConstructor
@@ -74,4 +76,12 @@ public class ProcessController {
         Process processById = processRepository.findById(updateProcessRequest.getProcessId());
         processService.updateProcessPrev(processById);
     }
+
+    @DoGet("/get-page")
+    public Map<String, Object> getPage(@RequestParam int page, @RequestParam int size) {
+        int skip = size * page;
+        SearchProcessData searchProcessData = SearchProcessData.builder().size(size).skip(skip).build();
+        return processService.getProcessPaging(searchProcessData);
+    }
+
 }

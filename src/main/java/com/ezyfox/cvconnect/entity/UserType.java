@@ -19,7 +19,9 @@ public class UserType extends CommonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Enumerated(EnumType.STRING)
     private UserTypeCode code;
     private String meaning;
+    @Enumerated(EnumType.STRING)
     private EntityStatus status;
 }

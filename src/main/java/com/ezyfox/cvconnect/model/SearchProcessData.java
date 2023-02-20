@@ -5,10 +5,17 @@ import com.ezyfox.cvconnect.constant.ProcessCode;
 import lombok.Builder;
 import lombok.Getter;
 
-@Builder
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
 @Getter
-public class AddProcessData {
+@Builder
+public class SearchProcessData {
+    @Enumerated(EnumType.STRING)
+    private EntityStatus status;
+    @Enumerated(EnumType.STRING)
     private ProcessCode processCode;
     private String meaning;
-    private EntityStatus status;
+    private int size;
+    private int skip;
 }

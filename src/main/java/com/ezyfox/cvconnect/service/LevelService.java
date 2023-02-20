@@ -4,9 +4,11 @@ import com.ezyfox.cvconnect.constant.EntityStatus;
 import com.ezyfox.cvconnect.constant.LevelName;
 import com.ezyfox.cvconnect.model.AddLevelData;
 import com.ezyfox.cvconnect.model.EditLevelData;
+import com.ezyfox.cvconnect.model.SearchLevelData;
 import com.ezyfox.cvconnect.response.LevelResponse;
 
 import java.util.List;
+import java.util.Map;
 
 public interface LevelService {
 
@@ -21,4 +23,6 @@ public interface LevelService {
     List<LevelResponse> getAll();
 
     List<LevelResponse> getByStatus(EntityStatus status);
+
+    Map<String, Object> getLevelPaging(SearchLevelData searchLevelData);
 }

@@ -2,37 +2,47 @@ package com.ezyfox.cvconnect.converter;
 
 import com.ezyfox.cvconnect.entity.Process;
 import com.ezyfox.cvconnect.entity.*;
+import com.ezyfox.cvconnect.repository.CompanyRepository;
+import com.ezyfox.cvconnect.repository.RoleRepository;
 import com.ezyfox.cvconnect.response.*;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
+import lombok.AllArgsConstructor;
 
 import javax.persistence.Tuple;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @EzySingleton
+@AllArgsConstructor
 public class EntityToResponseConverter {
+
+    private final RoleRepository roleRepository;
+    private final CompanyRepository companyRepository;
 
     public AddressResponse toResponse(Address address) {
         return AddressResponse
-            .builder()
-            .type(address.getType())
-            .parentId(address.getParentId())
-            .name(address.getName())
-            .id(address.getId())
-            .code(address.getCode())
-            .name(address.getName())
-            .status(address.getStatus())
-            .build();
+                .builder()
+                .type(address.getType())
+                .parentId(address.getParentId())
+                .name(address.getName())
+                .id(address.getId())
+                .code(address.getCode())
+                .name(address.getName())
+                .status(address.getStatus())
+                .build();
     }
 
     public RoleResponse toResponse(Role role) {
         return RoleResponse
-            .builder()
-            .name(role.getName())
-            .id(role.getId())
-            .code(role.getCode())
-            .status(role.getStatus())
-            .build();
+                .builder()
+                .name(role.getName())
+                .id(role.getId())
+                .code(role.getCode())
+                .status(role.getStatus())
+                .build();
     }
 
     public List<RoleResponse> toListRoleResponse(List<Role> roles) {
@@ -41,11 +51,12 @@ public class EntityToResponseConverter {
 
     public UserTypeResponse toUserTypeResponse(UserType userType) {
         return UserTypeResponse
-            .builder()
-            .id(userType.getId())
-            .code(userType.getCode().getName())
-            .meaning(userType.getMeaning())
-            .build();
+                .builder()
+                .id(userType.getId())
+                .code(userType.getCode().getName())
+                .meaning(userType.getMeaning())
+                .status(userType.getStatus())
+                .build();
     }
 
     public List<UserTypeResponse> toListUserTypeResponse(List<UserType> userTypes) {
@@ -54,71 +65,74 @@ public class EntityToResponseConverter {
 
     public UserRoleResponse toUserRoleResponse(UserRole userRole) {
         return UserRoleResponse
-            .builder()
-            .userRoleId(userRole.getId())
-            .roleId(userRole.getRoleId())
-            .userId(userRole.getUserId())
-            .status(userRole.getStatus())
-            .build();
+                .builder()
+                .userRoleId(userRole.getId())
+                .roleId(userRole.getRoleId())
+                .userId(userRole.getUserId())
+                .status(userRole.getStatus())
+                .build();
     }
 
     public ProcessResponse toProcessResponse(Process process) {
         return ProcessResponse
-            .builder()
-            .processId(process.getId())
-            .code(process.getCode())
-            .meaning(process.getMeaning())
-            .status(process.getStatus())
-            .build();
+                .builder()
+                .id(process.getId())
+                .code(process.getCode())
+                .meaning(process.getMeaning())
+                .status(process.getStatus())
+                .build();
     }
 
     public DealResponse toDealResponse(Deal deal) {
+        if (deal == null) {
+            return null;
+        }
         return DealResponse
-            .builder()
-            .dealId(deal.getId())
-            .agencyId(deal.getAgencyId())
-            .candidateId(deal.getCandidateId())
-            .processId(deal.getProcessId())
-            .status(deal.getStatus())
-            .build();
+                .builder()
+                .id(deal.getId())
+                .agencyId(deal.getAgencyId())
+                .candidateId(deal.getCandidateId())
+                .processId(deal.getProcessId())
+                .status(deal.getStatus())
+                .build();
     }
 
     public LevelResponse toLevelResponse(Level level) {
         return LevelResponse
-            .builder()
-            .id(level.getId())
-            .levelName(level.getName())
-            .meaning(level.getMeaning())
-            .status(level.getStatus())
-            .build();
+                .builder()
+                .id(level.getId())
+                .levelName(level.getName())
+                .meaning(level.getMeaning())
+                .status(level.getStatus())
+                .build();
     }
 
     public ReviewResponse toReviewResponse(Review review) {
         return ReviewResponse
-            .builder()
-            .id(review.getId())
-            .description(review.getDescription())
-            .star(review.getStar())
-            .objectId(review.getObjectId())
-            .reviewOwner(review.getReviewOwner())
-            .type(review.getType())
-            .status(review.getStatus())
-            .build();
+                .builder()
+                .id(review.getId())
+                .description(review.getDescription())
+                .star(review.getStar())
+                .objectId(review.getObjectId())
+                .reviewOwner(review.getReviewOwner())
+                .type(review.getType())
+                .status(review.getStatus())
+                .build();
     }
 
     public CompanyResponse toCompanyResponse(Company company) {
         return CompanyResponse
-            .builder()
-            .id(company.getId())
-            .code(company.getCode())
-            .name(company.getName())
-            .provinceCode(company.getProvinceCode())
-            .districtCode(company.getDistrictCode())
-            .precinctCode(company.getPrecinctCode())
-            .information(company.getInformation())
-            .star(company.getStar())
-            .status(company.getStatus())
-            .build();
+                .builder()
+                .id(company.getId())
+                .code(company.getCode())
+                .name(company.getName())
+                .provinceCode(company.getProvinceCode())
+                .districtCode(company.getDistrictCode())
+                .precinctCode(company.getPrecinctCode())
+                .information(company.getInformation())
+                .star(company.getStar())
+                .status(company.getStatus())
+                .build();
     }
 
     public CompanyResponse toCompanyResponse(Tuple company) {
@@ -130,22 +144,22 @@ public class EntityToResponseConverter {
 
     public MenuItemResponse toMenuItemResponse(MenuItem menuItem) {
         return MenuItemResponse
-            .builder()
-            .name(menuItem.getName())
-            .parentId(menuItem.getParentId())
-            .status(menuItem.getStatus())
-            .path(menuItem.getPath())
-            .pathAddressPhysic(menuItem.getPathAddressPhysic())
-            .build();
+                .builder()
+                .name(menuItem.getName())
+                .parentId(menuItem.getParentId())
+                .status(menuItem.getStatus())
+                .path(menuItem.getPath())
+                .pathAddressPhysic(menuItem.getPathAddressPhysic())
+                .build();
     }
 
     public MenuUserResponse toMenuUserResponse(MenuUser menuUser) {
         return MenuUserResponse
-            .builder()
-            .id(menuUser.getId())
-            .menuId(menuUser.getMenuId())
-            .userId(menuUser.getUserId())
-            .build();
+                .builder()
+                .id(menuUser.getId())
+                .menuId(menuUser.getMenuId())
+                .userId(menuUser.getUserId())
+                .build();
     }
 
     public RoleResponse toRoleResponse(Role role) {
@@ -159,12 +173,32 @@ public class EntityToResponseConverter {
     }
 
     public UserResponse toUserResponse(User user) {
+        Role roleOfUser = null;
+        if (user.getRoleId() != null) {
+            roleOfUser = roleRepository.findById(user.getRoleId());
+        }
+        Company companyOfUser = null;
+        if (user.getCompanyId() != null) {
+            companyOfUser = companyRepository.findById(user.getCompanyId());
+        }
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         return UserResponse
                 .builder()
-                .roleId(user.getRoleId())
+                .id(user.getId())
+                .roleName(roleOfUser == null ? null : roleOfUser.getCode())
                 .status(user.getStatus())
                 .name(user.getName())
                 .username(user.getUsername())
+                .birthDay(Objects.isNull(user.getBirthDay()) ? null : dateFormat.format(user.getBirthDay()))
+                .companyName(companyOfUser == null ? "" : companyOfUser.getName())
+                .companyId(user.getCompanyId())
+                .cvLink(user.getCvLink())
+                .description(user.getDescription())
+                .experienceYear(user.getExperienceYear())
+                .information(user.getInformation())
+                .levelId(user.getLevelId())
+                .typeId(user.getTypeId())
+                .star(user.getStar())
                 .build();
     }
 }

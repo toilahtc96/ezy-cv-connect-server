@@ -8,6 +8,7 @@ import com.ezyfox.cvconnect.entity.Level;
 import com.ezyfox.cvconnect.exception.ResourceNotFoundException;
 import com.ezyfox.cvconnect.model.AddLevelData;
 import com.ezyfox.cvconnect.model.EditLevelData;
+import com.ezyfox.cvconnect.model.SearchLevelData;
 import com.ezyfox.cvconnect.repository.LevelRepository;
 import com.ezyfox.cvconnect.response.LevelResponse;
 import com.ezyfox.cvconnect.service.LevelService;
@@ -15,7 +16,10 @@ import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import lombok.AllArgsConstructor;
 import org.eclipse.jetty.util.StringUtil;
 
+import java.math.BigInteger;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @EzySingleton
@@ -28,7 +32,11 @@ public class LevelServiceImpl implements LevelService {
 
     @Override
     public void addLevel(AddLevelData addLevelData) {
-        levelRepository.save(dataToEntityConverter.dataToLevel(addLevelData));
+        List<Level> levelCheck = levelRepository
+                .getLevelByNameAndStatus(addLevelData.getLevelName(), EntityStatus.ACTIVED);
+        if (levelCheck.isEmpty()) {
+            levelRepository.save(dataToEntityConverter.dataToLevel(addLevelData));
+        }
     }
 
     @Override
@@ -57,27 +65,48 @@ public class LevelServiceImpl implements LevelService {
     @Override
     public List<LevelResponse> getByLevelName(LevelName levelName) {
         return levelRepository
-            .getLevelByName(levelName)
-            .stream()
-            .map(entityToResponseConverter::toLevelResponse)
-            .collect(Collectors.toList());
+                .getLevelByName(levelName)
+                .stream()
+                .map(entityToResponseConverter::toLevelResponse)
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<LevelResponse> getAll() {
         return levelRepository
-            .findAll()
-            .stream()
-            .map(entityToResponseConverter::toLevelResponse)
-            .collect(Collectors.toList());
+                .findAll()
+                .stream()
+                .map(entityToResponseConverter::toLevelResponse)
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<LevelResponse> getByStatus(EntityStatus status) {
         return levelRepository
-            .getLevelByStatus(status)
-            .stream()
-            .map(entityToResponseConverter::toLevelResponse)
-            .collect(Collectors.toList());
+                .getLevelByStatus(status)
+                .stream()
+                .map(entityToResponseConverter::toLevelResponse)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Map<String, Object> getLevelPaging(SearchLevelData searchLevelData) {
+        Map<String, Object> data = new HashMap<>();
+        List<LevelResponse> listData = levelRepository
+                .searchLevel(
+                        searchLevelData.getMeaning(),
+                        searchLevelData.getName(),
+                        searchLevelData.getStatus(),
+                        searchLevelData.getSize(),
+                        searchLevelData.getSkip()
+                ).stream().map(entityToResponseConverter::toLevelResponse).collect(Collectors.toList());
+        BigInteger total = levelRepository.totalSearchLevel(
+                searchLevelData.getMeaning(),
+                searchLevelData.getName(),
+                searchLevelData.getStatus()
+        );
+        data.put("data", listData);
+        data.put("total", total);
+        return data;
     }
 }

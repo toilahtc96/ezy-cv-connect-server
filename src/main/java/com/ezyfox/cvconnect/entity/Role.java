@@ -26,4 +26,6 @@ public class Role extends CommonEntity {
     private RoleCode code;
     @Enumerated(EnumType.STRING)
     private EntityStatus status;
+    @Column(name = "created_id")
+    private Integer createdId;
 }

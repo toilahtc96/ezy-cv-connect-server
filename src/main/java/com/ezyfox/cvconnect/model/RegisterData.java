@@ -9,10 +9,10 @@ import java.util.Date;
 @Getter
 @Builder
 public class RegisterData {
-    private Integer typeId;
+    private Long typeId;
     private Date birthDay;
     private String name;
-    private Integer levelId;
+    private Long levelId;
     private Integer experienceYear;
     private String cvLink;
     private String username;

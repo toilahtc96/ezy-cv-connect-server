@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class EditLevelRequest {
     private long levelId;
-    private LevelName name;
+    private LevelName levelName;
     private String meaning;
     private EntityStatus status;
 }

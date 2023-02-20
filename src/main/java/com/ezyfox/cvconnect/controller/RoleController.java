@@ -1,5 +1,6 @@
 package com.ezyfox.cvconnect.controller;
 
+import com.ezyfox.cvconnect.constant.RoleCode;
 import com.ezyfox.cvconnect.converter.RequestToDataConverter;
 import com.ezyfox.cvconnect.model.AddRoleData;
 import com.ezyfox.cvconnect.model.RoleData;
@@ -41,7 +42,7 @@ public class RoleController {
     }
 
     @DoGet("/get-by-code")
-    public List<RoleResponse> getByCode(@RequestParam String code) {
+    public List<RoleResponse> getByCode(@RequestParam RoleCode code) {
         return roleService.getRoleByCodeActive(code);
     }
 

@@ -4,6 +4,7 @@ import com.ezyfox.cvconnect.constant.UserTypeCode;
 import com.ezyfox.cvconnect.converter.RequestToDataConverter;
 import com.ezyfox.cvconnect.model.AddUserTypeData;
 import com.ezyfox.cvconnect.model.EditUserTypeData;
+import com.ezyfox.cvconnect.model.SearchUserTypeData;
 import com.ezyfox.cvconnect.request.AddUserTypeRequest;
 import com.ezyfox.cvconnect.request.EditUserTypeRequest;
 import com.ezyfox.cvconnect.response.UserTypeResponse;
@@ -13,6 +14,7 @@ import com.tvd12.ezyhttp.server.core.annotation.*;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller("api/v1/user-type")
 @AllArgsConstructor
@@ -56,5 +58,12 @@ public class UserTypeController {
     @DoGet("/get-by-id")
     public UserTypeResponse getById(@RequestParam long id) {
         return userTypeService.getById(id);
+    }
+
+    @DoGet("/get-page")
+    public Map<String, Object> getPage(@RequestParam int page, @RequestParam int size) {
+        int skip = size * page;
+        SearchUserTypeData searchUserTypeData = SearchUserTypeData.builder().size(size).skip(skip).build();
+        return userTypeService.getUserTypePaging(searchUserTypeData);
     }
 }

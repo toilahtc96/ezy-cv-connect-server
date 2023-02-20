@@ -3,6 +3,7 @@ package com.ezyfox.cvconnect.controller;
 import com.ezyfox.cvconnect.constant.EntityStatus;
 import com.ezyfox.cvconnect.constant.LevelName;
 import com.ezyfox.cvconnect.converter.RequestToDataConverter;
+import com.ezyfox.cvconnect.model.SearchLevelData;
 import com.ezyfox.cvconnect.request.AddLevelRequest;
 import com.ezyfox.cvconnect.request.EditLevelRequest;
 import com.ezyfox.cvconnect.response.LevelResponse;
@@ -12,6 +13,7 @@ import com.tvd12.ezyhttp.server.core.annotation.*;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller("api/v1/level")
 @AllArgsConstructor
@@ -51,5 +53,12 @@ public class LevelController {
     @DoGet("/get-active")
     public List<LevelResponse> getLevelActive() {
         return levelService.getByStatus(EntityStatus.ACTIVED);
+    }
+
+    @DoGet("/get-page")
+    public Map<String, Object> getPage(@RequestParam int page, @RequestParam int size) {
+        int skip = size * page;
+        SearchLevelData searchLevelData = SearchLevelData.builder().size(size).skip(skip).build();
+        return levelService.getLevelPaging(searchLevelData);
     }
 }
