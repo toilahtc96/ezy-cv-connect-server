@@ -1,7 +1,7 @@
 package com.ezyfox.cvconnect.service;
 
 import com.ezyfox.cvconnect.model.AddAgencyData;
-import com.ezyfox.cvconnect.model.EditAgencyData;
+import com.ezyfox.cvconnect.model.EditUserData;
 import com.ezyfox.cvconnect.response.UserAgencyResponse;
 
 import java.util.List;
@@ -10,7 +10,7 @@ public interface UserAgencyService {
 
     void registerAgencyUser(AddAgencyData addAgencyData);
 
-    void editAgencyUser(EditAgencyData editAgencyData);
+    void editAgencyUser(EditUserData editAgencyData);
 
     List<UserAgencyResponse> getAllAgency();
 

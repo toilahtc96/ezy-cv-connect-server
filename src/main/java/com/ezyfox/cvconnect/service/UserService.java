@@ -1,5 +1,6 @@
 package com.ezyfox.cvconnect.service;
 
+import com.ezyfox.cvconnect.model.EditUserData;
 import com.ezyfox.cvconnect.model.LoginData;
 import com.ezyfox.cvconnect.model.RegisterData;
 import com.ezyfox.cvconnect.model.SearchUserData;
@@ -16,4 +17,6 @@ public interface UserService {
     Map<String, Object> getUserPaging(SearchUserData searchUserData);
 
     UserResponse getUserById(long id);
+
+    void editUser(EditUserData editUserData);
 }

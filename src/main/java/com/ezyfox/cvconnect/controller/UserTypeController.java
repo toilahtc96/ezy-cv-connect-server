@@ -40,7 +40,7 @@ public class UserTypeController {
 
     @DoGet("/get-by-code")
     public ResponseEntity getByCode(@RequestParam String code) {
-        UserTypeResponse listUserType = userTypeService.getUserTypeByCode(UserTypeCode.of(code));
+        UserTypeResponse listUserType = userTypeService.getUserTypeByCode(UserTypeCode.valueOf(code));
         return ResponseEntity.ok(listUserType);
     }
 

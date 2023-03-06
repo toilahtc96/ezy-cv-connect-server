@@ -46,7 +46,7 @@ public class LevelController {
     }
 
     @DoGet("/get-by-name")
-    public List<LevelResponse> getByName(@RequestParam LevelName levelName) {
+    public LevelResponse getByName(@RequestParam LevelName levelName) {
         return levelService.getByLevelName(levelName);
     }
 

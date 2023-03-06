@@ -2,8 +2,7 @@ package com.ezyfox.cvconnect.converter;
 
 import com.ezyfox.cvconnect.entity.Process;
 import com.ezyfox.cvconnect.entity.*;
-import com.ezyfox.cvconnect.repository.CompanyRepository;
-import com.ezyfox.cvconnect.repository.RoleRepository;
+import com.ezyfox.cvconnect.repository.*;
 import com.ezyfox.cvconnect.response.*;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import lombok.AllArgsConstructor;
@@ -21,6 +20,9 @@ public class EntityToResponseConverter {
 
     private final RoleRepository roleRepository;
     private final CompanyRepository companyRepository;
+    private final UserTypeRepository userTypeRepository;
+    private final LevelRepository levelRepository;
+    private final AddressRepository addressRepository;
 
     public AddressResponse toResponse(Address address) {
         return AddressResponse
@@ -181,6 +183,14 @@ public class EntityToResponseConverter {
         if (user.getCompanyId() != null) {
             companyOfUser = companyRepository.findById(user.getCompanyId());
         }
+        UserType userType = null;
+        if (user.getTypeId() != null) {
+            userType = userTypeRepository.findById(user.getTypeId());
+        }
+        Level level = null;
+        if (user.getLevelId() != null) {
+            level = levelRepository.findById(user.getLevelId());
+        }
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         return UserResponse
                 .builder()
@@ -197,8 +207,28 @@ public class EntityToResponseConverter {
                 .experienceYear(user.getExperienceYear())
                 .information(user.getInformation())
                 .levelId(user.getLevelId())
+                .level(level != null ? level.getName() : null)
                 .typeId(user.getTypeId())
+                .userTypeCode(userType != null ? userType.getCode() : null)
                 .star(user.getStar())
+                .build();
+    }
+
+    public AddressResponse toAddressResponse(Address address) {
+
+        Address parent = null;
+        if (address.getParentId() != null) {
+            parent =  addressRepository.findById(address.getParentId());
+        }
+        return AddressResponse
+                .builder()
+                .id(address.getId())
+                .code(address.getCode())
+                .name(address.getName())
+                .type(address.getType())
+                .status(address.getStatus())
+                .parentId(address.getParentId())
+                .parentName(parent != null ? parent.getName() : "")
                 .build();
     }
 }

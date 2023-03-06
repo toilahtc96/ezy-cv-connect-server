@@ -1,20 +1,17 @@
 package com.ezyfox.cvconnect.converter;
 
 import com.ezyfox.cvconnect.constant.EntityStatus;
-import com.ezyfox.cvconnect.constant.RoleCode;
 import com.ezyfox.cvconnect.constant.UserStatus;
 import com.ezyfox.cvconnect.constant.UserTypeCode;
 import com.ezyfox.cvconnect.entity.Process;
 import com.ezyfox.cvconnect.entity.*;
 import com.ezyfox.cvconnect.model.*;
 import com.ezyfox.cvconnect.service.AuthenticationService;
-import com.ezyfox.cvconnect.service.RoleService;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import com.tvd12.ezyfox.sercurity.EzySHA256;
 import lombok.AllArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @EzySingleton
 @AllArgsConstructor
@@ -56,7 +53,7 @@ public class DataToEntityConverter {
     public UserType dataToUserType(AddUserTypeData addUserTypeData) {
         return UserType
             .builder()
-            .code(UserTypeCode.of(addUserTypeData.getCode()))
+            .code(UserTypeCode.valueOf(addUserTypeData.getCode()))
             .meaning(addUserTypeData.getMeaning())
             .status(addUserTypeData.getStatus())
             .createdTime(LocalDateTime.now())

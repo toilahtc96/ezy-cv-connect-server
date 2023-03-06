@@ -3,7 +3,10 @@ package com.ezyfox.cvconnect.converter;
 import com.ezyfox.cvconnect.constant.EntityStatus;
 import com.ezyfox.cvconnect.constant.UserStatus;
 import com.ezyfox.cvconnect.constant.UserTypeCode;
+import com.ezyfox.cvconnect.entity.Level;
 import com.ezyfox.cvconnect.model.*;
+import com.ezyfox.cvconnect.repository.LevelRepository;
+import com.ezyfox.cvconnect.repository.RoleRepository;
 import com.ezyfox.cvconnect.request.*;
 import com.ezyfox.cvconnect.service.UserTypeService;
 import com.ezyfox.cvconnect.util.DateUtil;
@@ -12,12 +15,15 @@ import com.tvd12.ezyfox.io.EzyStrings;
 import lombok.AllArgsConstructor;
 
 import java.text.ParseException;
+import java.util.Objects;
 
 @EzySingleton
 @AllArgsConstructor
 public class RequestToDataConverter {
 
     private final UserTypeService userTypeService;
+    private final RoleRepository roleRepository;
+    private final LevelRepository levelRepository;
 
     public LoginData toDataFromLogin(LoginRequest loginRequest) {
         return
@@ -131,31 +137,41 @@ public class RequestToDataConverter {
         }
     }
 
-    public EditAgencyData toDataFromAddAgency(EditAgencyUserRequest editAgencyUserRequest) {
+    public EditUserData toDataFromEditUser(EditUserRequest editAgencyUserRequest) {
+        Level levelByIdIfExist =null;
+        if(editAgencyUserRequest.getLevel() != null) {
+            levelByIdIfExist = levelRepository.findByField("name", editAgencyUserRequest.getLevel());
+        }
         try {
-            return EditAgencyData
+            return EditUserData
                     .builder()
+                    .id(editAgencyUserRequest.getId())
                     .companyId(editAgencyUserRequest.getCompanyId())
-                    .roleId(editAgencyUserRequest.getRoleId())
+                    .roleId(Objects.isNull(editAgencyUserRequest.getRoleId()) ?
+                            null : roleRepository.findByField("code", editAgencyUserRequest.getRoleId()).getId())
                     .typeId(editAgencyUserRequest.getTypeId())
                     .information(editAgencyUserRequest.getDescription())
                     .description(editAgencyUserRequest.getInformation())
-                    .birthDay(
-                            DateUtil.parseFromStringFormat(
-                                    editAgencyUserRequest.getBirthDay(), DateUtil.DATE_DDMMYYYY_PATTERN
-                            )
-                    )
+                    .birthDay(DateUtil.parseFromStringFormat(
+                            editAgencyUserRequest.getBirthDay(), DateUtil.DATE_DDMMYYYY_PATTERN
+                    ))
                     .status(editAgencyUserRequest.getStatus())
                     .star(editAgencyUserRequest.getStar())
                     .userName(editAgencyUserRequest.getUserName())
                     .password(editAgencyUserRequest.getPassword())
                     .name(editAgencyUserRequest.getName())
+                    .cvLink(editAgencyUserRequest.getCvLink())
+                    .experienceYear(editAgencyUserRequest.getExperienceYear())
+                    .userTypeCode(editAgencyUserRequest.getUserTypeCode())
+                    .levelId(levelByIdIfExist != null ? levelByIdIfExist.getId() : null)
                     .build();
         } catch (ParseException e) {
-            return EditAgencyData
+            return EditUserData
                     .builder()
+                    .id(editAgencyUserRequest.getId())
                     .companyId(editAgencyUserRequest.getCompanyId())
-                    .roleId(editAgencyUserRequest.getRoleId())
+                    .roleId(Objects.isNull(editAgencyUserRequest.getRoleId()) ?
+                            null : roleRepository.findByField("code", editAgencyUserRequest.getRoleId()).getId())
                     .typeId(editAgencyUserRequest.getTypeId())
                     .information(editAgencyUserRequest.getDescription())
                     .description(editAgencyUserRequest.getInformation())
@@ -164,6 +180,10 @@ public class RequestToDataConverter {
                     .userName(editAgencyUserRequest.getUserName())
                     .password(editAgencyUserRequest.getPassword())
                     .name(editAgencyUserRequest.getName())
+                    .cvLink(editAgencyUserRequest.getCvLink())
+                    .experienceYear(editAgencyUserRequest.getExperienceYear())
+                    .userTypeCode(editAgencyUserRequest.getUserTypeCode())
+                    .levelId(levelRepository.findByField("name", editAgencyUserRequest.getLevel()).getId())
                     .build();
         }
     }
@@ -360,6 +380,20 @@ public class RequestToDataConverter {
                 .status(status)
                 .information(information.equalsIgnoreCase("") ? null : information)
                 .star(star)
+                .page(page)
+                .size(size)
+                .build();
+    }
+
+    public SearchAddressData toDataFromSearchAddress(String name,
+                                                     EntityStatus status,
+                                                     int page,
+                                                     int size) {
+        //todo: check lai, khi provinceCode ="" va cac code khac null => van tim theo type province
+        return SearchAddressData
+                .builder()
+                .name(EzyStrings.isBlank(name) ? null : name)
+                .status(status)
                 .page(page)
                 .size(size)
                 .build();

@@ -27,7 +27,7 @@ public class Address extends CommonEntity {
     private String code;
     private String name;
     @Column(name = "parent_id")
-    private long parentId;
+    private Long parentId;
     @Column(name = "created_id")
     private long createdId;
     @Enumerated(EnumType.STRING)

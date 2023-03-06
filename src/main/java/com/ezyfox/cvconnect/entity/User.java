@@ -35,7 +35,7 @@ public class User extends CommonEntity {
     private Date birthDay;
     private String name;
     @Column(name = "level_id")
-    private Integer levelId;
+    private Long levelId;
     @Column(name = "experience_year")
     private Integer experienceYear;
     @Column(name = "cv_link")

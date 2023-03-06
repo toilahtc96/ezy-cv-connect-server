@@ -5,7 +5,7 @@ import com.ezyfox.cvconnect.converter.DataToEntityConverter;
 import com.ezyfox.cvconnect.entity.User;
 import com.ezyfox.cvconnect.exception.ResourceNotFoundException;
 import com.ezyfox.cvconnect.model.AddAgencyData;
-import com.ezyfox.cvconnect.model.EditAgencyData;
+import com.ezyfox.cvconnect.model.EditUserData;
 import com.ezyfox.cvconnect.repository.UserRepository;
 import com.ezyfox.cvconnect.response.UserAgencyResponse;
 import com.ezyfox.cvconnect.service.UserAgencyService;
@@ -28,7 +28,7 @@ public class UserAgencyServiceImpl implements UserAgencyService {
     }
 
     @Override
-    public void editAgencyUser(EditAgencyData editAgencyData) {
+    public void editAgencyUser(EditUserData editAgencyData) {
         User userById = userRepository.findById(editAgencyData.getId());
         if (userById == null) {
             throw new ResourceNotFoundException("User By Id");

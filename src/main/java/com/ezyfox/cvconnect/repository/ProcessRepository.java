@@ -2,7 +2,6 @@ package com.ezyfox.cvconnect.repository;
 
 import com.ezyfox.cvconnect.constant.EntityStatus;
 import com.ezyfox.cvconnect.constant.ProcessCode;
-import com.ezyfox.cvconnect.entity.Deal;
 import com.ezyfox.cvconnect.entity.Process;
 import com.tvd12.ezydata.database.EzyDatabaseRepository;
 import com.tvd12.ezyfox.database.annotation.EzyQuery;

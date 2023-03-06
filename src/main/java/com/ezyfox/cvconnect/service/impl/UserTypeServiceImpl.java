@@ -43,7 +43,7 @@ public class UserTypeServiceImpl implements UserTypeService {
             throw new ResourceNotFoundException("UserType");
         }
         if (data.getCode() != null) {
-            userTypeById.setCode(UserTypeCode.of(data.getCode()));
+            userTypeById.setCode(UserTypeCode.valueOf(data.getCode()));
         }
         userTypeById.setStatus(data.getStatus());
         if (data.getMeaning() != null) {

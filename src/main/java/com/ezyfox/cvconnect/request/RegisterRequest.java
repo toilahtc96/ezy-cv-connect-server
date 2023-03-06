@@ -1,6 +1,5 @@
 package com.ezyfox.cvconnect.request;
 
-import com.ezyfox.cvconnect.constant.UserStatus;
 import lombok.Data;
 
 @Data

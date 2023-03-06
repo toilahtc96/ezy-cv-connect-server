@@ -63,12 +63,9 @@ public class LevelServiceImpl implements LevelService {
     }
 
     @Override
-    public List<LevelResponse> getByLevelName(LevelName levelName) {
-        return levelRepository
-                .getLevelByName(levelName)
-                .stream()
-                .map(entityToResponseConverter::toLevelResponse)
-                .collect(Collectors.toList());
+    public LevelResponse getByLevelName(LevelName levelName) {
+        return entityToResponseConverter.toLevelResponse(levelRepository
+                .getLevelByName(levelName));
     }
 
     @Override

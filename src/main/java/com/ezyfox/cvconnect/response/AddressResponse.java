@@ -13,5 +13,6 @@ public class AddressResponse {
     private String code;
     private String name;
     private long parentId;
+    private String parentName;
     private EntityStatus status;
 }

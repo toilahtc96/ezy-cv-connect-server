@@ -13,7 +13,7 @@ import java.util.List;
 @EzyRepository
 public interface LevelRepository extends EzyDatabaseRepository<Long, Level> {
     @EzyQuery("select e from Level e where e.name = ?0")
-    List<Level> getLevelByName(LevelName name);
+    Level getLevelByName(LevelName name);
 
     @EzyQuery("select e from Level e where e.name = ?0 and e.status = ?1")
     List<Level> getLevelByNameAndStatus(LevelName name, EntityStatus entityStatus);

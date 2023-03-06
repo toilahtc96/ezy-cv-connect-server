@@ -18,7 +18,7 @@ public interface LevelService {
 
     LevelResponse getById(long levelId);
 
-    List<LevelResponse> getByLevelName(LevelName levelName);
+    LevelResponse getByLevelName(LevelName levelName);
 
     List<LevelResponse> getAll();
 

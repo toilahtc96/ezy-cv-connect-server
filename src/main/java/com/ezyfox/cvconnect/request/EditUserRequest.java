@@ -1,31 +1,31 @@
-package com.ezyfox.cvconnect.response;
+package com.ezyfox.cvconnect.request;
 
 import com.ezyfox.cvconnect.constant.LevelName;
 import com.ezyfox.cvconnect.constant.RoleCode;
 import com.ezyfox.cvconnect.constant.UserStatus;
 import com.ezyfox.cvconnect.constant.UserTypeCode;
-import lombok.Builder;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 
-@Builder
+import java.util.Date;
+
 @Getter
-public class UserResponse {
-    private long id;
-    private RoleCode roleName;
-    private String companyName;
+public class EditUserRequest {
+    private int id;
+    private RoleCode roleId;
+    private Long companyId;
     private Long typeId;
     private String description;
-    private Integer star;
+    private int star;
+    private LevelName level;
     private String information;
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy", timezone="GMT")
     private String birthDay;
     private String name;
-    private Long levelId;
-    private Integer experienceYear;
-    private String cvLink;
-    private String username;
+    private String userName;
     private String password;
     private UserStatus status;
-    private Long companyId;
+    private String cvLink;
+    private Integer experienceYear;
     private UserTypeCode userTypeCode;
-    private LevelName level;
 }

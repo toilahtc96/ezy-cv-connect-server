@@ -10,7 +10,6 @@ import com.ezyfox.cvconnect.model.AddProcessData;
 import com.ezyfox.cvconnect.model.EditProcessData;
 import com.ezyfox.cvconnect.model.SearchProcessData;
 import com.ezyfox.cvconnect.repository.ProcessRepository;
-import com.ezyfox.cvconnect.response.DealResponse;
 import com.ezyfox.cvconnect.response.ProcessResponse;
 import com.ezyfox.cvconnect.service.ProcessService;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
