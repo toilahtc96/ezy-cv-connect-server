@@ -1,9 +1,5 @@
 package com.ezyfox.cvconnect.model;
 
-import com.ezyfox.cvconnect.constant.EntityStatus;
-import com.ezyfox.cvconnect.constant.LevelName;
-import com.ezyfox.cvconnect.constant.UserTypeCode;
-import com.ezyfox.cvconnect.entity.UserType;
 import lombok.Builder;
 import lombok.Getter;
 

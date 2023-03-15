@@ -4,6 +4,7 @@ import com.ezyfox.cvconnect.converter.DataToResponseConverter;
 import com.ezyfox.cvconnect.converter.RequestToDataConverter;
 import com.ezyfox.cvconnect.request.LoginRequest;
 import com.ezyfox.cvconnect.request.RegisterRequest;
+import com.ezyfox.cvconnect.request.UserRegisterRequest;
 import com.ezyfox.cvconnect.service.UserService;
 import com.ezyfox.cvconnect.validator.UserValidator;
 import com.tvd12.ezyhttp.core.response.ResponseEntity;
@@ -23,18 +24,22 @@ public class AuthenticationController {
 
     @DoPost("/register")
     public ResponseEntity register(@RequestBody RegisterRequest registerRequest) {
-        userService.registerUser(requestToDataConverter.toDataFromRegister(registerRequest));
+        userService.registerUserAdmin(requestToDataConverter.toDataFromRegister(registerRequest));
         return ResponseEntity.noContent();
     }
 
     @DoPost("/login")
     public ResponseEntity login(@RequestBody LoginRequest loginRequest) {
         return ResponseEntity.ok(
-            dataToResponseConverter.toLoginResponse(
                 userService.login(
                     requestToDataConverter.toDataFromLogin(loginRequest)
                 )
-            )
         );
+    }
+
+    @DoPost("/user-register")
+    public ResponseEntity userRegister(@RequestBody UserRegisterRequest userRegisterRequest) {
+        userService.registerUser(requestToDataConverter.toDataFromUserRegister(userRegisterRequest));
+        return ResponseEntity.noContent();
     }
 }

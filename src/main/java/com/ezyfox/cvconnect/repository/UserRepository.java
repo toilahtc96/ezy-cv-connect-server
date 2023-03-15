@@ -1,6 +1,5 @@
 package com.ezyfox.cvconnect.repository;
 
-import com.ezyfox.cvconnect.constant.EntityStatus;
 import com.ezyfox.cvconnect.entity.User;
 import com.tvd12.ezydata.database.EzyDatabaseRepository;
 import com.tvd12.ezyfox.database.annotation.EzyQuery;
@@ -80,7 +79,7 @@ public interface UserRepository extends EzyDatabaseRepository<Long, User> {
             " (?4 is null OR e.experience_year = ?4 ) and  " +
             " (?5 is null OR e.status = ?5 ) and  " +
             " (?6 is null OR e.level_id = ?6  ) and " +
-            " (?7 is null OR e.star = ?7  ) " , nativeQuery = true)
+            " (?7 is null OR e.star = ?7  ) ", nativeQuery = true)
     BigInteger totalSearchUser(
             String name,
             String username,

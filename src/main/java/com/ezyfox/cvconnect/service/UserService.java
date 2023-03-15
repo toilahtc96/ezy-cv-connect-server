@@ -1,22 +1,23 @@
 package com.ezyfox.cvconnect.service;
 
-import com.ezyfox.cvconnect.model.EditUserData;
-import com.ezyfox.cvconnect.model.LoginData;
-import com.ezyfox.cvconnect.model.RegisterData;
-import com.ezyfox.cvconnect.model.SearchUserData;
+import com.ezyfox.cvconnect.model.*;
+import com.ezyfox.cvconnect.response.LoginResponse;
 import com.ezyfox.cvconnect.response.UserResponse;
 
 import java.util.Map;
 
 public interface UserService {
+    void registerUserAdmin(RegisterData registerData);
 
-    void registerUser(RegisterData registerData);
+    void registerUser(UserRegisterData userRegisterData);
 
-    String login(LoginData registerData);
+    LoginResponse login(LoginData registerData);
 
     Map<String, Object> getUserPaging(SearchUserData searchUserData);
 
     UserResponse getUserById(long id);
 
     void editUser(EditUserData editUserData);
+
+    UserResponse getByToken(String accessToken);
 }

@@ -40,7 +40,7 @@ public class RequestToDataConverter {
                 .birthDay(null)
                 .password(registerRequest.getPassword())
                 .username(registerRequest.getUsername())
-                .typeId(userTypeService.getUserTypeByCode(UserTypeCode.AGENCY).getId())
+                .typeId(userTypeService.getUserTypeByCode(UserTypeCode.ADMIN).getId())
                 .build();
 
     }
@@ -138,8 +138,8 @@ public class RequestToDataConverter {
     }
 
     public EditUserData toDataFromEditUser(EditUserRequest editAgencyUserRequest) {
-        Level levelByIdIfExist =null;
-        if(editAgencyUserRequest.getLevel() != null) {
+        Level levelByIdIfExist = null;
+        if (editAgencyUserRequest.getLevel() != null) {
             levelByIdIfExist = levelRepository.findByField("name", editAgencyUserRequest.getLevel());
         }
         try {
@@ -147,17 +147,17 @@ public class RequestToDataConverter {
                     .builder()
                     .id(editAgencyUserRequest.getId())
                     .companyId(editAgencyUserRequest.getCompanyId())
-                    .roleId(Objects.isNull(editAgencyUserRequest.getRoleId()) ?
-                            null : roleRepository.findByField("code", editAgencyUserRequest.getRoleId()).getId())
+                    .roleId(Objects.isNull(editAgencyUserRequest.getRoleId())
+                            ? null : roleRepository.findByField("code", editAgencyUserRequest.getRoleId()).getId())
                     .typeId(editAgencyUserRequest.getTypeId())
-                    .information(editAgencyUserRequest.getDescription())
-                    .description(editAgencyUserRequest.getInformation())
+                    .information(editAgencyUserRequest.getInformation())
+                    .description(editAgencyUserRequest.getDescription())
                     .birthDay(DateUtil.parseFromStringFormat(
                             editAgencyUserRequest.getBirthDay(), DateUtil.DATE_DDMMYYYY_PATTERN
                     ))
                     .status(editAgencyUserRequest.getStatus())
                     .star(editAgencyUserRequest.getStar())
-                    .userName(editAgencyUserRequest.getUserName())
+                    .userName(editAgencyUserRequest.getUsername())
                     .password(editAgencyUserRequest.getPassword())
                     .name(editAgencyUserRequest.getName())
                     .cvLink(editAgencyUserRequest.getCvLink())
@@ -170,14 +170,14 @@ public class RequestToDataConverter {
                     .builder()
                     .id(editAgencyUserRequest.getId())
                     .companyId(editAgencyUserRequest.getCompanyId())
-                    .roleId(Objects.isNull(editAgencyUserRequest.getRoleId()) ?
-                            null : roleRepository.findByField("code", editAgencyUserRequest.getRoleId()).getId())
+                    .roleId(Objects.isNull(editAgencyUserRequest.getRoleId())
+                            ? null : roleRepository.findByField("code", editAgencyUserRequest.getRoleId()).getId())
                     .typeId(editAgencyUserRequest.getTypeId())
-                    .information(editAgencyUserRequest.getDescription())
-                    .description(editAgencyUserRequest.getInformation())
+                    .information(editAgencyUserRequest.getInformation())
+                    .description(editAgencyUserRequest.getDescription())
                     .status(editAgencyUserRequest.getStatus())
                     .star(editAgencyUserRequest.getStar())
-                    .userName(editAgencyUserRequest.getUserName())
+                    .userName(editAgencyUserRequest.getUsername())
                     .password(editAgencyUserRequest.getPassword())
                     .name(editAgencyUserRequest.getName())
                     .cvLink(editAgencyUserRequest.getCvLink())
@@ -360,16 +360,18 @@ public class RequestToDataConverter {
                 .build();
     }
 
-    public SearchCompanyData toDataFromSearchCompany(String companyCode,
-                                                     String companyName,
-                                                     String provinceCode,
-                                                     String districtCode,
-                                                     String precinctCode,
-                                                     String information,
-                                                     EntityStatus status,
-                                                     int star,
-                                                     int page,
-                                                     int size) {
+    public SearchCompanyData toDataFromSearchCompany(
+            String companyCode,
+            String companyName,
+            String provinceCode,
+            String districtCode,
+            String precinctCode,
+            String information,
+            EntityStatus status,
+            int star,
+            int page,
+            int size
+    ) {
         return SearchCompanyData
                 .builder()
                 .companyCode(EzyStrings.isBlank(companyCode) ? null : companyCode)
@@ -385,11 +387,12 @@ public class RequestToDataConverter {
                 .build();
     }
 
-    public SearchAddressData toDataFromSearchAddress(String name,
-                                                     EntityStatus status,
-                                                     int page,
-                                                     int size) {
-        //todo: check lai, khi provinceCode ="" va cac code khac null => van tim theo type province
+    public SearchAddressData toDataFromSearchAddress(
+            String name,
+            EntityStatus status,
+            int page,
+            int size
+    ) {
         return SearchAddressData
                 .builder()
                 .name(EzyStrings.isBlank(name) ? null : name)
@@ -397,5 +400,17 @@ public class RequestToDataConverter {
                 .page(page)
                 .size(size)
                 .build();
+    }
+
+    public UserRegisterData toDataFromUserRegister(UserRegisterRequest userRegisterRequest) {
+        return UserRegisterData
+                .builder()
+                .birthDay(null)
+                .password(userRegisterRequest.getPassword())
+                .username(userRegisterRequest.getUsername())
+                .fullname(userRegisterRequest.getFullname())
+                .typeId(userTypeService.getUserTypeByCode(UserTypeCode.AGENCY).getId())
+                .build();
+
     }
 }

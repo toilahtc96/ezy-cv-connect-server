@@ -4,7 +4,6 @@ import com.ezyfox.cvconnect.constant.AddressType;
 import com.ezyfox.cvconnect.model.AddAddressData;
 import com.ezyfox.cvconnect.model.AddressData;
 import com.ezyfox.cvconnect.model.SearchAddressData;
-import com.ezyfox.cvconnect.model.SearchCompanyData;
 import com.ezyfox.cvconnect.response.AddressResponse;
 
 import java.util.List;

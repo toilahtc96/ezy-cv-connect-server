@@ -21,7 +21,7 @@ public class EditUserData {
     private String password;
     private Long typeId;
     private UserStatus status;
-    private int star;
+    private Integer star;
     private String cvLink;
     private Long levelId;
     private Integer experienceYear;

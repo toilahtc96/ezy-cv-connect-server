@@ -19,7 +19,7 @@ public class DataToEntityConverter {
 
     private final AuthenticationService authenticationService;
 
-    public User dataToUser(RegisterData registerData) {
+    public User dataToUserAdmin(RegisterData registerData) {
         return User.builder()
             .birthDay(registerData.getBirthDay())
             .name(registerData.getName())
@@ -162,6 +162,18 @@ public class DataToEntityConverter {
             .builder()
             .menuId(addMenuUserData.getMenuId())
             .userId(addMenuUserData.getUserId())
+            .build();
+    }
+
+    public User dataToUser(UserRegisterData userRegisterData) {
+        return User.builder()
+            .birthDay(userRegisterData.getBirthDay())
+            .name(userRegisterData.getName())
+            .username(userRegisterData.getUsername())
+            .password(EzySHA256.cryptUtfToLowercase(userRegisterData.getPassword()))
+            .typeId(userRegisterData.getTypeId())
+            .status(UserStatus.ACTIVED)
+            .createdTime(LocalDateTime.now())
             .build();
     }
 }

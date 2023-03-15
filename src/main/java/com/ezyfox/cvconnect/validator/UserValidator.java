@@ -4,6 +4,7 @@ import com.ezyfox.cvconnect.constant.UserStatus;
 import com.ezyfox.cvconnect.entity.User;
 import com.ezyfox.cvconnect.model.LoginData;
 import com.ezyfox.cvconnect.model.RegisterData;
+import com.ezyfox.cvconnect.model.UserRegisterData;
 import com.ezyfox.cvconnect.repository.UserRepository;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import com.tvd12.ezyfox.io.EzyStrings;
@@ -96,9 +97,15 @@ public class UserValidator {
         return userLogin;
     }
 
-    public void validateUserRegister(RegisterData registerData) {
+    public void validateUserAdminRegister(RegisterData registerData) {
         validRegisterRequest(registerData);
         User userByUsername = userRepository.findByField("username", registerData.getUsername());
+        validUsername(userByUsername);
+    }
+
+    public void validateUserRegister(UserRegisterData userRegisterData) {
+        validUserRegisterRequest(userRegisterData);
+        User userByUsername = userRepository.findByField("username", userRegisterData.getUsername());
         validUsername(userByUsername);
     }
 
@@ -113,4 +120,23 @@ public class UserValidator {
     //        }
     //    }
     //}
+
+    public void validUserRegisterRequest(UserRegisterData userRegisterData) {
+        Map<String, String> errors = new HashMap<>();
+        //if (EzyStrings.isBlank(registerData.getName())) {
+        //    errors.put("name", "required");
+        //}
+        if (EzyStrings.isBlank(userRegisterData.getUsername())) {
+            errors.put("username", "required");
+        }
+        if (EzyStrings.isBlank(userRegisterData.getPassword())) {
+            errors.put("password", "required");
+        }
+        if (userRegisterData.getTypeId() == null) {
+            errors.put("type_id", "required");
+        }
+        if (errors.size() > 0) {
+            throw new HttpBadRequestException(errors);
+        }
+    }
 }

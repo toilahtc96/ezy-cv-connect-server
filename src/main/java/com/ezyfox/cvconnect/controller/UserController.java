@@ -4,10 +4,10 @@ import com.ezyfox.cvconnect.constant.EntityStatus;
 import com.ezyfox.cvconnect.constant.LevelName;
 import com.ezyfox.cvconnect.constant.UserTypeCode;
 import com.ezyfox.cvconnect.converter.RequestToDataConverter;
-import com.ezyfox.cvconnect.entity.UserType;
 import com.ezyfox.cvconnect.model.SearchUserData;
 import com.ezyfox.cvconnect.request.EditUserRequest;
 import com.ezyfox.cvconnect.response.UserResponse;
+import com.ezyfox.cvconnect.service.AuthenticationService;
 import com.ezyfox.cvconnect.service.UserService;
 import com.sun.istack.Nullable;
 import com.tvd12.ezyhttp.core.response.ResponseEntity;
@@ -23,6 +23,7 @@ public class UserController {
 
     private final UserService userService;
     private final RequestToDataConverter requestToDataConverter;
+    private final AuthenticationService authenticationService;
 
 
     @DoGet("/get-page")
@@ -64,5 +65,10 @@ public class UserController {
     public ResponseEntity editUser(@RequestBody EditUserRequest editUserRequest) {
         userService.editUser(requestToDataConverter.toDataFromEditUser(editUserRequest));
         return ResponseEntity.noContent();
+    }
+
+    @DoGet("/get-user-by-token")
+    public UserResponse getByToken(@RequestParam("accessToken") String accessToken) {
+        return userService.getByToken(accessToken);
     }
 }

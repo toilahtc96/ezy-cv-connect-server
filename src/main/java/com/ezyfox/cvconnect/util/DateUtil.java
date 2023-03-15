@@ -11,6 +11,9 @@ public final class DateUtil {
     public static final String DATE_DDMMYYYY_PATTERN = "dd/MM/yyyy";
 
     public static Date parseFromStringFormat(String date, String parttern) throws ParseException {
+        if (date == null) {
+            return null;
+        }
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(parttern);
         return simpleDateFormat.parse(date);
     }
