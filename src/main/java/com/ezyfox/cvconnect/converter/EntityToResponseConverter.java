@@ -24,6 +24,8 @@ public class EntityToResponseConverter {
     private final LevelRepository levelRepository;
     private final AddressRepository addressRepository;
 
+    private final CareerRepository careerRepository;
+
     public AddressResponse toResponse(Address address) {
         return AddressResponse
                 .builder()
@@ -44,6 +46,25 @@ public class EntityToResponseConverter {
                 .id(role.getId())
                 .code(role.getCode())
                 .status(role.getStatus())
+                .build();
+    }
+
+    public CareerResponse toResponse(Career career) {
+        return CareerResponse
+                .builder()
+                .name(career.getName())
+                .id(career.getId())
+                .status(career.getStatus())
+                .build();
+    }
+
+    public JobTypeResponse toResponse(JobType jobType) {
+        return JobTypeResponse
+                .builder()
+                .name(jobType.getName())
+                .id(jobType.getId())
+                .description(jobType.getDescription())
+                .status(jobType.getStatus())
                 .build();
     }
 
@@ -229,6 +250,34 @@ public class EntityToResponseConverter {
                 .status(address.getStatus())
                 .parentId(address.getParentId())
                 .parentName(parent != null ? parent.getName() : "")
+                .build();
+    }
+
+
+    public List<CareerResponse> toListCareerResponse(List<Career> careers) {
+        return careers.stream().map(this::toResponse).collect(Collectors.toList());
+    }
+
+    public CareerResponse toCareerResponse(Career career) {
+        return CareerResponse
+            .builder()
+            .id(career.getId())
+            .name(career.getName())
+            .status(career.getStatus())
+            .build();
+    }
+
+    public List<JobTypeResponse> toListJobTypeResponse(List<JobType> jobTypes) {
+        return jobTypes.stream().map(this::toResponse).collect(Collectors.toList());
+    }
+
+    public JobTypeResponse toJobTypeResponse(JobType jobType) {
+        return JobTypeResponse
+                .builder()
+                .id(jobType.getId())
+                .name(jobType.getName())
+                .description(jobType.getDescription())
+                .status(jobType.getStatus())
                 .build();
     }
 }

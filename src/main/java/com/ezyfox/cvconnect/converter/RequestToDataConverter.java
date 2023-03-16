@@ -411,6 +411,7 @@ public class RequestToDataConverter {
                 .fullname(userRegisterRequest.getFullname())
                 .typeId(userTypeService.getUserTypeByCode(UserTypeCode.AGENCY).getId())
                 .build();
-
     }
+
+
 }

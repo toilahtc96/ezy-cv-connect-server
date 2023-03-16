@@ -8,7 +8,7 @@ import com.ezyfox.cvconnect.entity.*;
 import com.ezyfox.cvconnect.model.*;
 import com.ezyfox.cvconnect.service.AuthenticationService;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
-import com.tvd12.ezyfox.sercurity.EzySHA256;
+import com.tvd12.ezyfox.security.EzySHA256;
 import lombok.AllArgsConstructor;
 
 import java.time.LocalDateTime;
@@ -175,5 +175,22 @@ public class DataToEntityConverter {
             .status(UserStatus.ACTIVED)
             .createdTime(LocalDateTime.now())
             .build();
+    }
+
+    public Career dataToCareer(AddCareerData addCareerData) {
+        return Career.builder()
+            .name(addCareerData.getName())
+            .status(addCareerData.getStatus())
+            .createdTime(LocalDateTime.now())
+            .build();
+    }
+
+    public JobType dataToJobType(AddJobTypeData addJobTypeData) {
+        return JobType.builder()
+                .name(addJobTypeData.getName())
+                .status(addJobTypeData.getStatus())
+                .description(addJobTypeData.getDescription())
+                .createdTime(LocalDateTime.now())
+                .build();
     }
 }

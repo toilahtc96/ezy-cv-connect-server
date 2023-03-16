@@ -2,7 +2,7 @@ package com.ezyfox.cvconnect.converter;
 
 import com.ezyfox.cvconnect.entity.AccessToken;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
-import com.tvd12.ezyfox.sercurity.EzySHA256;
+import com.tvd12.ezyfox.security.EzySHA256;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

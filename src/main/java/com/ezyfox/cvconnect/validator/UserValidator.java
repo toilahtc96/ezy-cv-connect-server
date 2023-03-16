@@ -8,7 +8,7 @@ import com.ezyfox.cvconnect.model.UserRegisterData;
 import com.ezyfox.cvconnect.repository.UserRepository;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import com.tvd12.ezyfox.io.EzyStrings;
-import com.tvd12.ezyfox.sercurity.EzySHA256;
+import com.tvd12.ezyfox.security.EzySHA256;
 import com.tvd12.ezyhttp.core.exception.HttpBadRequestException;
 import com.tvd12.ezyhttp.core.exception.HttpNotFoundException;
 import lombok.AllArgsConstructor;
