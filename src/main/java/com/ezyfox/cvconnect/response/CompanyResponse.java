@@ -1,5 +1,6 @@
 package com.ezyfox.cvconnect.response;
 
+import com.ezyfox.cvconnect.constant.EntityStatus;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -14,5 +15,5 @@ public class CompanyResponse {
     private String information;
     private String name;
     private int star;
-    private String status;
+    private EntityStatus status;
 }

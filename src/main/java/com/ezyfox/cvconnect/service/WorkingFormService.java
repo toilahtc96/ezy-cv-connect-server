@@ -1,28 +1,31 @@
 package com.ezyfox.cvconnect.service;
 
-import com.ezyfox.cvconnect.model.AddJobTypeData;
-import com.ezyfox.cvconnect.model.AddJobTypeData;
-import com.ezyfox.cvconnect.model.JobTypeData;
-import com.ezyfox.cvconnect.response.JobTypeResponse;
+import com.ezyfox.cvconnect.model.AddWorkingFormData;
+import com.ezyfox.cvconnect.model.SearchWorkingFormData;
+import com.ezyfox.cvconnect.model.WorkingFormData;
+import com.ezyfox.cvconnect.response.WorkingFormResponse;
 
 import java.util.List;
+import java.util.Map;
 
-public interface JobTypeService {
+public interface WorkingFormService {
 
-    void addJobType(AddJobTypeData jobTypeData);
+    void addWorkingForm(AddWorkingFormData workingFormData);
 
-    void editJobType(JobTypeData jobTypeData);
+    void editWorkingForm(WorkingFormData workingFormData);
 
-    List<JobTypeResponse> getJobTypeByCodeActive(String code);
+    List<WorkingFormResponse> getWorkingFormByCodeActive(String code);
 
-    List<JobTypeResponse> getJobTypeByNameActive(String name);
+    List<WorkingFormResponse> getWorkingFormByNameActive(String name);
 
-    List<JobTypeResponse> getAllJobTypeActive();
+    List<WorkingFormResponse> getAllWorkingFormActive();
 
-    List<JobTypeResponse> getAllJobType();
+    List<WorkingFormResponse> getAllWorkingForm();
 
-    List<JobTypeResponse> getPaging(int page, int size);
+    List<WorkingFormResponse> getPaging(int page, int size);
 
-    JobTypeResponse getById(long id);
+    WorkingFormResponse getById(long id);
+
+    Map<String, Object> getByField(SearchWorkingFormData searchWorkingFormData);
 
 }

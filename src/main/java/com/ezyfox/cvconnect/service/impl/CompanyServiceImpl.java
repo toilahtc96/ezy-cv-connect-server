@@ -47,8 +47,8 @@ public class CompanyServiceImpl implements CompanyServie {
         companyFromId.setDistrictCode(editCompanyData.getDistrictCode());
         companyFromId.setPrecinctCode(editCompanyData.getPrecinctCode());
         companyFromId.setStar(editCompanyData.getStar());
-        companyFromId.setStatus(editCompanyData.getStatus().name());
         companyFromId.setInformation(editCompanyData.getInformation());
+        companyFromId.setStatus(editCompanyData.getStatus());
         companyRepository.save(companyFromId);
     }
 
@@ -149,6 +149,7 @@ public class CompanyServiceImpl implements CompanyServie {
                         searchCompanyData.getProvinceCode(),
                         searchCompanyData.getDistrictCode(),
                         searchCompanyData.getPrecinctCode(),
+                        searchCompanyData.getStatus(),
                         searchCompanyData.getSize(),
                         skip
                 )
@@ -160,7 +161,8 @@ public class CompanyServiceImpl implements CompanyServie {
                 searchCompanyData.getCompanyCode(),
                 searchCompanyData.getProvinceCode(),
                 searchCompanyData.getDistrictCode(),
-                searchCompanyData.getPrecinctCode()
+                searchCompanyData.getPrecinctCode(),
+                searchCompanyData.getStatus()
         );
         mapData.put("data", listData);
         mapData.put("total", totalElementByField);

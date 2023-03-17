@@ -68,6 +68,16 @@ public class EntityToResponseConverter {
                 .build();
     }
 
+    public WorkingFormResponse toResponse(WorkingForm workingForm) {
+        return WorkingFormResponse
+                .builder()
+                .name(workingForm.getName())
+                .id(workingForm.getId())
+                .description(workingForm.getDescription())
+                .status(workingForm.getStatus())
+                .build();
+    }
+
     public List<RoleResponse> toListRoleResponse(List<Role> roles) {
         return roles.stream().map(this::toResponse).collect(Collectors.toList());
     }
@@ -278,6 +288,20 @@ public class EntityToResponseConverter {
                 .name(jobType.getName())
                 .description(jobType.getDescription())
                 .status(jobType.getStatus())
+                .build();
+    }
+
+    public List<WorkingFormResponse> toListWorkingFormResponse(List<WorkingForm> workingForms) {
+        return workingForms.stream().map(this::toResponse).collect(Collectors.toList());
+    }
+
+    public WorkingFormResponse toWorkingFormResponse(WorkingForm workingForm) {
+        return WorkingFormResponse
+                .builder()
+                .id(workingForm.getId())
+                .name(workingForm.getName())
+                .description(workingForm.getDescription())
+                .status(workingForm.getStatus())
                 .build();
     }
 }

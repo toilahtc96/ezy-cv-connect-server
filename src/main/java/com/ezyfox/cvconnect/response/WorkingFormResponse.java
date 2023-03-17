@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Builder
 @Getter
-public class JobTypeResponse {
+public class WorkingFormResponse {
     private long id;
     private String name;
     private String description;

@@ -1,32 +1,38 @@
 package com.ezyfox.cvconnect.converter;
 
-import com.ezyfox.cvconnect.model.AddJobTypeData;
-import com.ezyfox.cvconnect.model.JobTypeData;
-import com.ezyfox.cvconnect.request.AddJobTypeRequest;
-import com.ezyfox.cvconnect.request.JobTypeRequest;
+import com.ezyfox.cvconnect.constant.EntityStatus;
+import com.ezyfox.cvconnect.model.AddWorkingFormData;
+import com.ezyfox.cvconnect.model.SearchWorkingFormData;
+import com.ezyfox.cvconnect.model.WorkingFormData;
+import com.ezyfox.cvconnect.request.AddWorkingFormRequest;
+import com.ezyfox.cvconnect.request.WorkingFormRequest;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import lombok.AllArgsConstructor;
 
 @EzySingleton
 @AllArgsConstructor
-public class JobTypeRequestToDataConverter {
+public class WorkingFormRequestToDataConverter {
 
-    public JobTypeData toDataFromEditJobType(JobTypeRequest editJobTypeRequest) {
-        return JobTypeData
+    public WorkingFormData toDataFromEditWorkingForm(WorkingFormRequest editWorkingFormRequest) {
+        return WorkingFormData
                 .builder()
-                .id(editJobTypeRequest.getId())
-                .name(editJobTypeRequest.getName())
-                .description(editJobTypeRequest.getDescription())
-                .status(editJobTypeRequest.getStatus())
+                .id(editWorkingFormRequest.getId())
+                .name(editWorkingFormRequest.getName())
+                .description(editWorkingFormRequest.getDescription())
+                .status(editWorkingFormRequest.getStatus())
                 .build();
     }
 
-    public AddJobTypeData toDataFromAddJobType(AddJobTypeRequest addJobTypeRequest) {
-        return AddJobTypeData
+    public AddWorkingFormData toDataFromAddWorkingForm(AddWorkingFormRequest addWorkingFormRequest) {
+        return AddWorkingFormData
                 .builder()
-                .name(addJobTypeRequest.getName())
-                .description(addJobTypeRequest.getDescription())
-                .status(addJobTypeRequest.getStatus())
+                .name(addWorkingFormRequest.getName())
+                .description(addWorkingFormRequest.getDescription())
+                .status(addWorkingFormRequest.getStatus())
                 .build();
+    }
+
+    public SearchWorkingFormData toDataFromSearchWorkingForm(String name, int page, int size) {
+        return SearchWorkingFormData.builder().name(name).page(page).size(size).build();
     }
 }

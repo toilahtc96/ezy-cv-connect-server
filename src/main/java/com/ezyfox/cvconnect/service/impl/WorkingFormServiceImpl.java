@@ -3,90 +3,113 @@ package com.ezyfox.cvconnect.service.impl;
 import com.ezyfox.cvconnect.constant.EntityStatus;
 import com.ezyfox.cvconnect.converter.DataToEntityConverter;
 import com.ezyfox.cvconnect.converter.EntityToResponseConverter;
-import com.ezyfox.cvconnect.entity.JobType;
+import com.ezyfox.cvconnect.entity.WorkingForm;
 import com.ezyfox.cvconnect.exception.ResourceNotFoundException;
-import com.ezyfox.cvconnect.model.AddJobTypeData;
-import com.ezyfox.cvconnect.model.JobTypeData;
-import com.ezyfox.cvconnect.repository.JobTypeRepository;
-import com.ezyfox.cvconnect.repository.JobTypeRepository;
-import com.ezyfox.cvconnect.response.JobTypeResponse;
-import com.ezyfox.cvconnect.service.JobTypeService;
-import com.ezyfox.cvconnect.service.JobTypeService;
+import com.ezyfox.cvconnect.model.AddWorkingFormData;
+import com.ezyfox.cvconnect.model.SearchWorkingFormData;
+import com.ezyfox.cvconnect.model.WorkingFormData;
+import com.ezyfox.cvconnect.repository.WorkingFormRepository;
+import com.ezyfox.cvconnect.response.CompanyResponse;
+import com.ezyfox.cvconnect.response.WorkingFormResponse;
+import com.ezyfox.cvconnect.service.WorkingFormService;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import lombok.AllArgsConstructor;
 
+import java.math.BigInteger;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @EzySingleton
 @AllArgsConstructor
-public class JobTypeServiceImpl implements JobTypeService {
+public class WorkingFormServiceImpl implements WorkingFormService {
 
-    private final JobTypeRepository jobTypeRepository;
+    private final WorkingFormRepository workingFormRepository;
     private final DataToEntityConverter dataToEntityConverter;
     private final EntityToResponseConverter entityToResponseConverter;
 
 
     @Override
-    public void addJobType(AddJobTypeData jobTypeData) {
-        JobType jobType = dataToEntityConverter.dataToJobType(jobTypeData);
-        jobTypeRepository.save(jobType);
+    public void addWorkingForm(AddWorkingFormData workingFormData) {
+        WorkingForm workingForm = dataToEntityConverter.dataToWorkingForm(workingFormData);
+        workingFormRepository.save(workingForm);
     }
 
     @Override
-    public void editJobType(JobTypeData jobTypeData) {
-        JobType jobTypeById = jobTypeRepository.findById(jobTypeData.getId());
-        if (jobTypeById == null) {
-            throw new ResourceNotFoundException("JobType By Id");
+    public void editWorkingForm(WorkingFormData workingFormData) {
+        WorkingForm workingFormById = workingFormRepository.findById(workingFormData.getId());
+        if (workingFormById == null) {
+            throw new ResourceNotFoundException("WorkingForm By Id");
         }
-        if (jobTypeData.getName() != null) {
-            jobTypeById.setName(jobTypeData.getName());
+        if (workingFormData.getName() != null) {
+            workingFormById.setName(workingFormData.getName());
         }
-        jobTypeById.setStatus(jobTypeData.getStatus());
-        jobTypeById.setUpdatedTime(LocalDateTime.now());
-        jobTypeById.setDescription(jobTypeData.getDescription());
-        jobTypeRepository.save(jobTypeById);
+        workingFormById.setStatus(workingFormData.getStatus());
+        workingFormById.setUpdatedTime(LocalDateTime.now());
+        workingFormById.setDescription(workingFormData.getDescription());
+        workingFormRepository.save(workingFormById);
     }
 
     @Override
-    public List<JobTypeResponse> getJobTypeByCodeActive(String code) {
-        return entityToResponseConverter.toListJobTypeResponse(
-                jobTypeRepository.getJobTypeByCodeAndStatus(code, EntityStatus.ACTIVED)
+    public List<WorkingFormResponse> getWorkingFormByCodeActive(String code) {
+        return entityToResponseConverter.toListWorkingFormResponse(
+                workingFormRepository.getWorkingFormByCodeAndStatus(code, EntityStatus.ACTIVED)
         );
     }
 
     @Override
-    public List<JobTypeResponse> getJobTypeByNameActive(String name) {
-        return entityToResponseConverter.toListJobTypeResponse(
-                jobTypeRepository.getJobTypeByNameAndStatus(name, EntityStatus.ACTIVED)
+    public List<WorkingFormResponse> getWorkingFormByNameActive(String name) {
+        return entityToResponseConverter.toListWorkingFormResponse(
+                workingFormRepository.getWorkingFormByNameAndStatus(name, EntityStatus.ACTIVED)
         );
     }
 
     @Override
-    public List<JobTypeResponse> getAllJobTypeActive() {
-        return entityToResponseConverter.toListJobTypeResponse(
-                jobTypeRepository.getAllJobTypeByStatus(EntityStatus.ACTIVED)
+    public List<WorkingFormResponse> getAllWorkingFormActive() {
+        return entityToResponseConverter.toListWorkingFormResponse(
+                workingFormRepository.getAllWorkingFormByStatus(EntityStatus.ACTIVED)
         );
     }
 
     @Override
-    public List<JobTypeResponse> getAllJobType() {
-        return entityToResponseConverter.toListJobTypeResponse(jobTypeRepository.getAllJobType());
+    public List<WorkingFormResponse> getAllWorkingForm() {
+        return entityToResponseConverter.toListWorkingFormResponse(workingFormRepository.getAllWorkingForm());
     }
 
     @Override
-    public List<JobTypeResponse> getPaging(int page, int size) {
+    public List<WorkingFormResponse> getPaging(int page, int size) {
         int skip = page * size;
-        return jobTypeRepository
+        return workingFormRepository
                 .findAll(skip, size)
                 .stream()
-                .map(entityToResponseConverter::toJobTypeResponse)
+                .map(entityToResponseConverter::toWorkingFormResponse)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public JobTypeResponse getById(long id) {
-        return entityToResponseConverter.toJobTypeResponse(jobTypeRepository.findById(id));
+    public WorkingFormResponse getById(long id) {
+        return entityToResponseConverter.toWorkingFormResponse(workingFormRepository.findById(id));
+    }
+
+    @Override
+    public Map<String, Object> getByField(SearchWorkingFormData searchWorkingFormData) {
+        int skip = searchWorkingFormData.getPage() * searchWorkingFormData.getSize();
+        Map<String, Object> mapData = new HashMap<>();
+        List<WorkingFormResponse> listData = workingFormRepository.searchWorkingForm(
+                        searchWorkingFormData.getName(),
+                        searchWorkingFormData.getSize(),
+                        skip
+                )
+                .stream()
+                .map(entityToResponseConverter::toWorkingFormResponse)
+                .collect(Collectors.toList());
+        BigInteger totalElementByField = workingFormRepository.totalSearchWorkingForm(
+                searchWorkingFormData.getName()
+        );
+        mapData.put("data", listData);
+        mapData.put("total", totalElementByField);
+        return mapData;
     }
 }

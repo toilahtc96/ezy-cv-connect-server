@@ -21,7 +21,6 @@ public class WorkingForm extends CommonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String code;
     private String name;
     private String description;
     @Enumerated(EnumType.STRING)

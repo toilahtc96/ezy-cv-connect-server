@@ -84,28 +84,30 @@ public class CompanyController {
     }
 
     @DoGet("/get-by-field")
-    public Map<String, Object> getByField(@RequestParam("companyName") String companyName,
-                                         @RequestParam("companyCode") String companyCode,
-                                         @RequestParam("provinceCode") String provinceCode,
-                                         @RequestParam("districtCode") String districtCode,
-                                         @RequestParam("precinctCode") String precinctCode,
-                                         @RequestParam("star") int star,
-                                         @RequestParam("information") String information,
-                                         @RequestParam("status") EntityStatus status,
-                                         @RequestParam("page") int page,
-                                         @RequestParam("size") int size) {
+    public Map<String, Object> getByField(
+        @RequestParam("companyName") String companyName,
+        @RequestParam("companyCode") String companyCode,
+        @RequestParam("provinceCode") String provinceCode,
+        @RequestParam("districtCode") String districtCode,
+        @RequestParam("precinctCode") String precinctCode,
+        @RequestParam("star") int star,
+        @RequestParam("information") String information,
+        @RequestParam("status") EntityStatus status,
+        @RequestParam("page") int page,
+        @RequestParam("size") int size
+    ) {
         return companyServie.getByField(requestToDataConverter
-                .toDataFromSearchCompany(
-                        companyCode == null ? "" : companyCode.trim(),
-                        companyName == null ? "" :  companyName.trim(),
-                        provinceCode == null ? "" : provinceCode.trim(),
-                        districtCode == null ? "" : districtCode.trim(),
-                        precinctCode == null ? "" : precinctCode.trim(),
-                        information == null ? "" : information.trim(),
-                        status,
-                        star,
-                        page,
-                        size
-                ));
+            .toDataFromSearchCompany(
+                companyCode == null ? "" : companyCode.trim(),
+                companyName == null ? "" : companyName.trim(),
+                provinceCode == null ? "" : provinceCode.trim(),
+                districtCode == null ? "" : districtCode.trim(),
+                precinctCode == null ? "" : precinctCode.trim(),
+                information == null ? "" : information.trim(),
+                status,
+                star,
+                page,
+                size
+            ));
     }
 }

@@ -138,7 +138,7 @@ public class DataToEntityConverter {
             .information(addCompanyData.getInformation())
             .name(addCompanyData.getName())
             .star(addCompanyData.getStar())
-            .status(EntityStatus.ACTIVED.name())
+            .status(EntityStatus.ACTIVED)
             .createdTime(now)
             .build();
     }
@@ -190,6 +190,15 @@ public class DataToEntityConverter {
                 .name(addJobTypeData.getName())
                 .status(addJobTypeData.getStatus())
                 .description(addJobTypeData.getDescription())
+                .createdTime(LocalDateTime.now())
+                .build();
+    }
+
+    public WorkingForm dataToWorkingForm(AddWorkingFormData addWorkingFormData) {
+        return WorkingForm.builder()
+                .name(addWorkingFormData.getName())
+                .status(addWorkingFormData.getStatus())
+                .description(addWorkingFormData.getDescription())
                 .createdTime(LocalDateTime.now())
                 .build();
     }

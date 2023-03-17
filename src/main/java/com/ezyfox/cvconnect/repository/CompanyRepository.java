@@ -38,14 +38,16 @@ public interface CompanyRepository extends EzyDatabaseRepository<Long, Company> 
             " (?1 is null OR e.code like concat('%',?1,'%') ) and " +
             " (?2 is null OR e.province_code = ?2 ) and  " +
             " (?3 is null OR e.district_code = ?3  ) and " +
-            " (?4 is null OR e.precinct_code = ?4  ) " +
-            " limit ?5 offset ?6 ", nativeQuery = true)
+            " (?4 is null OR e.precinct_code = ?4  ) and " +
+            " (?5 is null OR e.status = ?5  )  " +
+            " limit ?6 offset ?7 ", nativeQuery = true)
     List<Company> searchCompany(
             String companyName,
             String companyCode,
             String provinceCode,
             String districtCode,
             String precinctCode,
+            EntityStatus status,
             int size,
             int skip
             );
@@ -55,12 +57,14 @@ public interface CompanyRepository extends EzyDatabaseRepository<Long, Company> 
             " (?1 is null OR e.code like concat('%',?1,'%') ) and " +
             " (?2 is null OR e.province_code = ?2 ) and  " +
             " (?3 is null OR e.district_code = ?3  ) and " +
-            " (?4 is null OR e.precinct_code = ?4  ) ", nativeQuery = true)
+            " (?4 is null OR e.precinct_code = ?4  ) and " +
+            " (?5 is null OR e.status = ?5  )  " , nativeQuery = true)
     BigInteger totalSearchCompany(
             String companyName,
             String companyCode,
             String provinceCode,
             String districtCode,
-            String precinctCode
+            String precinctCode,
+            EntityStatus status
     );
 }

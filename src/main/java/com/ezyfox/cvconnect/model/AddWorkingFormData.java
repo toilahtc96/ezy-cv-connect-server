@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Builder
 @Getter
-public class AddJobTypeData {
+public class AddWorkingFormData {
     private String name;
     private String description;
     private EntityStatus status;
