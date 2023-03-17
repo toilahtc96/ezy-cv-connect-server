@@ -7,14 +7,19 @@ import com.ezyfox.cvconnect.entity.Career;
 import com.ezyfox.cvconnect.exception.ResourceNotFoundException;
 import com.ezyfox.cvconnect.model.AddCareerData;
 import com.ezyfox.cvconnect.model.CareerData;
+import com.ezyfox.cvconnect.model.SearchCareerData;
 import com.ezyfox.cvconnect.repository.CareerRepository;
 import com.ezyfox.cvconnect.response.CareerResponse;
+import com.ezyfox.cvconnect.response.JobTypeResponse;
 import com.ezyfox.cvconnect.service.CareerService;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import lombok.AllArgsConstructor;
 
+import java.math.BigInteger;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @EzySingleton
@@ -85,5 +90,25 @@ public class CareerServiceImpl implements CareerService {
     @Override
     public CareerResponse getById(long id) {
         return entityToResponseConverter.toCareerResponse(careerRepository.findById(id));
+    }
+
+    @Override
+    public Map<String, Object> getByField(SearchCareerData searchCareerData) {
+        int skip = searchCareerData.getPage() * searchCareerData.getSize();
+        Map<String, Object> mapData = new HashMap<>();
+        List<CareerResponse> listData = careerRepository.searchCareer(
+                searchCareerData.getName(),
+                searchCareerData.getSize(),
+                skip
+            )
+            .stream()
+            .map(entityToResponseConverter::toCareerResponse)
+            .collect(Collectors.toList());
+        BigInteger totalElementByField = careerRepository.totalSearchCareer(
+            searchCareerData.getName()
+        );
+        mapData.put("data", listData);
+        mapData.put("total", totalElementByField);
+        return mapData;
     }
 }

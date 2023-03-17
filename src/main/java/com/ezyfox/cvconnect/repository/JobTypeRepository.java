@@ -23,7 +23,6 @@ public interface JobTypeRepository extends EzyDatabaseRepository<Long, JobType> 
 
     List<JobType> getAllJobType();
 
-
     @EzyQuery(value = "select * from job_type e where 1 = 1 and " +
         " (?0 is null OR e.name like concat('%',?0,'%')) " +
         " limit ?1 offset ?2 ", nativeQuery = true)

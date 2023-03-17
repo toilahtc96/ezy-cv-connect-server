@@ -2,6 +2,8 @@ package com.ezyfox.cvconnect.converter;
 
 import com.ezyfox.cvconnect.model.AddCareerData;
 import com.ezyfox.cvconnect.model.CareerData;
+import com.ezyfox.cvconnect.model.SearchCareerData;
+import com.ezyfox.cvconnect.model.SearchJobTypeData;
 import com.ezyfox.cvconnect.request.AddCareerRequest;
 import com.ezyfox.cvconnect.request.CareerRequest;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
@@ -26,5 +28,9 @@ public class CareerRequestToDataConverter {
                 .name(addCareerRequest.getName())
                 .status(addCareerRequest.getStatus())
                 .build();
+    }
+
+    public SearchCareerData toDataFromSearchCareer(String name, int page, int size) {
+        return SearchCareerData.builder().name(name).page(page).size(size).build();
     }
 }
