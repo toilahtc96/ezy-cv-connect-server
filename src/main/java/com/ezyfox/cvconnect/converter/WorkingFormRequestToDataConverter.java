@@ -1,6 +1,5 @@
 package com.ezyfox.cvconnect.converter;
 
-import com.ezyfox.cvconnect.constant.EntityStatus;
 import com.ezyfox.cvconnect.model.AddWorkingFormData;
 import com.ezyfox.cvconnect.model.SearchWorkingFormData;
 import com.ezyfox.cvconnect.model.WorkingFormData;

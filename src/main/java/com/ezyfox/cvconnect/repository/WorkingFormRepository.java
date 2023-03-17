@@ -1,8 +1,6 @@
 package com.ezyfox.cvconnect.repository;
 
 import com.ezyfox.cvconnect.constant.EntityStatus;
-import com.ezyfox.cvconnect.entity.Company;
-import com.ezyfox.cvconnect.entity.JobType;
 import com.ezyfox.cvconnect.entity.WorkingForm;
 import com.tvd12.ezydata.database.EzyDatabaseRepository;
 import com.tvd12.ezyfox.database.annotation.EzyQuery;

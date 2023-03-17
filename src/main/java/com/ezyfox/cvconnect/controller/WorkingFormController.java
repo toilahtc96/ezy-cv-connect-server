@@ -1,6 +1,5 @@
 package com.ezyfox.cvconnect.controller;
 
-import com.ezyfox.cvconnect.constant.EntityStatus;
 import com.ezyfox.cvconnect.converter.WorkingFormRequestToDataConverter;
 import com.ezyfox.cvconnect.model.AddWorkingFormData;
 import com.ezyfox.cvconnect.model.WorkingFormData;
@@ -12,7 +11,6 @@ import com.tvd12.ezyhttp.core.response.ResponseEntity;
 import com.tvd12.ezyhttp.server.core.annotation.*;
 import lombok.AllArgsConstructor;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,14 +24,16 @@ public class WorkingFormController {
 
     @DoPost("/add")
     public ResponseEntity addWorkingForm(@RequestBody AddWorkingFormRequest addWorkingFormRequest) {
-        AddWorkingFormData addWorkingFormData = workingFormRequestToDataConverter.toDataFromAddWorkingForm(addWorkingFormRequest);
+        AddWorkingFormData addWorkingFormData = workingFormRequestToDataConverter
+            .toDataFromAddWorkingForm(addWorkingFormRequest);
         workingFormService.addWorkingForm(addWorkingFormData);
         return ResponseEntity.noContent();
     }
 
     @DoPost("/edit")
     public ResponseEntity editWorkingForm(@RequestBody WorkingFormRequest editWorkingFormRequest) {
-        WorkingFormData workingFormData = workingFormRequestToDataConverter.toDataFromEditWorkingForm(editWorkingFormRequest);
+        WorkingFormData workingFormData = workingFormRequestToDataConverter
+            .toDataFromEditWorkingForm(editWorkingFormRequest);
         workingFormService.editWorkingForm(workingFormData);
         return ResponseEntity.noContent();
     }

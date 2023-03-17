@@ -2,6 +2,7 @@ package com.ezyfox.cvconnect.converter;
 
 import com.ezyfox.cvconnect.model.AddJobTypeData;
 import com.ezyfox.cvconnect.model.JobTypeData;
+import com.ezyfox.cvconnect.model.SearchJobTypeData;
 import com.ezyfox.cvconnect.request.AddJobTypeRequest;
 import com.ezyfox.cvconnect.request.JobTypeRequest;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
@@ -28,5 +29,9 @@ public class JobTypeRequestToDataConverter {
                 .description(addJobTypeRequest.getDescription())
                 .status(addJobTypeRequest.getStatus())
                 .build();
+    }
+
+    public SearchJobTypeData toDataFromSearchJobType(String name, int page, int size) {
+        return SearchJobTypeData.builder().name(name).page(page).size(size).build();
     }
 }

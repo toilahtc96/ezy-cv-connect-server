@@ -9,7 +9,6 @@ import com.ezyfox.cvconnect.model.AddWorkingFormData;
 import com.ezyfox.cvconnect.model.SearchWorkingFormData;
 import com.ezyfox.cvconnect.model.WorkingFormData;
 import com.ezyfox.cvconnect.repository.WorkingFormRepository;
-import com.ezyfox.cvconnect.response.CompanyResponse;
 import com.ezyfox.cvconnect.response.WorkingFormResponse;
 import com.ezyfox.cvconnect.service.WorkingFormService;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;

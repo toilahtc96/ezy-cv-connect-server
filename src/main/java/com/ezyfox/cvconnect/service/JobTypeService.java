@@ -1,11 +1,11 @@
 package com.ezyfox.cvconnect.service;
 
+import com.ezyfox.cvconnect.model.*;
 import com.ezyfox.cvconnect.model.AddJobTypeData;
-import com.ezyfox.cvconnect.model.AddJobTypeData;
-import com.ezyfox.cvconnect.model.JobTypeData;
 import com.ezyfox.cvconnect.response.JobTypeResponse;
 
 import java.util.List;
+import java.util.Map;
 
 public interface JobTypeService {
 
@@ -25,4 +25,5 @@ public interface JobTypeService {
 
     JobTypeResponse getById(long id);
 
+    Map<String, Object> getByField(SearchJobTypeData searchJobTypeData);
 }

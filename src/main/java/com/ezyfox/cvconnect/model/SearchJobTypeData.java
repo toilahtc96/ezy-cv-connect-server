@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Builder
 @Getter
-public class SearchWorkingFormData {
+public class SearchJobTypeData {
     private String name;
     private int page;
     private int size;

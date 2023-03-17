@@ -7,16 +7,18 @@ import com.ezyfox.cvconnect.entity.JobType;
 import com.ezyfox.cvconnect.exception.ResourceNotFoundException;
 import com.ezyfox.cvconnect.model.AddJobTypeData;
 import com.ezyfox.cvconnect.model.JobTypeData;
-import com.ezyfox.cvconnect.repository.JobTypeRepository;
+import com.ezyfox.cvconnect.model.SearchJobTypeData;
 import com.ezyfox.cvconnect.repository.JobTypeRepository;
 import com.ezyfox.cvconnect.response.JobTypeResponse;
-import com.ezyfox.cvconnect.service.JobTypeService;
 import com.ezyfox.cvconnect.service.JobTypeService;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import lombok.AllArgsConstructor;
 
+import java.math.BigInteger;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @EzySingleton
@@ -88,5 +90,25 @@ public class JobTypeServiceImpl implements JobTypeService {
     @Override
     public JobTypeResponse getById(long id) {
         return entityToResponseConverter.toJobTypeResponse(jobTypeRepository.findById(id));
+    }
+
+    @Override
+    public Map<String, Object> getByField(SearchJobTypeData searchJobTypeData) {
+        int skip = searchJobTypeData.getPage() * searchJobTypeData.getSize();
+        Map<String, Object> mapData = new HashMap<>();
+        List<JobTypeResponse> listData = jobTypeRepository.searchJobType(
+                searchJobTypeData.getName(),
+                searchJobTypeData.getSize(),
+                skip
+            )
+            .stream()
+            .map(entityToResponseConverter::toJobTypeResponse)
+            .collect(Collectors.toList());
+        BigInteger totalElementByField = jobTypeRepository.totalSearchJobType(
+            searchJobTypeData.getName()
+        );
+        mapData.put("data", listData);
+        mapData.put("total", totalElementByField);
+        return mapData;
     }
 }

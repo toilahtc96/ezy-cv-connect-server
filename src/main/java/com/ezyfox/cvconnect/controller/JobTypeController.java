@@ -12,6 +12,7 @@ import com.tvd12.ezyhttp.server.core.annotation.*;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller("api/v1/job-type")
 @AllArgsConstructor
@@ -63,5 +64,21 @@ public class JobTypeController {
     @DoGet("/get-page")
     public List<JobTypeResponse> getPage(@RequestParam int page, @RequestParam int size) {
         return jobTypeService.getPaging(page, size);
+    }
+
+    @DoGet("/get-by-field")
+    public Map<String, Object> getByField(
+        @RequestParam("name") String name,
+        @RequestParam("page") int page,
+        @RequestParam("size") int size
+    ) {
+        return jobTypeService.getByField(
+            jobTypeRequestToDataConverter
+                .toDataFromSearchJobType(
+                    name == null ? "" : name.trim(),
+                    page,
+                    size
+                )
+        );
     }
 }
