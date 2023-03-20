@@ -55,64 +55,64 @@ public class CompanyServiceImpl implements CompanyServie {
     @Override
     public List<CompanyResponse> getByProvinceCode(String provinceCode) {
         return companyRepository
-                .getByProvinceCode(provinceCode)
-                .stream()
-                .map(entityToResponseConverter::toCompanyResponse)
-                .collect(Collectors.toList());
+            .getByProvinceCode(provinceCode)
+            .stream()
+            .map(entityToResponseConverter::toCompanyResponse)
+            .collect(Collectors.toList());
     }
 
     @Override
     public List<CompanyResponse> getByDistrictCode(String districtCode) {
         return companyRepository
-                .getByDistrictCode(districtCode)
-                .stream()
-                .map(entityToResponseConverter::toCompanyResponse)
-                .collect(Collectors.toList());
+            .getByDistrictCode(districtCode)
+            .stream()
+            .map(entityToResponseConverter::toCompanyResponse)
+            .collect(Collectors.toList());
     }
 
     @Override
     public List<CompanyResponse> getByPrecinctCode(String precinctCode) {
         return companyRepository
-                .getByPrecinctCode(precinctCode)
-                .stream()
-                .map(entityToResponseConverter::toCompanyResponse)
-                .collect(Collectors.toList());
+            .getByPrecinctCode(precinctCode)
+            .stream()
+            .map(entityToResponseConverter::toCompanyResponse)
+            .collect(Collectors.toList());
     }
 
     @Override
     public List<CompanyResponse> getByStar(int star) {
         return companyRepository
-                .getByStar(star)
-                .stream()
-                .map(entityToResponseConverter::toCompanyResponse)
-                .collect(Collectors.toList());
+            .getByStar(star)
+            .stream()
+            .map(entityToResponseConverter::toCompanyResponse)
+            .collect(Collectors.toList());
     }
 
     @Override
     public List<CompanyResponse> getByStatus(EntityStatus status) {
         return companyRepository
-                .getByStatus(status)
-                .stream()
-                .map(entityToResponseConverter::toCompanyResponse)
-                .collect(Collectors.toList());
+            .getByStatus(status)
+            .stream()
+            .map(entityToResponseConverter::toCompanyResponse)
+            .collect(Collectors.toList());
     }
 
     @Override
     public List<CompanyResponse> getByName(String name) {
         return companyRepository
-                .getByName(name)
-                .stream()
-                .map(entityToResponseConverter::toCompanyResponse)
-                .collect(Collectors.toList());
+            .getByName(name)
+            .stream()
+            .map(entityToResponseConverter::toCompanyResponse)
+            .collect(Collectors.toList());
     }
 
     @Override
     public List<CompanyResponse> getByCode(String code) {
         return companyRepository
-                .getByCode(code)
-                .stream()
-                .map(entityToResponseConverter::toCompanyResponse)
-                .collect(Collectors.toList());
+            .getByCode(code)
+            .stream()
+            .map(entityToResponseConverter::toCompanyResponse)
+            .collect(Collectors.toList());
     }
 
     @Override
@@ -123,20 +123,20 @@ public class CompanyServiceImpl implements CompanyServie {
     @Override
     public List<CompanyResponse> getAll() {
         return companyRepository
-                .findAll()
-                .stream()
-                .map(entityToResponseConverter::toCompanyResponse)
-                .collect(Collectors.toList());
+            .findAll()
+            .stream()
+            .map(entityToResponseConverter::toCompanyResponse)
+            .collect(Collectors.toList());
     }
 
     @Override
     public List<CompanyResponse> getPaging(int page, int size) {
         int skip = page * size;
         return companyRepository
-                .findAll(skip, size)
-                .stream()
-                .map(entityToResponseConverter::toCompanyResponse)
-                .collect(Collectors.toList());
+            .findAll(skip, size)
+            .stream()
+            .map(entityToResponseConverter::toCompanyResponse)
+            .collect(Collectors.toList());
     }
 
     @Override
@@ -144,25 +144,25 @@ public class CompanyServiceImpl implements CompanyServie {
         int skip = searchCompanyData.getPage() * searchCompanyData.getSize();
         Map<String, Object> mapData = new HashMap<>();
         List<CompanyResponse> listData = companyRepository.searchCompany(
-                        searchCompanyData.getCompanyName(),
-                        searchCompanyData.getCompanyCode(),
-                        searchCompanyData.getProvinceCode(),
-                        searchCompanyData.getDistrictCode(),
-                        searchCompanyData.getPrecinctCode(),
-                        searchCompanyData.getStatus(),
-                        searchCompanyData.getSize(),
-                        skip
-                )
-                .stream()
-                .map(entityToResponseConverter::toCompanyResponse)
-                .collect(Collectors.toList());
-        BigInteger totalElementByField = companyRepository.totalSearchCompany(
                 searchCompanyData.getCompanyName(),
                 searchCompanyData.getCompanyCode(),
                 searchCompanyData.getProvinceCode(),
                 searchCompanyData.getDistrictCode(),
                 searchCompanyData.getPrecinctCode(),
-                searchCompanyData.getStatus()
+                searchCompanyData.getStatus().toString(),
+                searchCompanyData.getSize(),
+                skip
+            )
+            .stream()
+            .map(entityToResponseConverter::toCompanyResponse)
+            .collect(Collectors.toList());
+        BigInteger totalElementByField = companyRepository.totalSearchCompany(
+            searchCompanyData.getCompanyName(),
+            searchCompanyData.getCompanyCode(),
+            searchCompanyData.getProvinceCode(),
+            searchCompanyData.getDistrictCode(),
+            searchCompanyData.getPrecinctCode(),
+            searchCompanyData.getStatus().toString()
         );
         mapData.put("data", listData);
         mapData.put("total", totalElementByField);
