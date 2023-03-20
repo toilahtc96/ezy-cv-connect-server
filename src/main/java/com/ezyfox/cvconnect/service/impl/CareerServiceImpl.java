@@ -10,7 +10,6 @@ import com.ezyfox.cvconnect.model.CareerData;
 import com.ezyfox.cvconnect.model.SearchCareerData;
 import com.ezyfox.cvconnect.repository.CareerRepository;
 import com.ezyfox.cvconnect.response.CareerResponse;
-import com.ezyfox.cvconnect.response.JobTypeResponse;
 import com.ezyfox.cvconnect.service.CareerService;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import lombok.AllArgsConstructor;

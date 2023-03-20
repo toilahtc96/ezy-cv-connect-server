@@ -3,7 +3,6 @@ package com.ezyfox.cvconnect.converter;
 import com.ezyfox.cvconnect.model.AddCareerData;
 import com.ezyfox.cvconnect.model.CareerData;
 import com.ezyfox.cvconnect.model.SearchCareerData;
-import com.ezyfox.cvconnect.model.SearchJobTypeData;
 import com.ezyfox.cvconnect.request.AddCareerRequest;
 import com.ezyfox.cvconnect.request.CareerRequest;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;

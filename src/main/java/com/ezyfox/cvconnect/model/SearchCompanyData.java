@@ -1,6 +1,5 @@
 package com.ezyfox.cvconnect.model;
 
-import com.ezyfox.cvconnect.constant.EntityStatus;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -12,7 +11,7 @@ public class SearchCompanyData {
     private String provinceCode;
     private String districtCode;
     private String precinctCode;
-    private EntityStatus status;
+    private String status;
     private int star;
     private String information;
     private int page;

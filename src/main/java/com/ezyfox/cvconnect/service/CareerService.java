@@ -3,7 +3,6 @@ package com.ezyfox.cvconnect.service;
 import com.ezyfox.cvconnect.model.AddCareerData;
 import com.ezyfox.cvconnect.model.CareerData;
 import com.ezyfox.cvconnect.model.SearchCareerData;
-import com.ezyfox.cvconnect.model.SearchJobTypeData;
 import com.ezyfox.cvconnect.response.CareerResponse;
 
 import java.util.List;

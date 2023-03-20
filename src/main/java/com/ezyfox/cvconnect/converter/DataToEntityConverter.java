@@ -202,4 +202,42 @@ public class DataToEntityConverter {
                 .createdTime(LocalDateTime.now())
                 .build();
     }
+
+    public Job dataToJob(AddJobData addJobData, Long userId) {
+        return Job
+            .builder()
+            .jobTypeId(addJobData.getJobTypeId())
+            .companyId(addJobData.getCompanyId())
+            .levelId(addJobData.getLevelId())
+            .careerId(addJobData.getCareerId())
+            .workingFormId(addJobData.getWorkingFormId())
+            .quantity(addJobData.getQuantity())
+            .rangeSalaryMin(addJobData.getRangeSalaryMin())
+            .rangeSalaryMax(addJobData.getRangeSalaryMax())
+            .information(addJobData.getInformation())
+            .status(addJobData.getStatus())
+            .customRange(addJobData.getCustomRange())
+            .createdTime(LocalDateTime.now())
+            .createdId(userId)
+            .build();
+    }
+
+    public Job editDataToJob(EditJobData editJobData) {
+        return Job
+            .builder()
+            .id(editJobData.getId())
+            .jobTypeId(editJobData.getJobTypeId())
+            .companyId(editJobData.getCompanyId())
+            .levelId(editJobData.getLevelId())
+            .careerId(editJobData.getCareerId())
+            .workingFormId(editJobData.getWorkingFormId())
+            .quantity(editJobData.getQuantity())
+            .rangeSalaryMin(editJobData.getRangeSalaryMin())
+            .rangeSalaryMax(editJobData.getRangeSalaryMax())
+            .information(editJobData.getInformation())
+            .status(editJobData.getStatus())
+            .customRange(editJobData.getCustomRange())
+            .updatedTime(LocalDateTime.now())
+            .build();
+    }
 }

@@ -1,5 +1,6 @@
 package com.ezyfox.cvconnect.converter;
 
+import com.ezyfox.cvconnect.constant.LevelName;
 import com.ezyfox.cvconnect.entity.Process;
 import com.ezyfox.cvconnect.entity.*;
 import com.ezyfox.cvconnect.repository.*;
@@ -25,6 +26,10 @@ public class EntityToResponseConverter {
     private final AddressRepository addressRepository;
 
     private final CareerRepository careerRepository;
+
+    private final JobTypeRepository jobTypeRepository;
+    private final WorkingFormRepository workingFormRepository;
+
 
     public AddressResponse toResponse(Address address) {
         return AddressResponse
@@ -303,5 +308,63 @@ public class EntityToResponseConverter {
                 .description(workingForm.getDescription())
                 .status(workingForm.getStatus())
                 .build();
+    }
+
+    public JobResponse toJobResponse(Job job) {
+        LevelName levelName = null;
+        String careerName = "";
+        String jobTypeName = "";
+        String companyName = "";
+        String workingFormName = "";
+        if (job.getLevelId() != null) {
+            Level level = levelRepository.findById(job.getLevelId());
+            if (level != null) {
+                levelName = level.getName();
+            }
+        }
+        if (job.getJobTypeId() != null) {
+            JobType jobTypeId = jobTypeRepository.findById(job.getJobTypeId());
+            if (jobTypeId != null) {
+                jobTypeName = jobTypeId.getName();
+            }
+        }
+        if (job.getCompanyId() != null) {
+            Company companyId = companyRepository.findById(job.getCompanyId());
+            if (companyId != null) {
+                companyName = companyId.getName();
+            }
+        }
+        if (job.getWorkingFormId() != null) {
+            WorkingForm workingFormById = workingFormRepository.findById(job.getWorkingFormId());
+            if (workingFormById != null) {
+                workingFormName = workingFormById.getName();
+            }
+        }
+        if (job.getCareerId() != null) {
+            Career careerById = careerRepository.findById(job.getCareerId());
+            if (careerById != null) {
+                careerName = careerById.getName();
+            }
+        }
+        return JobResponse
+            .builder()
+            .id(job.getId())
+            .careerId(job.getCareerId())
+            .careerName(careerName)
+            .jobTypeId(job.getJobTypeId())
+            .jobTypeName(jobTypeName)
+            .companyId(job.getCompanyId())
+            .companyName(companyName)
+            .customRange(job.getCustomRange())
+            .createdId(job.getCreatedId())
+            .quantity(job.getQuantity())
+            .rangeSalaryMin(job.getRangeSalaryMin())
+            .rangeSalaryMax(job.getRangeSalaryMax())
+            .workingFormId(job.getWorkingFormId())
+            .workingFormName(workingFormName)
+            .levelName(levelName)
+            .information(job.getInformation())
+            .status(job.getStatus())
+            .build();
     }
 }

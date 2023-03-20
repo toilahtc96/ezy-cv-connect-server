@@ -149,7 +149,7 @@ public class CompanyServiceImpl implements CompanyServie {
                 searchCompanyData.getProvinceCode(),
                 searchCompanyData.getDistrictCode(),
                 searchCompanyData.getPrecinctCode(),
-                searchCompanyData.getStatus().toString(),
+                searchCompanyData.getStatus(),
                 searchCompanyData.getSize(),
                 skip
             )
@@ -162,7 +162,7 @@ public class CompanyServiceImpl implements CompanyServie {
             searchCompanyData.getProvinceCode(),
             searchCompanyData.getDistrictCode(),
             searchCompanyData.getPrecinctCode(),
-            searchCompanyData.getStatus().toString()
+            searchCompanyData.getStatus()
         );
         mapData.put("data", listData);
         mapData.put("total", totalElementByField);
