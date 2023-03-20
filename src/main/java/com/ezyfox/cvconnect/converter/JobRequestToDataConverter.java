@@ -11,6 +11,7 @@ import com.ezyfox.cvconnect.repository.LevelRepository;
 import com.ezyfox.cvconnect.request.AddJobRequest;
 import com.ezyfox.cvconnect.request.EditJobRequest;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
+import com.tvd12.ezyhttp.server.core.annotation.RequestParam;
 import lombok.AllArgsConstructor;
 
 @EzySingleton
@@ -68,8 +69,40 @@ public class JobRequestToDataConverter {
             .build();
     }
 
-    public SearchJobData toDataFromSearchJob(String information, EntityStatus status, int page, int size) {
+    public SearchJobData toDataFromSearchJob(
+        Long jobTypeId,
+        Long companyId,
+        Double rangeSalary,
+        LevelName levelName,
+        Boolean customRange,
+        Long careerId,
+        Long workingFormId,
+        String information,
+        EntityStatus status,
+        int page,
+        int size
+    ) {
+        Long levelId = null;
+        if (levelName != null) {
+            Level level = levelRepository.getLevelByName(levelName);
+            if (level != null) {
+                levelId = level.getId();
+            }
+        }
         String statusStr = status == null ? null : status.toString();
-        return SearchJobData.builder().information(information).page(page).size(size).status(statusStr).build();
+        return SearchJobData
+            .builder()
+            .jobTypeId(jobTypeId)
+            .companyId(companyId)
+            .rangeSalary(rangeSalary)
+            .levelId(levelId)
+            .customRange(customRange)
+            .careerId(careerId)
+            .workingFormId(workingFormId)
+            .information(information)
+            .page(page)
+            .size(size)
+            .status(statusStr)
+            .build();
     }
 }

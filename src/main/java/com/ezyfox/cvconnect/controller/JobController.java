@@ -2,6 +2,7 @@ package com.ezyfox.cvconnect.controller;
 
 import com.ezyfox.cvconnect.annotation.UserId;
 import com.ezyfox.cvconnect.constant.EntityStatus;
+import com.ezyfox.cvconnect.constant.LevelName;
 import com.ezyfox.cvconnect.converter.JobRequestToDataConverter;
 import com.ezyfox.cvconnect.converter.RequestToDataConverter;
 import com.ezyfox.cvconnect.request.AddCompanyRequest;
@@ -46,6 +47,13 @@ public class JobController {
 
     @DoGet("/find-by-field")
     public Map<String, Object> getByField(
+        @RequestParam("jobTypeId") Long jobTypeId,
+        @RequestParam("companyId") Long companyId,
+        @RequestParam("rangeSalary") Double rangeSalary,
+        @RequestParam("levelName") LevelName levelName,
+        @RequestParam("customRange") Boolean customRange,
+        @RequestParam("careerId") Long careerId,
+        @RequestParam("workingFormId") Long workingFormId,
         @RequestParam("information") String information,
         @RequestParam("status") EntityStatus status,
         @RequestParam("page") int page,
@@ -53,6 +61,13 @@ public class JobController {
     ) {
         return jobService.getByField(jobRequestToDataConverter
             .toDataFromSearchJob(
+                jobTypeId,
+                companyId,
+                rangeSalary,
+                levelName,
+                customRange,
+                careerId,
+                workingFormId,
                 information == null ? "" : information.trim(),
                 status,
                 page,

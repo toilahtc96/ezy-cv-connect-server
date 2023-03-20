@@ -42,6 +42,13 @@ public class JobServiceImpl implements JobService {
         int skip = searchJobData.getPage() * searchJobData.getSize();
         Map<String, Object> mapData = new HashMap<>();
         List<JobResponse> listData = jobRepository.searchJob(
+                searchJobData.getJobTypeId(),
+                searchJobData.getCompanyId(),
+                searchJobData.getRangeSalary(),
+                searchJobData.getLevelId(),
+                searchJobData.getCustomRange(),
+                searchJobData.getCareerId(),
+                searchJobData.getWorkingFormId(),
                 searchJobData.getStatus(),
                 searchJobData.getInformation(),
                 searchJobData.getSize(),
@@ -51,6 +58,13 @@ public class JobServiceImpl implements JobService {
             .map(entityToResponseConverter::toJobResponse)
             .collect(Collectors.toList());
         BigInteger totalElementByField = jobRepository.totalSearchJob(
+            searchJobData.getJobTypeId(),
+            searchJobData.getCompanyId(),
+            searchJobData.getRangeSalary(),
+            searchJobData.getLevelId(),
+            searchJobData.getCustomRange(),
+            searchJobData.getCareerId(),
+            searchJobData.getWorkingFormId(),
             searchJobData.getStatus(),
             searchJobData.getInformation()
         );
