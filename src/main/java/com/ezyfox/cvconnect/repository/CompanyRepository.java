@@ -47,7 +47,7 @@ public interface CompanyRepository extends EzyDatabaseRepository<Long, Company> 
             String provinceCode,
             String districtCode,
             String precinctCode,
-            String status,
+            EntityStatus status,
             int size,
             int skip
             );
@@ -65,6 +65,6 @@ public interface CompanyRepository extends EzyDatabaseRepository<Long, Company> 
             String provinceCode,
             String districtCode,
             String precinctCode,
-            String status
+            EntityStatus status
     );
 }

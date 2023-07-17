@@ -170,6 +170,7 @@ public class UserServiceImpl extends EzyLoggable implements UserService {
         if (editUserData.getExperienceYear() != null) {
             user.setExperienceYear(editUserData.getExperienceYear());
         }
+        user.setAvatarUrl(editUserData.getAvatarUrl());
         userRepository.save(user);
     }
 

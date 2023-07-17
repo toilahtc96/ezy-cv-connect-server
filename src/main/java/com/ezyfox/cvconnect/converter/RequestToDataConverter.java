@@ -164,6 +164,7 @@ public class RequestToDataConverter {
                 .experienceYear(editAgencyUserRequest.getExperienceYear())
                 .userTypeCode(editAgencyUserRequest.getUserTypeCode())
                 .levelId(levelByIdIfExist != null ? levelByIdIfExist.getId() : null)
+                .avatarUrl(editAgencyUserRequest.getAvatarUrl())
                 .build();
         } catch (ParseException e) {
             return EditUserData
@@ -184,6 +185,7 @@ public class RequestToDataConverter {
                 .experienceYear(editAgencyUserRequest.getExperienceYear())
                 .userTypeCode(editAgencyUserRequest.getUserTypeCode())
                 .levelId(levelRepository.findByField("name", editAgencyUserRequest.getLevel()).getId())
+                .avatarUrl(editAgencyUserRequest.getAvatarUrl())
                 .build();
         }
     }
@@ -206,43 +208,43 @@ public class RequestToDataConverter {
             .build();
     }
 
-    public AddProcessData toDataFromAddProcess(AddProcessRequest addProcessRequest) {
-        return AddProcessData
+    public AddStepData toDataFromAddStep(AddStepRequest addStepRequest) {
+        return AddStepData
             .builder()
-            .processCode(addProcessRequest.getCode())
-            .meaning(addProcessRequest.getMeaning())
-            .status(addProcessRequest.getStatus())
+            .stepCode(addStepRequest.getCode())
+            .meaning(addStepRequest.getMeaning())
+            .status(addStepRequest.getStatus())
             .build();
     }
 
-    public EditProcessData toDataFromEditProcess(EditProcessRequest editProcessRequest) {
-        return EditProcessData
+    public EditStepData toDataFromEditStep(EditStepRequest editStepRequest) {
+        return EditStepData
             .builder()
-            .id(editProcessRequest.getId())
-            .code(editProcessRequest.getCode())
-            .meaning(editProcessRequest.getMeaning())
-            .status(editProcessRequest.getStatus())
+            .id(editStepRequest.getId())
+            .code(editStepRequest.getCode())
+            .meaning(editStepRequest.getMeaning())
+            .status(editStepRequest.getStatus())
             .build();
     }
 
-    public AddDealData toDataFromAddDeal(AddDealRequest addDealRequest) {
-        return AddDealData
+    public AddProgressData toDataFromAddProgress(AddProgressRequest addProgressRequest) {
+        return AddProgressData
             .builder()
-            .agencyId(addDealRequest.getAgencyId())
-            .candidateId(addDealRequest.getCandidateId())
-            .processId(addDealRequest.getProcessId())
-            .status(addDealRequest.getStatus())
+            .agencyId(addProgressRequest.getAgencyId())
+            .candidateId(addProgressRequest.getCandidateId())
+            .stepId(addProgressRequest.getStepId())
+            .status(addProgressRequest.getStatus())
             .build();
     }
 
-    public EditDealData toDataFromEditDeal(EditDealRequest editDealRequest) {
-        return EditDealData
+    public EditProgressData toDataFromEditProgress(EditProgressRequest editProgressRequest) {
+        return EditProgressData
             .builder()
-            .id(editDealRequest.getId())
-            .agencyId(editDealRequest.getAgencyId())
-            .candidateId(editDealRequest.getCandidateId())
-            .processId(editDealRequest.getProcessId())
-            .status(editDealRequest.getStatus())
+            .id(editProgressRequest.getId())
+            .agencyId(editProgressRequest.getAgencyId())
+            .candidateId(editProgressRequest.getCandidateId())
+            .stepId(editProgressRequest.getStepId())
+            .status(editProgressRequest.getStatus())
             .build();
     }
 
@@ -271,7 +273,6 @@ public class RequestToDataConverter {
             .description(addReviewRequest.getDescription())
             .star(addReviewRequest.getStar())
             .objectId(addReviewRequest.getObjectId())
-            .reviewOwner(addReviewRequest.getReviewOwner())
             .type(addReviewRequest.getType())
             .build();
     }
@@ -367,7 +368,7 @@ public class RequestToDataConverter {
         String districtCode,
         String precinctCode,
         String information,
-        String status,
+        EntityStatus status,
         int star,
         int page,
         int size

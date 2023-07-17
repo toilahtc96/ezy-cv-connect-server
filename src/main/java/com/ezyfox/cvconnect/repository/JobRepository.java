@@ -1,7 +1,5 @@
 package com.ezyfox.cvconnect.repository;
 
-import com.ezyfox.cvconnect.constant.EntityStatus;
-import com.ezyfox.cvconnect.entity.Company;
 import com.ezyfox.cvconnect.entity.Job;
 import com.tvd12.ezydata.database.EzyDatabaseRepository;
 import com.tvd12.ezyfox.database.annotation.EzyQuery;
@@ -23,8 +21,9 @@ public interface JobRepository extends EzyDatabaseRepository<Long, Job> {
         " (?5  is null OR e.career_id = ?5  ) and " +
         " (?6  is null OR e.working_form_id = ?6  ) and " +
         " (?7  is null OR e.status = ?7  ) and " +
-        " (?8 is null OR e.information like concat('%',?8,'%')) " +
-        " limit ?9 offset ?10 ", nativeQuery = true)
+        " (?8 is null OR e.information like concat('%',?8,'%')) and " +
+        " (?9 is null OR e.tags like concat('%',?9,'%')) " +
+        " limit ?10 offset ?11 ", nativeQuery = true)
     List<Job> searchJob(
         Long jobTypeId,
         Long companyId,
@@ -35,6 +34,7 @@ public interface JobRepository extends EzyDatabaseRepository<Long, Job> {
         Long workingFormId,
         String status,
         String information,
+        String tag,
         int page,
         int size
     );
@@ -49,7 +49,8 @@ public interface JobRepository extends EzyDatabaseRepository<Long, Job> {
         " (?5  is null OR e.career_id = ?5  ) and " +
         " (?6  is null OR e.working_form_id = ?6  ) and " +
         " (?7  is null OR e.status = ?7  ) and " +
-        " (?8 is null OR e.information like concat('%',?8,'%')) " , nativeQuery = true)
+        " (?8 is null OR e.information like concat('%',?8,'%')) and " +
+        " (?9 is null OR e.tags like concat('%',?9,'%')) ", nativeQuery = true)
     BigInteger totalSearchJob(
         Long jobTypeId,
         Long companyId,
@@ -59,6 +60,7 @@ public interface JobRepository extends EzyDatabaseRepository<Long, Job> {
         Long careerId,
         Long workingFormId,
         String status,
-        String information
+        String information,
+        String tag
     );
 }

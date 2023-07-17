@@ -40,4 +40,6 @@ public class EditUserRequest {
     private Integer experienceYear;
     @Nullable
     private UserTypeCode userTypeCode;
+    @Nullable
+    private String avatarUrl;
 }

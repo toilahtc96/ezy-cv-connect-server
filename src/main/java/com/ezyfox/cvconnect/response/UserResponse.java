@@ -28,4 +28,5 @@ public class UserResponse {
     private Long companyId;
     private UserTypeCode userTypeCode;
     private LevelName level;
+    private String avatarUrl;
 }

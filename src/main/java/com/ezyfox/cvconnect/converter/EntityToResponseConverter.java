@@ -1,7 +1,7 @@
 package com.ezyfox.cvconnect.converter;
 
+import com.ezyfox.cvconnect.builder.VoucherInfoBuilder;
 import com.ezyfox.cvconnect.constant.LevelName;
-import com.ezyfox.cvconnect.entity.Process;
 import com.ezyfox.cvconnect.entity.*;
 import com.ezyfox.cvconnect.repository.*;
 import com.ezyfox.cvconnect.response.*;
@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import javax.persistence.Tuple;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -29,6 +30,8 @@ public class EntityToResponseConverter {
 
     private final JobTypeRepository jobTypeRepository;
     private final WorkingFormRepository workingFormRepository;
+    private final VoucherRepository voucherRepository;
+    private final UserRepository userRepository;
 
 
     public AddressResponse toResponse(Address address) {
@@ -111,27 +114,27 @@ public class EntityToResponseConverter {
                 .build();
     }
 
-    public ProcessResponse toProcessResponse(Process process) {
-        return ProcessResponse
+    public StepResponse toStepResponse(Step step) {
+        return StepResponse
                 .builder()
-                .id(process.getId())
-                .code(process.getCode())
-                .meaning(process.getMeaning())
-                .status(process.getStatus())
+                .id(step.getId())
+                .code(step.getCode())
+                .meaning(step.getMeaning())
+                .status(step.getStatus())
                 .build();
     }
 
-    public DealResponse toDealResponse(Deal deal) {
-        if (deal == null) {
+    public ProgressResponse toProgressResponse(Progress progress) {
+        if (progress == null) {
             return null;
         }
-        return DealResponse
+        return ProgressResponse
                 .builder()
-                .id(deal.getId())
-                .agencyId(deal.getAgencyId())
-                .candidateId(deal.getCandidateId())
-                .processId(deal.getProcessId())
-                .status(deal.getStatus())
+                .id(progress.getId())
+                .agencyId(progress.getAgencyId())
+                .candidateId(progress.getCandidateId())
+                .stepId(progress.getStepId())
+                .status(progress.getStatus())
                 .build();
     }
 
@@ -146,6 +149,16 @@ public class EntityToResponseConverter {
     }
 
     public ReviewResponse toReviewResponse(Review review) {
+        User reviewOwner = userRepository.findById(review.getReviewOwner());
+        String reviewOwnerName = "";
+        String reviewOwnerAvatar = "";
+        if (review.getReviewOwner() != null) {
+            reviewOwnerName = reviewOwner == null
+                    ? "" : reviewOwner.getName();
+            reviewOwnerAvatar = reviewOwner == null
+                    ? "" : reviewOwner.getAvatarUrl();
+        }
+
         return ReviewResponse
                 .builder()
                 .id(review.getId())
@@ -155,6 +168,8 @@ public class EntityToResponseConverter {
                 .reviewOwner(review.getReviewOwner())
                 .type(review.getType())
                 .status(review.getStatus())
+                .reviewOwnerName(reviewOwnerName)
+                .reviewOwnerAvatar(reviewOwnerAvatar)
                 .build();
     }
 
@@ -247,6 +262,7 @@ public class EntityToResponseConverter {
                 .typeId(user.getTypeId())
                 .userTypeCode(userType != null ? userType.getCode() : null)
                 .star(user.getStar())
+                .avatarUrl(user.getAvatarUrl())
                 .build();
     }
 
@@ -254,7 +270,7 @@ public class EntityToResponseConverter {
 
         Address parent = null;
         if (address.getParentId() != null) {
-            parent =  addressRepository.findById(address.getParentId());
+            parent = addressRepository.findById(address.getParentId());
         }
         return AddressResponse
                 .builder()
@@ -275,11 +291,11 @@ public class EntityToResponseConverter {
 
     public CareerResponse toCareerResponse(Career career) {
         return CareerResponse
-            .builder()
-            .id(career.getId())
-            .name(career.getName())
-            .status(career.getStatus())
-            .build();
+                .builder()
+                .id(career.getId())
+                .name(career.getName())
+                .status(career.getStatus())
+                .build();
     }
 
     public List<JobTypeResponse> toListJobTypeResponse(List<JobType> jobTypes) {
@@ -316,55 +332,79 @@ public class EntityToResponseConverter {
         String jobTypeName = "";
         String companyName = "";
         String workingFormName = "";
+        String voucherTitle = "";
+        String voucherInfo = "";
+        String agencyName = "";
+        String avatarUrl = "";
         if (job.getLevelId() != null) {
             Level level = levelRepository.findById(job.getLevelId());
-            if (level != null) {
-                levelName = level.getName();
-            }
+            levelName = level != null ? level.getName() : null;
         }
         if (job.getJobTypeId() != null) {
             JobType jobTypeId = jobTypeRepository.findById(job.getJobTypeId());
-            if (jobTypeId != null) {
-                jobTypeName = jobTypeId.getName();
-            }
+            jobTypeName = jobTypeId != null ? jobTypeId.getName() : jobTypeName;
         }
         if (job.getCompanyId() != null) {
             Company companyId = companyRepository.findById(job.getCompanyId());
-            if (companyId != null) {
-                companyName = companyId.getName();
-            }
+            companyName = companyId != null ? companyId.getName() : companyName;
         }
         if (job.getWorkingFormId() != null) {
             WorkingForm workingFormById = workingFormRepository.findById(job.getWorkingFormId());
-            if (workingFormById != null) {
-                workingFormName = workingFormById.getName();
-            }
+            workingFormName = workingFormById != null ? workingFormById.getName() : workingFormName;
         }
         if (job.getCareerId() != null) {
             Career careerById = careerRepository.findById(job.getCareerId());
-            if (careerById != null) {
-                careerName = careerById.getName();
-            }
+            careerName = careerById != null ? careerById.getName() : careerName;
+        }
+        if (job.getVoucherId() != null) {
+            Voucher voucher = voucherRepository.findById(job.getVoucherId());
+            voucherTitle = voucher != null ? voucher.getTitle() : voucherTitle;
+            voucherInfo = voucher != null
+                    ? VoucherInfoBuilder.builder().build().buildByVoucher(voucher) : voucherInfo;
+        }
+        if (job.getCreatedId() != null) {
+            User agency = userRepository.findById(job.getCreatedId());
+            agencyName = agency != null ? agency.getName() : agencyName;
+            avatarUrl = agency != null ? agency.getAvatarUrl() : avatarUrl;
         }
         return JobResponse
-            .builder()
-            .id(job.getId())
-            .careerId(job.getCareerId())
-            .careerName(careerName)
-            .jobTypeId(job.getJobTypeId())
-            .jobTypeName(jobTypeName)
-            .companyId(job.getCompanyId())
-            .companyName(companyName)
-            .customRange(job.getCustomRange())
-            .createdId(job.getCreatedId())
-            .quantity(job.getQuantity())
-            .rangeSalaryMin(job.getRangeSalaryMin())
-            .rangeSalaryMax(job.getRangeSalaryMax())
-            .workingFormId(job.getWorkingFormId())
-            .workingFormName(workingFormName)
-            .levelName(levelName)
-            .information(job.getInformation())
-            .status(job.getStatus())
-            .build();
+                .builder()
+                .id(job.getId()).careerId(job.getCareerId()).careerName(careerName)
+                .jobTypeId(job.getJobTypeId()).jobTypeName(jobTypeName).companyId(job.getCompanyId())
+                .companyName(companyName).customRange(job.getCustomRange()).createdId(job.getCreatedId())
+                .quantity(job.getQuantity()).rangeSalaryMin(job.getRangeSalaryMin())
+                .rangeSalaryMax(job.getRangeSalaryMax()).workingFormId(job.getWorkingFormId())
+                .workingFormName(workingFormName).levelName(levelName)
+                .information(job.getInformation()).status(job.getStatus()).thumbnail(job.getThumbnail())
+                .title(job.getTitle()).voucherId(job.getVoucherId()).voucherTitle(voucherTitle)
+                .voucherInfo(voucherInfo).agencyName(agencyName).agencyId(job.getCreatedId()).avatarUrl(avatarUrl)
+                .tags(job.getTags()).reasonForChoosing(job.getReasonForChoosing())
+                .build();
+    }
+
+    public VoucherResponse toVoucherResponse(Voucher voucher) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        Date startDate;
+        Date endDate;
+        try {
+            startDate = dateFormat.parse(voucher.getStartTime().toString());
+            endDate = dateFormat.parse(voucher.getEndTime().toString());
+        } catch (Exception ex) {
+            startDate = null;
+            endDate = null;
+        }
+
+        return VoucherResponse
+                .builder()
+                .id(voucher.getId())
+                .title(voucher.getTitle())
+                .value(voucher.getValue())
+                .startTime(Objects.isNull(startDate)
+                        ? null : dateFormat.format(startDate))
+                .endTime(Objects.isNull(endDate)
+                        ? null : dateFormat.format(endDate))
+                .voucherType(voucher.getVoucherType())
+                .status(voucher.getStatus())
+                .build();
     }
 }

@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "micro-scanner-386202",
+  "private_key_id": "f96eb633fc06c0cdb3e7c317d4d436c3783a1390",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC2v3XcGgFx2Rlk\nwdWXw/Q7KT0kOQu+NRYEWZk9IV1etP00IKxZ8/9ucxmttM/AFyc5B/sb8u9/wUWv\nS008uEhGo5+wQAW+pZjqkKaTPzYLalUXpTSg/6uc+JEmcZwvCX2z/AzRfexlgEjw\n7d3OA28aFenvYAZd1FZrmD8ONVUN531a9jFhOk2AeIx7XDsqfm0vX12Dd5t4Qdub\nFMDGzrFL6cLIcdwVeTKaK6W0+4H02YT03Fgr6XbqQ0h7p+Wdx5y66XPOqLpMI7T0\nOQaHRF03fbDIo8Q0gH/wklbqR8ZsFnrvfOFHJNU+vlOQ5RGDsq9BejcRbgztcBkq\nCciGekThAgMBAAECggEAVEWPJpvxbZwlCyMdiZpJzlxSfxk1UpWtXP0qXpe7tFg2\n6SpmACc186ttPH7ETLsAkdqd0AIjsmCgb1kEuYrrfXOnyIGFhKhdj1F8FyvPks0K\nh1heIB42d7DiUn2SfdhdGLoS+Sod8KKLQFsYbQ+FVNylH4dC+FLaNUykSzuJyNpd\n2VmkCTygDsbRI/BBOJ5UNgzk7UuOtBy4SFf+cTwxOekzvDHoeK1MicJgy8+tSDVr\nIyEYbEjl1JxolSi8mqfrG+EG9EJXQPIZsPl33iDIDV2E7rpkmvpHTr6841oe9P37\n/dzshAy/wsOWlp6BTltU9XBDU9yi1fl+txriW0sUzwKBgQDycWVWgM2a38XEE56o\nZh/gPmyNOFLZl1SR+B+ley5m31e8O6ifxTsZfae3IjwBz3OfZOHdE1bD4oKNrim+\nOr3F74Fyuy+rqnb3BvSeQr+mS/UUB2NZcSj7o2bBGstlT4gPMmSQDx/TpkId1Gdw\nE/MRsepBV07LgTFm/X3qBEp8CwKBgQDA94WEjlzJgQGHK2U/PNhAeN/HrELmkYOO\nXjXdB2fNt1wQvtN4nK9XnwAIY/5mTpGQoS9UZNqh32RJTDrkv4FhfiWzVCdBLsuO\ntthjnLTgv2EIxbaFv3NVHEfcDK3EAuUCaO8lYOONbVcrG6Ev+LC73fL8Qt3Kpyb3\nuya6byYqQwKBgFkYOvlzFBvaKD9KRn/0J7qstg+fpzK3XijWWirh/cdoREG0Wt98\nB5/ygXPXbN3tcrwcwrQPq08JKpkOa+CwjZTz00pqZ7ZaSqW1NKgEN5HRUBswK95u\nq3TuM5C7XAu7EnEjP7mBFV0eOCXmLK0PZ8AU9dVVVGuM6q7CcUdSlFzJAoGAI4z2\nkkdQHOehim+aRZ5GEQqz36uC38urOw1sSv5UR3gihAtEFpJ3U2M9tE4Hzn1nIAgy\nGhBCn1Pyu/ZJW19UzMta0sEMQlwGsJJLJ371a/qWO/GBAP8WlnWRX58OXHBUFK+U\nb4R8J9AfIRgECDx/Av2PCJ6hEfbdnQJjzjEwDNUCgYANlsIrd1fvCeffSuzlHBxA\nNxKLtfjhhCDPO1yNR6BLk++fHhud/y4UIMidM4XkGVmpVjeW4+uwWxcV53Rj0ipb\nL6c6dqbo9n3Th8Suu67vH3kxbfQu/rReIawnV5mX9Si1U41dHb2VbQIC1imt+2wH\nh5O6UjR283kLE4qvpZ7VZw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "cv-connect-file@micro-scanner-386202.iam.gserviceaccount.com",
+  "client_id": "105246935125114080873",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/cv-connect-file%40micro-scanner-386202.iam.gserviceaccount.com"
+}

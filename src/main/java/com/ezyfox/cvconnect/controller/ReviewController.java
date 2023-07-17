@@ -1,5 +1,6 @@
 package com.ezyfox.cvconnect.controller;
 
+import com.ezyfox.cvconnect.annotation.UserId;
 import com.ezyfox.cvconnect.constant.EntityStatus;
 import com.ezyfox.cvconnect.converter.RequestToDataConverter;
 import com.ezyfox.cvconnect.request.AddReviewRequest;
@@ -11,6 +12,7 @@ import com.tvd12.ezyhttp.server.core.annotation.*;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller("api/v1/review")
 @AllArgsConstructor
@@ -21,8 +23,8 @@ public class ReviewController {
     private final RequestToDataConverter requestToDataConverter;
 
     @DoPost("/add")
-    public ResponseEntity addReview(@RequestBody AddReviewRequest addReviewRequest) {
-        reviewService.addReview(requestToDataConverter.toDataFromAddReview(addReviewRequest));
+    public ResponseEntity addReview(@RequestBody AddReviewRequest addReviewRequest, @UserId long userId) {
+        reviewService.addReview(requestToDataConverter.toDataFromAddReview(addReviewRequest), userId);
         return ResponseEntity.noContent();
     }
 
@@ -60,5 +62,13 @@ public class ReviewController {
     @DoGet("/get-by-object-id")
     public List<ReviewResponse> getByObject(@RequestParam long objectId) {
         return reviewService.getByObjectId(objectId);
+    }
+
+    @DoGet("/find-by-field")
+    public Map<String, Object> findByField(@RequestParam("size") int size,
+                                           @RequestParam("page") int page,
+                                           @RequestParam("objectId") Long objectId,
+                                           @RequestParam("reviewUserId") Long reviewUserId) {
+        return reviewService.findByField(size, page, objectId, reviewUserId);
     }
 }

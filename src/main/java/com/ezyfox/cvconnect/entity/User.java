@@ -44,4 +44,6 @@ public class User extends CommonEntity {
     private String password;
     @Enumerated(EnumType.STRING)
     private UserStatus status;
+    @Column(name = "avatar_url")
+    private String avatarUrl;
 }

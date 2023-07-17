@@ -104,7 +104,7 @@ public class CompanyController {
                 districtCode == null ? "" : districtCode.trim(),
                 precinctCode == null ? "" : precinctCode.trim(),
                 information == null ? "" : information.trim(),
-                status == null ? null : status.toString(),
+                status == null ? null : status,
                 star,
                 page,
                 size

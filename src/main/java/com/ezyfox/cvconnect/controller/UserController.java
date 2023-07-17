@@ -50,7 +50,7 @@ public class UserController {
             .experience(experience)
             .star(star)
             .userType(userType != null ? userType.toString() : null)
-            .status(status != null ? status.toString() : null)
+            .status(status)
             .typeId(typeId)
             .build();
         return userService.getUserPaging(searchUserData);

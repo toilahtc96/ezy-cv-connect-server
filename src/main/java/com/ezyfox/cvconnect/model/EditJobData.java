@@ -19,4 +19,9 @@ public class EditJobData {
     private String information;
     private EntityStatus status;
     private Boolean customRange;
+    private String thumbnail;
+    private String title;
+    private Long voucherId;
+    private String tags;
+    private String reasonForChoosing;
 }

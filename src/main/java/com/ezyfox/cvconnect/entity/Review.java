@@ -1,6 +1,7 @@
 package com.ezyfox.cvconnect.entity;
 
 import com.ezyfox.cvconnect.constant.EntityStatus;
+import com.ezyfox.cvconnect.constant.ReviewType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,9 +23,13 @@ public class Review extends CommonEntity {
     private String description;
     private int star;
     @Column(name = "object_id")
-    private long objectId;
+    private Long objectId;
     @Column(name = "review_owner")
-    private long reviewOwner;
-    private int type;
+    private Long reviewOwner;
+    @Enumerated(EnumType.ORDINAL)
+    private ReviewType type;
+    @Enumerated(EnumType.STRING)
     private EntityStatus status;
+    @Column(name = "created_id")
+    private Long createdId;
 }

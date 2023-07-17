@@ -26,4 +26,5 @@ public class EditUserData {
     private Long levelId;
     private Integer experienceYear;
     private UserTypeCode userTypeCode;
+    private String avatarUrl;
 }

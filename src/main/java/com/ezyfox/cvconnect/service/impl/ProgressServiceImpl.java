@@ -1,0 +1,165 @@
+package com.ezyfox.cvconnect.service.impl;
+
+import com.ezyfox.cvconnect.constant.EntityStatus;
+import com.ezyfox.cvconnect.constant.StepCode;
+import com.ezyfox.cvconnect.converter.DataToEntityConverter;
+import com.ezyfox.cvconnect.converter.EntityToResponseConverter;
+import com.ezyfox.cvconnect.entity.Progress;
+import com.ezyfox.cvconnect.entity.Job;
+import com.ezyfox.cvconnect.entity.Step;
+import com.ezyfox.cvconnect.exception.NotFoundException;
+import com.ezyfox.cvconnect.exception.ResourceNotFoundException;
+import com.ezyfox.cvconnect.model.AddProgressData;
+import com.ezyfox.cvconnect.model.EditProgressData;
+import com.ezyfox.cvconnect.model.SearchProgressData;
+import com.ezyfox.cvconnect.repository.ProgressRepository;
+import com.ezyfox.cvconnect.repository.JobRepository;
+import com.ezyfox.cvconnect.repository.StepRepository;
+import com.ezyfox.cvconnect.response.ProgressResponse;
+import com.ezyfox.cvconnect.service.ProgressService;
+import com.tvd12.ezyfox.bean.annotation.EzySingleton;
+import lombok.AllArgsConstructor;
+
+import java.math.BigInteger;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+@EzySingleton
+@AllArgsConstructor
+public class ProgressServiceImpl implements ProgressService {
+
+    private final ProgressRepository progressRepository;
+    private final JobRepository jobRepository;
+    private final StepRepository stepRepository;
+    private final EntityToResponseConverter entityToResponseConverter;
+    private final DataToEntityConverter dataToEntityConverter;
+
+    @Override
+    public void addProgress(AddProgressData addProgressData) {
+        progressRepository.save(dataToEntityConverter.dataToProgress(addProgressData));
+    }
+
+    @Override
+    public void editProgress(EditProgressData editProgressData) {
+        Progress progressById = progressRepository.findById(editProgressData.getId());
+        if (progressById == null) {
+            throw new ResourceNotFoundException("Progress By Id");
+        }
+        progressById.setAgencyId(editProgressData.getAgencyId());
+        progressById.setCandidateId(editProgressData.getCandidateId());
+        progressById.setStepId(editProgressData.getStepId());
+        progressById.setStatus(editProgressData.getStatus());
+        progressById.setUpdatedTime(LocalDateTime.now());
+        progressRepository.save(progressById);
+    }
+
+    @Override
+    public List<ProgressResponse> getByAgencyId(long agencyId) {
+        return progressRepository
+                .getByAgencyId(agencyId)
+                .stream()
+                .map(entityToResponseConverter::toProgressResponse)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProgressResponse> getByCandidateId(long candidateId) {
+        return progressRepository
+                .getByCandidateId(candidateId)
+                .stream()
+                .map(entityToResponseConverter::toProgressResponse)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProgressResponse> getAll() {
+        return progressRepository
+                .findAll()
+                .stream()
+                .map(entityToResponseConverter::toProgressResponse)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProgressResponse> getAllActiveOfAgency(long agencyId) {
+        return progressRepository
+                .getActiveProgressByAgencyId(agencyId, EntityStatus.ACTIVED)
+                .stream()
+                .map(entityToResponseConverter::toProgressResponse)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Map<String, Object> getProgressPaging(SearchProgressData searchProgressData) {
+        Map<String, Object> data = new HashMap<>();
+        List<ProgressResponse> listData = progressRepository
+                .searchProgress(
+                        searchProgressData.getAgencyId(),
+                        searchProgressData.getCandidateId(),
+                        searchProgressData.getStepId(),
+                        searchProgressData.getStatus(),
+                        searchProgressData.getSize(),
+                        searchProgressData.getSkip()
+                )
+                .stream()
+                .map(entityToResponseConverter::toProgressResponse)
+                .collect(Collectors.toList());
+        BigInteger total = progressRepository.totalSearchProgress(
+                searchProgressData.getAgencyId(),
+                searchProgressData.getCandidateId(),
+                searchProgressData.getStepId(),
+                searchProgressData.getStatus());
+        data.put("data", listData);
+        data.put("total", total);
+        return data;
+    }
+
+    @Override
+    public ProgressResponse getById(long id) {
+        return entityToResponseConverter.toProgressResponse(progressRepository.findById(id));
+    }
+
+    @Override
+    public List<ProgressResponse> getByCandidateJob(long candidateId, long jobId) {
+        List<ProgressResponse> progressOfCandidate = progressRepository
+                .getAllByAndCandidateIdAndJobId(
+                        candidateId,
+                        jobId)
+                .stream()
+                .map(entityToResponseConverter::toProgressResponse)
+                .collect(Collectors.toList());
+        if (progressOfCandidate.size() == 0) {
+            initProgressOnJobForCandidate(candidateId, jobId);
+        }
+        return progressRepository
+                .getAllByAndCandidateIdAndJobId(
+                        candidateId,
+                        jobId)
+                .stream()
+                .map(entityToResponseConverter::toProgressResponse)
+                .collect(Collectors.toList());
+    }
+
+    private void initProgressOnJobForCandidate(long candidateId, long jobId) {
+        Job jobById = jobRepository.findById(jobId);
+        if (jobById == null) {
+            throw new NotFoundException("Job by id: " + jobById + " not found");
+        }
+
+        Progress progress = new Progress();
+        progress.setCandidateId(candidateId);
+        progress.setAgencyId(1L);
+        progress.setJobId(jobId);
+        progress.setStatus(EntityStatus.ACTIVED);
+        List<Step> stepes = stepRepository.findByStepCode(StepCode.SEND_CV_TO_AGENCY);
+        if (!stepes.isEmpty()) {
+            Step initStep = stepes.get(0);
+            progress.setStepId(initStep != null ? initStep.getId() : null);
+        }
+        progress.setCreatedTime(LocalDateTime.now());
+        progressRepository.save(progress);
+    }
+}

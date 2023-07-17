@@ -42,4 +42,12 @@ public class Job extends CommonEntity {
     private EntityStatus status;
     @Column(name = "created_id")
     private Long createdId;
+    private String thumbnail;
+    private String title;
+    @Column(name = "voucher_id")
+    private Long voucherId;
+    @Column(name = "tags")
+    private String tags;
+    @Column(name = "reason_for_choosing")
+    private String reasonForChoosing;
 }

@@ -1,5 +1,6 @@
 package com.ezyfox.cvconnect.model;
 
+import com.ezyfox.cvconnect.constant.ReviewType;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -9,6 +10,5 @@ public class AddReviewData {
     private String description;
     private int star;
     private long objectId;
-    private long reviewOwner;
-    private int type;
+    private ReviewType type;
 }

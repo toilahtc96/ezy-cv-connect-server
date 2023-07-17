@@ -1,5 +1,6 @@
 package com.ezyfox.cvconnect.repository;
 
+import com.ezyfox.cvconnect.constant.EntityStatus;
 import com.ezyfox.cvconnect.entity.User;
 import com.tvd12.ezydata.database.EzyDatabaseRepository;
 import com.tvd12.ezyfox.database.annotation.EzyQuery;
@@ -64,7 +65,7 @@ public interface UserRepository extends EzyDatabaseRepository<Long, User> {
             Long typeId,
             Long companyId,
             Integer experienceYear,
-            String status,
+            EntityStatus status,
             Long levelId,
             Integer star,
             int size,
@@ -86,7 +87,7 @@ public interface UserRepository extends EzyDatabaseRepository<Long, User> {
             Long typeId,
             Long companyId,
             Integer experienceYear,
-            String status,
+            EntityStatus status,
             Long levelId,
             Integer star
     );

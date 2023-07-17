@@ -3,7 +3,6 @@ package com.ezyfox.cvconnect.converter;
 import com.ezyfox.cvconnect.constant.EntityStatus;
 import com.ezyfox.cvconnect.constant.LevelName;
 import com.ezyfox.cvconnect.entity.Level;
-import com.ezyfox.cvconnect.model.AddCareerData;
 import com.ezyfox.cvconnect.model.AddJobData;
 import com.ezyfox.cvconnect.model.EditJobData;
 import com.ezyfox.cvconnect.model.SearchJobData;
@@ -11,7 +10,6 @@ import com.ezyfox.cvconnect.repository.LevelRepository;
 import com.ezyfox.cvconnect.request.AddJobRequest;
 import com.ezyfox.cvconnect.request.EditJobRequest;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
-import com.tvd12.ezyhttp.server.core.annotation.RequestParam;
 import lombok.AllArgsConstructor;
 
 @EzySingleton
@@ -42,6 +40,11 @@ public class JobRequestToDataConverter {
             .information(editJobRequest.getInformation())
             .status(editJobRequest.getStatus())
             .customRange(editJobRequest.getCustomRange())
+            .thumbnail(editJobRequest.getThumbnail())
+            .title(editJobRequest.getTitle())
+            .voucherId(editJobRequest.getVoucherId())
+            .tags(editJobRequest.getTags())
+            .reasonForChoosing(editJobRequest.getReasonForChoosing())
             .build();
     }
 
@@ -66,6 +69,11 @@ public class JobRequestToDataConverter {
             .information(addJobRequest.getInformation())
             .status(addJobRequest.getStatus())
             .customRange(addJobRequest.getCustomRange())
+            .thumbnail(addJobRequest.getThumbnail())
+            .title(addJobRequest.getTitle())
+            .voucherId(addJobRequest.getVoucherId())
+            .tags(addJobRequest.getTags())
+            .reasonForChoosing(addJobRequest.getReasonForChoosing())
             .build();
     }
 
@@ -78,6 +86,7 @@ public class JobRequestToDataConverter {
         Long careerId,
         Long workingFormId,
         String information,
+        String tag,
         EntityStatus status,
         int page,
         int size
@@ -89,7 +98,6 @@ public class JobRequestToDataConverter {
                 levelId = level.getId();
             }
         }
-        String statusStr = status == null ? null : status.toString();
         return SearchJobData
             .builder()
             .jobTypeId(jobTypeId)
@@ -102,7 +110,8 @@ public class JobRequestToDataConverter {
             .information(information)
             .page(page)
             .size(size)
-            .status(statusStr)
+            .status(status)
+            .tag(tag)
             .build();
     }
 }

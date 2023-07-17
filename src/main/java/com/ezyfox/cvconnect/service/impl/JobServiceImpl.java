@@ -1,23 +1,17 @@
 package com.ezyfox.cvconnect.service.impl;
 
-import com.ezyfox.cvconnect.constant.EntityStatus;
 import com.ezyfox.cvconnect.converter.DataToEntityConverter;
 import com.ezyfox.cvconnect.converter.EntityToResponseConverter;
-import com.ezyfox.cvconnect.entity.JobType;
-import com.ezyfox.cvconnect.exception.ResourceNotFoundException;
-import com.ezyfox.cvconnect.model.*;
+import com.ezyfox.cvconnect.model.AddJobData;
+import com.ezyfox.cvconnect.model.EditJobData;
+import com.ezyfox.cvconnect.model.SearchJobData;
 import com.ezyfox.cvconnect.repository.JobRepository;
-import com.ezyfox.cvconnect.repository.JobTypeRepository;
-import com.ezyfox.cvconnect.response.CompanyResponse;
 import com.ezyfox.cvconnect.response.JobResponse;
-import com.ezyfox.cvconnect.response.JobTypeResponse;
 import com.ezyfox.cvconnect.service.JobService;
-import com.ezyfox.cvconnect.service.JobTypeService;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import lombok.AllArgsConstructor;
 
 import java.math.BigInteger;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,8 +43,9 @@ public class JobServiceImpl implements JobService {
                 searchJobData.getCustomRange(),
                 searchJobData.getCareerId(),
                 searchJobData.getWorkingFormId(),
-                searchJobData.getStatus(),
+                searchJobData.getStatus() == null ? null : searchJobData.getStatus().toString(),
                 searchJobData.getInformation(),
+                searchJobData.getTag(),
                 searchJobData.getSize(),
                 skip
             )
@@ -65,8 +60,9 @@ public class JobServiceImpl implements JobService {
             searchJobData.getCustomRange(),
             searchJobData.getCareerId(),
             searchJobData.getWorkingFormId(),
-            searchJobData.getStatus(),
-            searchJobData.getInformation()
+            searchJobData.getStatus() == null ? null : searchJobData.getStatus().toString(),
+            searchJobData.getInformation(),
+            searchJobData.getTag()
         );
         mapData.put("data", listData);
         mapData.put("total", totalElementByField);

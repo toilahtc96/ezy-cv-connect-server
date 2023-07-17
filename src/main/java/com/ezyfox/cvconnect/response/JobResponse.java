@@ -25,4 +25,14 @@ public class JobResponse {
     private Long workingFormId;
     private String workingFormName;
     private Long createdId;
+    private String thumbnail;
+    private String title;
+    private Long voucherId;
+    private String voucherTitle;
+    private String voucherInfo;
+    private Long agencyId;
+    private String agencyName;
+    private String avatarUrl;
+    private String tags;
+    private String reasonForChoosing;
 }

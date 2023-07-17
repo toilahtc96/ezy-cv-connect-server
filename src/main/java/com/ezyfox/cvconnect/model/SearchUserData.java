@@ -1,5 +1,6 @@
 package com.ezyfox.cvconnect.model;
 
+import com.ezyfox.cvconnect.constant.EntityStatus;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -12,7 +13,7 @@ public class SearchUserData {
     private Long companyId;
     private Long levelId;
     private Integer experienceYear;
-    private String status;
+    private EntityStatus status;
     private Long roleId;
     private String userType;
     private String level;

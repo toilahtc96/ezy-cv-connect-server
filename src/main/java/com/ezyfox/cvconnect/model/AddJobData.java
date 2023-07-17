@@ -1,7 +1,6 @@
 package com.ezyfox.cvconnect.model;
 
 import com.ezyfox.cvconnect.constant.EntityStatus;
-import com.ezyfox.cvconnect.constant.LevelName;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -19,4 +18,9 @@ public class AddJobData {
     private String information;
     private EntityStatus status;
     private Boolean customRange;
+    private String thumbnail;
+    private String title;
+    private Long voucherId;
+    private String tags;
+    private String reasonForChoosing;
 }

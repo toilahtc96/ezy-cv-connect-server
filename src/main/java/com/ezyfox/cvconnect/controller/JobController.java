@@ -4,20 +4,14 @@ import com.ezyfox.cvconnect.annotation.UserId;
 import com.ezyfox.cvconnect.constant.EntityStatus;
 import com.ezyfox.cvconnect.constant.LevelName;
 import com.ezyfox.cvconnect.converter.JobRequestToDataConverter;
-import com.ezyfox.cvconnect.converter.RequestToDataConverter;
-import com.ezyfox.cvconnect.request.AddCompanyRequest;
 import com.ezyfox.cvconnect.request.AddJobRequest;
-import com.ezyfox.cvconnect.request.EditCompanyRequest;
 import com.ezyfox.cvconnect.request.EditJobRequest;
-import com.ezyfox.cvconnect.response.CompanyResponse;
 import com.ezyfox.cvconnect.response.JobResponse;
-import com.ezyfox.cvconnect.service.CompanyServie;
 import com.ezyfox.cvconnect.service.JobService;
 import com.tvd12.ezyhttp.core.response.ResponseEntity;
 import com.tvd12.ezyhttp.server.core.annotation.*;
 import lombok.AllArgsConstructor;
 
-import java.util.List;
 import java.util.Map;
 
 @Controller("api/v1/job")
@@ -55,6 +49,7 @@ public class JobController {
         @RequestParam("careerId") Long careerId,
         @RequestParam("workingFormId") Long workingFormId,
         @RequestParam("information") String information,
+        @RequestParam("tag") String tag,
         @RequestParam("status") EntityStatus status,
         @RequestParam("page") int page,
         @RequestParam("size") int size
@@ -68,7 +63,8 @@ public class JobController {
                 customRange,
                 careerId,
                 workingFormId,
-                information == null ? "" : information.trim(),
+                information == null ? null : information.trim(),
+                tag == null ? null : tag.trim(),
                 status,
                 page,
                 size

@@ -6,10 +6,11 @@ import com.ezyfox.cvconnect.model.EditReviewData;
 import com.ezyfox.cvconnect.response.ReviewResponse;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ReviewService {
 
-    void addReview(AddReviewData addReviewData);
+    void addReview(AddReviewData addReviewData, long userId);
 
     void editReview(EditReviewData editReviewData);
 
@@ -24,4 +25,6 @@ public interface ReviewService {
     List<ReviewResponse> getByType(int type);
 
     List<ReviewResponse> getByObjectId(long objectId);
+
+    Map<String, Object> findByField(int size, int page, Long objectId, Long userReviewId);
 }

@@ -1,6 +1,6 @@
 package com.ezyfox.cvconnect.model;
 
-import com.ezyfox.cvconnect.constant.LevelName;
+import com.ezyfox.cvconnect.constant.EntityStatus;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -14,8 +14,9 @@ public class SearchJobData {
     private Boolean customRange;
     private Long careerId;
     private Long workingFormId;
-    private String status;
+    private EntityStatus status;
     private String information;
+    private String tag;
     private int page;
     private int size;
 }

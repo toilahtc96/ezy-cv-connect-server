@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
 @Setter
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
+@MappedSuperclass
 public class CommonEntity {
     @Column(name = "created_time")
     private LocalDateTime createdTime;
