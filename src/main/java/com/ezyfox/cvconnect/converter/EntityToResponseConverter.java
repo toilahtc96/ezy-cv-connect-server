@@ -38,11 +38,13 @@ public class EntityToResponseConverter {
         return AddressResponse
                 .builder()
                 .type(address.getType())
-                .parentId(address.getParentId())
-                .name(address.getName())
+                .provinceCode(address.getProvinceCode())
+                .provinceName(address.getProvinceName())
+                .districtCode(address.getDistrictCode())
+                .districtName(address.getDistrictName())
+                .precinctCode(address.getPrecinctCode())
+                .precinctName(address.getPrecinctName())
                 .id(address.getId())
-                .code(address.getCode())
-                .name(address.getName())
                 .status(address.getStatus())
                 .build();
     }
@@ -268,19 +270,17 @@ public class EntityToResponseConverter {
 
     public AddressResponse toAddressResponse(Address address) {
 
-        Address parent = null;
-        if (address.getParentId() != null) {
-            parent = addressRepository.findById(address.getParentId());
-        }
         return AddressResponse
                 .builder()
                 .id(address.getId())
-                .code(address.getCode())
-                .name(address.getName())
+                .provinceCode(address.getProvinceCode())
+                .provinceName(address.getProvinceName())
+                .districtCode(address.getDistrictCode())
+                .districtName(address.getDistrictName())
+                .precinctCode(address.getPrecinctCode())
+                .precinctName(address.getPrecinctName())
                 .type(address.getType())
                 .status(address.getStatus())
-                .parentId(address.getParentId())
-                .parentName(parent != null ? parent.getName() : "")
                 .build();
     }
 

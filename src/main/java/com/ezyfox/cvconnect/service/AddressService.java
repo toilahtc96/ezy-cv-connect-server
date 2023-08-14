@@ -19,13 +19,11 @@ public interface AddressService {
 
     List<AddressResponse> getAddressByParentId(long parentId);
 
-    List<AddressResponse> getAddressByTypeAndParentId(AddressType type, long parentId);
-
     List<AddressResponse> getAll();
 
     AddressResponse getById(long id);
 
-    List<AddressResponse> getByParentCode(String code);
+    List<AddressResponse> getByTypeAndParentCode(String type, String parentCode);
 
     AddressResponse getByCodeAndType(String code, AddressType type);
 

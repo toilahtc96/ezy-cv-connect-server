@@ -8,8 +8,12 @@ import lombok.Getter;
 @Builder
 @Getter
 public class AddAddressData {
-    private String name;
     private AddressType type;
-    private long parentId;
+    private String provinceCode;
+    private String provinceName;
+    private String districtCode;
+    private String districtName;
+    private String precinctCode;
+    private String precinctName;
     private EntityStatus status;
 }

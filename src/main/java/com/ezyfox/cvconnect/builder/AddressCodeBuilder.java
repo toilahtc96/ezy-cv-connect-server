@@ -34,9 +34,9 @@ public class AddressCodeBuilder {
                 String firstLetter = name.substring(0, 1);
                 String numberOfAddressCode = String.format("%03d", ++countOfAddressByNameAndType);
                 code
-                    .append(parentAddress == null ? "" : parentAddress.getCode())
                     .append(StringUtil.removeAccent(firstLetter))
                     .append(numberOfAddressCode);
+                //                    .append(parentAddress == null ? "" : parentAddress.getCode())
                 break;
             }
 

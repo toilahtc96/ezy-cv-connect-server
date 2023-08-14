@@ -1,6 +1,5 @@
 package com.ezyfox.cvconnect.service.impl;
 
-import com.ezyfox.cvconnect.builder.AddressCodeBuilder;
 import com.ezyfox.cvconnect.constant.AddressType;
 import com.ezyfox.cvconnect.constant.EntityStatus;
 import com.ezyfox.cvconnect.converter.DataToEntityConverter;
@@ -30,27 +29,55 @@ public class AddressServiceImpl implements AddressService {
     private final EntityToResponseConverter entityToResponseConverter;
 
     @Override
-    public void saveAddress(AddAddressData data) throws IllegalAccessException {
+    public void saveAddress(AddAddressData data) {
         Address newAddress = dataToEntityConverter.dataToAddress(data);
-        String firstLetterName = data.getName().substring(0, 1);
-        long countOfAddressByNameAndType = addressRepository
-                .getCountAddressByNameStartAndType("%" + firstLetterName + "%", data.getType());
-        Address parentAddress = addressRepository.findById(data.getParentId());
-        AddressCodeBuilder addressCodeBuilder = AddressCodeBuilder.builder()
-                .name(data.getName())
-                .type(data.getType())
-                .parentAddress(parentAddress)
-                .countOfAddressByNameAndType(countOfAddressByNameAndType)
-                .build();
-        newAddress.setCode(
-                addressCodeBuilder.build()
+        setValueToSave(
+                newAddress,
+                data.getType(),
+                data.getProvinceCode(),
+                data.getProvinceName(),
+                data.getDistrictCode(),
+                data.getDistrictName(),
+                data.getPrecinctCode(),
+                data.getPrecinctName(),
+                data.getStatus()
         );
-        Address checkAddressExistedByName = addressRepository
-                .findByNameAndType(newAddress.getName(), newAddress.getType());
-        if (checkAddressExistedByName != null
-                && checkAddressExistedByName.getParentId() == parentAddress.getId()) {
-            throw new IllegalAccessException("Đã tồn tại Địa chỉ với thông tin này");
+    }
+
+    private void setValueToSave(
+            Address newAddress,
+            AddressType type,
+            String provinceCode,
+            String provinceName,
+            String districtCode,
+            String districtName,
+            String precinctCode,
+            String precinctName,
+            EntityStatus status
+    ) {
+        if (type != null) {
+            newAddress.setType(type);
         }
+        if (provinceCode != null) {
+            newAddress.setProvinceCode(provinceCode);
+        }
+        if (provinceName != null) {
+            newAddress.setProvinceName(provinceName);
+        }
+        if (districtCode != null) {
+            newAddress.setDistrictCode(districtCode);
+        }
+        if (districtName != null) {
+            newAddress.setDistrictName(districtName);
+        }
+        if (precinctCode != null) {
+            newAddress.setPrecinctCode(precinctCode);
+        }
+        if (precinctName != null) {
+            newAddress.setPrecinctName(precinctName);
+        }
+        newAddress.setStatus(status);
+        newAddress.setUpdatedTime(LocalDateTime.now());
         addressRepository.save(newAddress);
     }
 
@@ -63,31 +90,17 @@ public class AddressServiceImpl implements AddressService {
         if (!addressById.getStatus().equals(EntityStatus.ACTIVED)) {
             throw new ResourceNotFoundException("Address Active");
         }
-        if (data.getType() != null) {
-            addressById.setType(data.getType());
-        }
-        if (data.getName() != null) {
-            addressById.setName(data.getName());
-        }
-        if (data.getParentId() != 0) {
-            addressById.setParentId(data.getParentId());
-        }
-        addressById.setStatus(data.getStatus());
-        String firstLetterName = data.getName().substring(0, 1);
-        long countOfAddressByNameAndType = addressRepository
-                .getCountAddressByNameStartAndType(firstLetterName, data.getType());
-        Address parentAddress = addressRepository.findById(data.getParentId());
-        AddressCodeBuilder addressCodeBuilder = AddressCodeBuilder.builder()
-                .name(data.getName())
-                .type(data.getType())
-                .parentAddress(parentAddress)
-                .countOfAddressByNameAndType(countOfAddressByNameAndType)
-                .build();
-        addressById.setCode(
-                addressCodeBuilder.build()
+        setValueToSave(
+                addressById,
+                data.getType(),
+                data.getProvinceCode(),
+                data.getProvinceName(),
+                data.getDistrictCode(),
+                data.getDistrictName(),
+                data.getPrecinctCode(),
+                data.getPrecinctName(),
+                data.getStatus()
         );
-        addressById.setUpdatedTime(LocalDateTime.now());
-        addressRepository.save(addressById);
     }
 
 
@@ -113,24 +126,12 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public List<AddressResponse> getAddressByTypeAndParentId(AddressType type, long parentId) {
-        List<Address> listByTypeAndParentId = addressRepository.findAllByTypeAndParentId(type, parentId);
-        if (listByTypeAndParentId != null && listByTypeAndParentId.size() > 0) {
-            return listByTypeAndParentId
-                    .stream()
-                    .map(entityToResponseConverter::toResponse)
-                    .collect(Collectors.toList());
-        }
-        return new ArrayList<>();
-    }
-
-    @Override
     public List<AddressResponse> getAll() {
         return addressRepository
                 .findAll()
                 .stream()
                 .map(entityToResponseConverter::toResponse)
-                .sorted(Comparator.comparing(AddressResponse::getParentId))
+                .sorted(Comparator.comparing(AddressResponse::getProvinceName))
                 .collect(Collectors.toList());
     }
 
@@ -139,24 +140,14 @@ public class AddressServiceImpl implements AddressService {
         return entityToResponseConverter.toResponse(addressRepository.findById(id));
     }
 
-    @Override
-    public List<AddressResponse> getByParentCode(String code) {
-        Address parentAddress = addressRepository.findByField("code", code);
-        if (parentAddress == null) {
-            return new ArrayList<>();
-        } else {
-            return addressRepository
-                    .findAllByParentId(parentAddress.getId())
-                    .stream()
-                    .map(entityToResponseConverter::toResponse)
-                    .collect(Collectors.toList());
-        }
-    }
 
     @Override
     public AddressResponse getByCodeAndType(String code, AddressType type) {
-        return addressRepository.findByCodeAndType(code, type) == null
-                ? null : entityToResponseConverter.toResponse(addressRepository.findByCodeAndType(code, type));
+        return addressRepository.findByCodeAndType(code, type == null ? null : type) == null
+                ? null : entityToResponseConverter.toResponse(
+                addressRepository.findByCodeAndType(
+                        code,
+                        type));
     }
 
     @Override
@@ -176,20 +167,47 @@ public class AddressServiceImpl implements AddressService {
         int skip = searchAddressData.getPage() * searchAddressData.getSize();
         Map<String, Object> mapData = new HashMap<>();
         List<AddressResponse> listData = addressRepository.searchAddress(
-                        searchAddressData.getName(),
-                        searchAddressData.getStatus() != null ? searchAddressData.getStatus().toString() : null,
-                        searchAddressData.getSize(),
-                        skip
-                )
+                searchAddressData.getProvinceName(),
+                searchAddressData.getProvinceCode(),
+                searchAddressData.getDistrictName(),
+                searchAddressData.getDistrictCode(),
+                searchAddressData.getPrecinctName(),
+                searchAddressData.getPrecinctCode(),
+                searchAddressData.getType() != null
+                        ? searchAddressData.getType() == null
+                        ? null : searchAddressData.getType().getName() : null,
+                searchAddressData.getStatus() != null
+                        ? searchAddressData.getStatus() == null
+                        ? null : searchAddressData.getStatus().toString() : null,
+                searchAddressData.getSize(),
+                skip
+        )
                 .stream()
                 .map(entityToResponseConverter::toAddressResponse)
                 .collect(Collectors.toList());
         BigInteger totalElementByField = addressRepository.totalSearchAddress(
-                searchAddressData.getName(),
-                searchAddressData.getStatus() != null ? searchAddressData.getStatus().toString() : null
+                searchAddressData.getProvinceName(),
+                searchAddressData.getProvinceCode(),
+                searchAddressData.getDistrictName(),
+                searchAddressData.getDistrictCode(),
+                searchAddressData.getPrecinctName(),
+                searchAddressData.getPrecinctCode(),
+                searchAddressData.getType() != null
+                        ? searchAddressData.getType() == null
+                        ? null : searchAddressData.getType().getName() : null,
+                searchAddressData.getStatus() != null
+                        ? searchAddressData.getStatus() == null
+                        ? null : searchAddressData.getStatus().toString() : null
         );
         mapData.put("data", listData);
         mapData.put("total", totalElementByField);
         return mapData;
+    }
+
+    @Override
+    public List<AddressResponse> getByTypeAndParentCode(String type, String parentCode) {
+        return addressRepository.findAllByTypeAndParentCode(type, parentCode).stream()
+                .map(entityToResponseConverter::toAddressResponse)
+                .collect(Collectors.toList());
     }
 }

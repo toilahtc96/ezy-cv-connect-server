@@ -6,8 +6,12 @@ import lombok.Data;
 
 @Data
 public class AddAddressRequest {
-    private long parentId;
-    private String name;
+    private String provinceCode;
+    private String provinceName;
+    private String districtCode;
+    private String districtName;
+    private String precinctCode;
+    private String precinctName;
     private AddressType type;
     private EntityStatus status;
 }

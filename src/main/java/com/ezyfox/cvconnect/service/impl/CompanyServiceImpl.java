@@ -3,7 +3,6 @@ package com.ezyfox.cvconnect.service.impl;
 import com.ezyfox.cvconnect.constant.EntityStatus;
 import com.ezyfox.cvconnect.converter.DataToEntityConverter;
 import com.ezyfox.cvconnect.converter.EntityToResponseConverter;
-import com.ezyfox.cvconnect.converter.RequestToDataConverter;
 import com.ezyfox.cvconnect.entity.Company;
 import com.ezyfox.cvconnect.exception.ResourceNotFoundException;
 import com.ezyfox.cvconnect.model.AddCompanyData;
@@ -26,7 +25,6 @@ import java.util.stream.Collectors;
 public class CompanyServiceImpl implements CompanyServie {
 
     private final CompanyRepository companyRepository;
-    private final RequestToDataConverter requestToDataConverter;
     private final DataToEntityConverter dataToEntityConverter;
     private final EntityToResponseConverter entityToResponseConverter;
 
@@ -149,7 +147,8 @@ public class CompanyServiceImpl implements CompanyServie {
                 searchCompanyData.getProvinceCode(),
                 searchCompanyData.getDistrictCode(),
                 searchCompanyData.getPrecinctCode(),
-                searchCompanyData.getStatus(),
+                searchCompanyData.getStatus() == null
+                        ?  null : searchCompanyData.getStatus().name(),
                 searchCompanyData.getSize(),
                 skip
             )
@@ -162,7 +161,8 @@ public class CompanyServiceImpl implements CompanyServie {
             searchCompanyData.getProvinceCode(),
             searchCompanyData.getDistrictCode(),
             searchCompanyData.getPrecinctCode(),
-            searchCompanyData.getStatus()
+            searchCompanyData.getStatus() == null
+                ?  null : searchCompanyData.getStatus().name()
         );
         mapData.put("data", listData);
         mapData.put("total", totalElementByField);

@@ -24,10 +24,18 @@ public class Address extends CommonEntity {
     private long id;
     @Enumerated(EnumType.STRING)
     private AddressType type;
-    private String code;
-    private String name;
-    @Column(name = "parent_id")
-    private Long parentId;
+    @Column(name = "province_code")
+    private String provinceCode;
+    @Column(name = "province_name")
+    private String provinceName;
+    @Column(name = "district_code")
+    private String districtCode;
+    @Column(name = "district_name")
+    private String districtName;
+    @Column(name = "precinct_code")
+    private String precinctCode;
+    @Column(name = "precinct_name")
+    private String precinctName;
     @Column(name = "created_id")
     private long createdId;
     @Enumerated(EnumType.STRING)

@@ -15,7 +15,6 @@ import com.tvd12.ezyhttp.core.response.ResponseEntity;
 import com.tvd12.ezyhttp.server.core.annotation.*;
 import lombok.AllArgsConstructor;
 
-import java.text.ParseException;
 import java.util.Map;
 
 @Controller("api/v1/voucher")
@@ -53,7 +52,7 @@ public class VoucherController {
             @RequestParam("status") @Nullable EntityStatus status,
             @RequestParam("page") int page,
             @RequestParam("size") int size
-    ) throws ParseException {
+    ) {
         SearchVoucherData searchVoucherData = SearchVoucherData
                 .builder()
                 .title(title)
@@ -81,16 +80,16 @@ public class VoucherController {
             @UserId Long userId,
             @RequestParam("page") int page,
             @RequestParam("size") int size
-    ) throws ParseException {
+    ) {
         SearchVoucherData searchVoucherData = SearchVoucherData
                 .builder()
                 .title(title)
                 .value(value)
                 .voucherType(voucherType)
-                .from(from == null ?
-                        null : DateUtil.parseToLocalDateTimeFromStringFormat(from, DateUtil.DATE_TIME_PATTERN))
-                .to(to == null ?
-                        null : DateUtil.parseToLocalDateTimeFromStringFormat(to, DateUtil.DATE_TIME_PATTERN))
+                .from(from == null
+                        ? null : DateUtil.parseToLocalDateTimeFromStringFormat(from, DateUtil.DATE_TIME_PATTERN))
+                .to(to == null
+                        ? null : DateUtil.parseToLocalDateTimeFromStringFormat(to, DateUtil.DATE_TIME_PATTERN))
                 .status(status)
                 .createdId(userId)
                 .page(page)

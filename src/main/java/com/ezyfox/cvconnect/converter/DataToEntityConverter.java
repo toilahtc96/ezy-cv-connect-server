@@ -34,8 +34,12 @@ public class DataToEntityConverter {
     public Address dataToAddress(AddAddressData addAddressData) {
         return Address.builder()
                 .type(addAddressData.getType())
-                .name(addAddressData.getName())
-                .parentId(addAddressData.getParentId())
+                .provinceCode(addAddressData.getProvinceCode())
+                .provinceName(addAddressData.getProvinceName())
+                .districtCode(addAddressData.getDistrictCode())
+                .districtName(addAddressData.getDistrictName())
+                .precinctCode(addAddressData.getPrecinctCode())
+                .precinctName(addAddressData.getPrecinctName())
                 .status(EntityStatus.ACTIVED)
                 .createdTime(LocalDateTime.now())
                 .build();
@@ -133,7 +137,12 @@ public class DataToEntityConverter {
     public Company dataToCompany(AddCompanyData addCompanyData) {
         LocalDateTime now = LocalDateTime.now();
         return Company.builder()
-                .code(addCompanyData.getCode())
+                .code(
+                    addCompanyData.getName()
+                        .concat(addCompanyData.getProvinceCode())
+                        .concat(addCompanyData.getDistrictCode())
+                        .concat(addCompanyData.getPrecinctCode())
+                )
                 .provinceCode(addCompanyData.getProvinceCode())
                 .districtCode(addCompanyData.getDistrictCode())
                 .precinctCode(addCompanyData.getPrecinctCode())

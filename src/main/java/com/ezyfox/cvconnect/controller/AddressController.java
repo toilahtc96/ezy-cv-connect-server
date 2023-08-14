@@ -52,13 +52,6 @@ public class AddressController {
         return addressService.getAddressByParentId(parentId);
     }
 
-    @DoGet("/get-by-type-and-parentId")
-    public List<AddressResponse> getByTypeAndParentId(
-            @RequestParam("type") AddressType type,
-            @RequestParam("parentId") long parentId
-    ) {
-        return addressService.getAddressByTypeAndParentId(type, parentId);
-    }
 
     @DoGet("/get-all")
     public List<AddressResponse> getAll() {
@@ -70,9 +63,12 @@ public class AddressController {
         return addressService.getById(id);
     }
 
-    @DoGet("/get-by-parent-code")
-    public List<AddressResponse> getByCode(@RequestParam String code) {
-        return addressService.getByParentCode(code);
+    @DoGet("/get-by-type-and-parent-code")
+    public List<AddressResponse> getByCode(
+            @RequestParam("parentCode") String parentCode,
+            @RequestParam("type") AddressType type
+    ) {
+        return addressService.getByTypeAndParentCode(type == null ? null : type.getName(), parentCode);
     }
 
     @DoGet("/get-by-code-and-type")
@@ -89,10 +85,29 @@ public class AddressController {
     }
 
     @DoGet("/get-by-field")
-    public Map<String, Object> getByField(@RequestParam("name") String name,
+    public Map<String, Object> getByField(@RequestParam("provinceCode") String provinceCode,
+                                          @RequestParam("provinceName") String provinceName,
+                                          @RequestParam("districtCode") String districtCode,
+                                          @RequestParam("districtName") String districtName,
+                                          @RequestParam("precinctCode") String precinctCode,
+                                          @RequestParam("precinctName") String precinctName,
+                                          @RequestParam("type") AddressType type,
                                           @RequestParam("status") EntityStatus status,
                                           @RequestParam("page") int page,
                                           @RequestParam("size") int size) {
-        return addressService.getByField(requestToDataConverter.toDataFromSearchAddress(name, status, page, size));
+        return addressService.getByField(
+                requestToDataConverter.toDataFromSearchAddress(
+                        provinceCode,
+                        provinceName,
+                        districtCode,
+                        districtName,
+                        precinctCode,
+                        precinctName,
+                        type,
+                        status,
+                        page,
+                        size
+                )
+        );
     }
 }

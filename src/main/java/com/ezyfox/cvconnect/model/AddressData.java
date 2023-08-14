@@ -10,8 +10,11 @@ import lombok.Getter;
 public class AddressData {
     private long id;
     private AddressType type;
-    private String code;
-    private String name;
-    private long parentId;
+    private String provinceCode;
+    private String provinceName;
+    private String districtCode;
+    private String districtName;
+    private String precinctCode;
+    private String precinctName;
     private EntityStatus status;
 }

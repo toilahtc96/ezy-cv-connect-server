@@ -55,7 +55,7 @@ public class FileUploadService {
         fileUploader.accept(asyncContext, part, file, () -> response.getWriter().print(addressOfFile));
     }
 
-    private StringBuilder getFileName(long userId, String prefix) {
+    public static StringBuilder getFileName(long userId, String prefix) {
         StringBuilder fileName = new StringBuilder();
         LocalDateTime localDateTime = LocalDateTime.now();
         fileName
@@ -84,7 +84,7 @@ public class FileUploadService {
         return timeFolderName.toString();
     }
 
-    public Optional<String> getExtensionByStringHandling(String filename) {
+    public static Optional<String> getExtensionByStringHandling(String filename) {
         return Optional.ofNullable(filename)
             .filter(f -> f.contains("."))
             .map(f -> f.substring(filename.lastIndexOf(".") + 1));
