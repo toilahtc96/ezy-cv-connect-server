@@ -75,8 +75,7 @@ CREATE TABLE `cvdatabase`.`company` (
                                         `star` INT NULL COMMENT 'số sao đánh giá',
                                         `created_id` INT NULL,
                                         `created_time` TIME NULL,
-                                        `updated_time` TIME NULL,
-                                        PRIMARY KEY (`id`))
+                                        `updated_time` TIME NULL)
     ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
