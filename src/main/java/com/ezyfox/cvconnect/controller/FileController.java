@@ -66,4 +66,11 @@ public class FileController {
         return ResponseEntity.ok();
 
     }
+
+    @DoPost("/upload-cv")
+    public ResponseEntity uploadCv(RequestArguments requestArguments, @UserId long userId) throws Exception {
+        long agencyId = 1;
+        String imgUrl = s3UploadService.uploadCvToS3(requestArguments, userId, agencyId);
+        return ResponseEntity.ok(imgUrl);
+    }
 }

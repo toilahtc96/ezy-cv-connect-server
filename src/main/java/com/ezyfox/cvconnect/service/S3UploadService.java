@@ -10,4 +10,7 @@ import java.io.IOException;
 public interface S3UploadService {
     String uploadImageToS3(RequestArguments requestArguments, @UserId long userId)
             throws ServletException, IOException;
+
+    String uploadCvToS3(RequestArguments requestArguments, long userId, long agencyId)
+            throws ServletException, IOException;
 }
