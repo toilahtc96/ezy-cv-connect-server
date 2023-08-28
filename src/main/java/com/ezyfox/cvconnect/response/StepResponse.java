@@ -12,4 +12,5 @@ public class StepResponse {
     private StepCode code;
     private String meaning;
     private EntityStatus status;
+    private String icon;
 }

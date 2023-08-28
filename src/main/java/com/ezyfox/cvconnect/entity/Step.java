@@ -26,4 +26,5 @@ public class Step extends CommonEntity {
     @Enumerated(EnumType.STRING)
     private EntityStatus status;
     private int order;
+    private String icon;
 }

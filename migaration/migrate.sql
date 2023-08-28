@@ -240,6 +240,7 @@ alter table step change column  code
     code         enum ('INIT', 'SEND_CV_TO_AGENCY', 'SEND_CV_TO_COMPANY', 'SUCCESS', 'FAIL','DISCUSSION_WITH_AGENCY','PROVIDE_INTERVIEW_DATE') not null;
 
 alter table step add column `order` int null;
+alter table step add icon varchar(100) null;
 commit;
 
 INSERT INTO cvdatabase.user_type (id, code, meaning, created_id, created_time, updated_time, status) VALUES (1, 'ADMIN', 'ADMIN', 1, null, null, 'ACTIVED');

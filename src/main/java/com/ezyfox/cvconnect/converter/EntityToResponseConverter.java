@@ -123,6 +123,7 @@ public class EntityToResponseConverter {
                 .code(step.getCode())
                 .meaning(step.getMeaning())
                 .status(step.getStatus())
+                .icon(step.getIcon())
                 .build();
     }
 
