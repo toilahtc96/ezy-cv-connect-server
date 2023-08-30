@@ -30,6 +30,7 @@ public class EntityToResponseConverter {
 
     private final JobTypeRepository jobTypeRepository;
     private final WorkingFormRepository workingFormRepository;
+    private final JobRepository jobRepository;
     private final VoucherRepository voucherRepository;
     private final UserRepository userRepository;
 
@@ -131,6 +132,26 @@ public class EntityToResponseConverter {
         if (progress == null) {
             return null;
         }
+        User agency = userRepository.findById(progress.getAgencyId());
+        String agencyName = agency != null ? agency.getName() : "";
+
+        User candidate = userRepository.findById(progress.getCandidateId());
+        String candidateName = candidate != null ? candidate.getName() : "";
+
+        Job job = jobRepository.findById(progress.getJobId());
+        Level level = null;
+        Company company = null;
+        Career career = null;
+        if (job.getLevelId() != null) {
+            level = levelRepository.findById(job.getLevelId());
+        }
+        if (job.getCompanyId() != null) {
+            company = companyRepository.findById(job.getCompanyId());
+        }
+        if (job.getCareerId() != null) {
+            career = careerRepository.findById(job.getCareerId());
+        }
+
         return ProgressResponse
                 .builder()
                 .id(progress.getId())
@@ -138,6 +159,12 @@ public class EntityToResponseConverter {
                 .candidateId(progress.getCandidateId())
                 .stepId(progress.getStepId())
                 .status(progress.getStatus())
+                .agencyName(agencyName)
+                .candidateName(candidateName)
+                .createdDate(progress.getCreatedTime())
+                .levelName(level != null ? level.getName().getName() : "")
+                .companyName(company != null ? company.getName() : "")
+                .careerName(career != null ? career.getName() : "")
                 .build();
     }
 
