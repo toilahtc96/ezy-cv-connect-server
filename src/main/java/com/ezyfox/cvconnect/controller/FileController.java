@@ -1,11 +1,13 @@
 package com.ezyfox.cvconnect.controller;
 
+import com.amazonaws.services.s3.transfer.Upload;
 import com.ezyfox.cvconnect.annotation.UserId;
 import com.ezyfox.cvconnect.request.UploadRequest;
 import com.ezyfox.cvconnect.service.ProgressService;
 import com.ezyfox.cvconnect.service.S3UploadService;
 import com.ezyfox.cvconnect.service.impl.FileService;
 import com.ezyfox.cvconnect.service.impl.FileUploadService;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.tvd12.ezyhttp.core.response.ResponseEntity;
 import com.tvd12.ezyhttp.server.core.annotation.*;
 import com.tvd12.ezyhttp.server.core.request.RequestArguments;
@@ -40,16 +42,16 @@ public class FileController {
     @DoPost("/upload-job-thumbnail")
     public ResponseEntity uploadJobThumbnail(RequestArguments requestArguments, @UserId long userId) throws Exception {
         fileUploadService.accept(
-            requestArguments.getRequest(),
-            requestArguments.getResponse(),
-            userId,
-            PREFIX_JOB_THUMBNAIL);
+                requestArguments.getRequest(),
+                requestArguments.getResponse(),
+                userId,
+                PREFIX_JOB_THUMBNAIL);
         return ResponseEntity.noContent();
     }
 
     @DoGet("/get-single-image")
     public ResponseEntity getImage(HttpServletResponse response, @RequestParam("imagePath") String imagePath)
-        throws IOException {
+            throws IOException {
         byte[] imageBytes = fileService.readFully(new FileInputStream(new File(imagePath)), -1, true);
         try (InputStream inputStream = new ByteArrayInputStream(imageBytes)) {
             StreamUtils.copy(inputStream, response.getOutputStream());
@@ -71,10 +73,14 @@ public class FileController {
     }
 
     @DoPost("/upload-cv")
-    public ResponseEntity uploadCv(RequestArguments requestArguments, @UserId long userId, @RequestBody UploadRequest uploadRequestBody) throws Exception {
+    public ResponseEntity uploadCv(
+            RequestArguments requestArguments,
+            @UserId long userId,
+            @RequestParam("uploadRequest") String uploadRequestBody
+    ) throws Exception {
         long agencyId = 1;
         String imgUrl = s3UploadService.uploadCvToS3(requestArguments, userId, agencyId);
-        progressService.updateCvLink(uploadRequestBody.getProgressId(), imgUrl);
+//        progressService.updateCvLink(uploadRequestBody.getProgressId(), imgUrl);
         return ResponseEntity.ok(imgUrl);
     }
 }
