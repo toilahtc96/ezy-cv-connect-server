@@ -15252,3 +15252,6 @@ INSERT INTO address (type, province_name, province_code, district_name, district
 INSERT INTO address (type, province_name, province_code, district_name, district_code, precinct_name, precinct_code, created_id, created_time, status) VALUES ('PRECINCT','Tỉnh Yên Bái', '1', 'Thị xã Nghĩa Lộ', '656', 'Xã Nghĩa Lộ', '12732',1, curtime(), 'ACTIVED');
 INSERT INTO address (type, province_name, province_code, district_name, district_code, precinct_name, precinct_code, created_id, created_time, status) VALUES ('PRECINCT','Tỉnh Yên Bái', '1', 'Thị xã Nghĩa Lộ', '656', 'Xã Hạnh Sơn', '12733',1, curtime(), 'ACTIVED');
 commit;
+
+
+alter table progress add column cv_link varchar(2000) null;

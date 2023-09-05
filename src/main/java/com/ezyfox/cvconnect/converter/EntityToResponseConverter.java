@@ -165,6 +165,7 @@ public class EntityToResponseConverter {
                 .levelName(level != null ? level.getName().getName() : "")
                 .companyName(company != null ? company.getName() : "")
                 .careerName(career != null ? career.getName() : "")
+                .cvLink(progress.getCvLink())
                 .build();
     }
 

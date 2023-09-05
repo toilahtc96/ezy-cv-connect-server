@@ -19,6 +19,7 @@ import com.ezyfox.cvconnect.response.ProgressResponse;
 import com.ezyfox.cvconnect.service.ProgressService;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
@@ -29,6 +30,7 @@ import java.util.stream.Collectors;
 
 @EzySingleton
 @AllArgsConstructor
+@Slf4j
 public class ProgressServiceImpl implements ProgressService {
 
     private final ProgressRepository progressRepository;
@@ -160,6 +162,17 @@ public class ProgressServiceImpl implements ProgressService {
             progress.setStepId(initStep != null ? initStep.getId() : null);
         }
         progress.setCreatedTime(LocalDateTime.now());
+        progressRepository.save(progress);
+    }
+
+    @Override
+    public void updateCvLink(long progressId, String cvLink) {
+        Progress progress = progressRepository.findById(progressId);
+        if(progress == null) {
+            log.error("not found Progress by id {}", progressId);
+            return;
+        }
+        progress.setCvLink(cvLink);
         progressRepository.save(progress);
     }
 }

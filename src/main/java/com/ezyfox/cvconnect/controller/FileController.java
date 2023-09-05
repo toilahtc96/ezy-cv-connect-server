@@ -1,6 +1,8 @@
 package com.ezyfox.cvconnect.controller;
 
 import com.ezyfox.cvconnect.annotation.UserId;
+import com.ezyfox.cvconnect.request.UploadRequest;
+import com.ezyfox.cvconnect.service.ProgressService;
 import com.ezyfox.cvconnect.service.S3UploadService;
 import com.ezyfox.cvconnect.service.impl.FileService;
 import com.ezyfox.cvconnect.service.impl.FileUploadService;
@@ -23,6 +25,7 @@ public class FileController {
     private static final String PREFIX_USER_AVATAR = "avatar";
     private static final String PREFIX_JOB_THUMBNAIL = "job_thumbnail";
     private final FileService fileService;
+    private final ProgressService progressService;
 
     private static final String NO_IMAGE = "D:\\dev\\line task 3\\ezy-cv-connect-server" +
             "\\src\\main\\resources\\assets\\no-image\\no-image.png";
@@ -68,9 +71,10 @@ public class FileController {
     }
 
     @DoPost("/upload-cv")
-    public ResponseEntity uploadCv(RequestArguments requestArguments, @UserId long userId) throws Exception {
+    public ResponseEntity uploadCv(RequestArguments requestArguments, @UserId long userId, @RequestBody UploadRequest uploadRequestBody) throws Exception {
         long agencyId = 1;
         String imgUrl = s3UploadService.uploadCvToS3(requestArguments, userId, agencyId);
+        progressService.updateCvLink(uploadRequestBody.getProgressId(), imgUrl);
         return ResponseEntity.ok(imgUrl);
     }
 }

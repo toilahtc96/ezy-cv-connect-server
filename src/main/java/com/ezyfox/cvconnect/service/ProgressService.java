@@ -27,4 +27,6 @@ public interface ProgressService {
     ProgressResponse getById(long id);
 
     List<ProgressResponse> getByCandidateJob(long candidateId, long jobId);
+
+    void updateCvLink(long progressId, String cvLink);
 }
