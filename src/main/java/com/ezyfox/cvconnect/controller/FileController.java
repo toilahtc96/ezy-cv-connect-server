@@ -75,12 +75,10 @@ public class FileController {
     @DoPost("/upload-cv")
     public ResponseEntity uploadCv(
             RequestArguments requestArguments,
-            @UserId long userId,
-            @RequestParam("uploadRequest") String uploadRequestBody
+            @UserId long userId
     ) throws Exception {
         long agencyId = 1;
         String imgUrl = s3UploadService.uploadCvToS3(requestArguments, userId, agencyId);
-//        progressService.updateCvLink(uploadRequestBody.getProgressId(), imgUrl);
         return ResponseEntity.ok(imgUrl);
     }
 }

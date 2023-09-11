@@ -166,13 +166,21 @@ public class ProgressServiceImpl implements ProgressService {
     }
 
     @Override
-    public void updateCvLink(long progressId, String cvLink) {
-        Progress progress = progressRepository.findById(progressId);
-        if(progress == null) {
-            log.error("not found Progress by id {}", progressId);
-            return;
+    public void updateCvLink(long candidateId, long agencyId, long jobId, String cvLink) {
+        Job jobById = jobRepository.findById(jobId);
+        if (jobById == null) {
+            throw new NotFoundException("Job by id: " + jobById + " not found");
         }
+
+        Progress progress = progressRepository
+                .getActiveProgressByCandidateAndAgencyAndJob(
+                        candidateId,
+                        agencyId,
+                        jobId,
+                        EntityStatus.ACTIVED
+                );
         progress.setCvLink(cvLink);
+        progress.setStepId(progress.getStepId()+1);
         progressRepository.save(progress);
     }
 }

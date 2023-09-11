@@ -46,4 +46,8 @@ public interface ProgressRepository extends EzyDatabaseRepository<Long, Progress
             " (?0 is null OR e.candidate_id = ?0) and " +
             " (?1 is null OR e.job_id = ?1 ) ", nativeQuery = true)
     List<Progress> getAllByAndCandidateIdAndJobId(long candidateId, long jobId);
+
+    @EzyQuery("select e from Progress e where e.candidateId = ?0 and e.agencyId = ?1 and e.jobId = ?2 and e.status = ?3")
+    Progress getActiveProgressByCandidateAndAgencyAndJob(long candidateId,long agencyId,long jobId, EntityStatus status);
+
 }

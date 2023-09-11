@@ -15255,3 +15255,6 @@ commit;
 
 
 alter table progress add column cv_link varchar(2000) null;
+
+alter table progress change column created_time created_time datetime null;
+alter table progress change column updated_time updated_time datetime null;

@@ -5,6 +5,7 @@ import com.ezyfox.cvconnect.converter.RequestToDataConverter;
 import com.ezyfox.cvconnect.model.SearchProgressData;
 import com.ezyfox.cvconnect.request.AddProgressRequest;
 import com.ezyfox.cvconnect.request.EditProgressRequest;
+import com.ezyfox.cvconnect.request.UpdateCvLinkOfProcessRequest;
 import com.ezyfox.cvconnect.response.ProgressResponse;
 import com.ezyfox.cvconnect.service.ProgressService;
 import com.tvd12.ezyhttp.core.response.ResponseEntity;
@@ -69,5 +70,11 @@ public class ProgressController {
     @DoGet("/get-by-candidate-job")
     public List<ProgressResponse> getAllProgressDetail(@RequestParam("jobIb") long jobIb, @UserId long candidateId) {
         return progressService.getByCandidateJob(candidateId, jobIb);
+    }
+
+    @DoPost("/update-cv-by-candidate-agency-job")
+    public ResponseEntity getProgressOfJob( @UserId long candidateId, @RequestBody UpdateCvLinkOfProcessRequest updateCvLinkOfProcessRequest) {
+        progressService.updateCvLink(candidateId, updateCvLinkOfProcessRequest.getAgencyId(), updateCvLinkOfProcessRequest.getJobId(), updateCvLinkOfProcessRequest.getCvLink());
+        return ResponseEntity.noContent();
     }
 }
