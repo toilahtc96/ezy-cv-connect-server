@@ -19,6 +19,6 @@ public class ProgressResponse {
     private String levelName;
     private String companyName;
     private String careerName;
-    private LocalDateTime createdDate;
+    private String createdDate;
     private String cvLink;
 }

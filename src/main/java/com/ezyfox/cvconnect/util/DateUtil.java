@@ -28,4 +28,15 @@ public final class DateUtil {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(parttern);
         return LocalDateTime.parse(date, dateTimeFormatter);
     }
+
+    public static String parseLocalDateTimeToString(LocalDateTime dateTime, String parttern) {
+        if (dateTime == null) {
+            return null;
+        }
+        // Define the desired date-time format
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(parttern);
+
+        // Format the LocalDateTime object as a string
+        return dateTime.format(formatter);
+    }
 }

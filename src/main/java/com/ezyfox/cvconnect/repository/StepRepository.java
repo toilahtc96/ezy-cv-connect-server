@@ -16,6 +16,10 @@ public interface StepRepository extends EzyDatabaseRepository<Long, Step> {
     @EzyQuery("select e from Step e where e.code = ?0")
     List<Step> findByStepCode(StepCode stepCode);
 
+
+    @EzyQuery("select e from Step e where e.code = ?0")
+    Step findFirstByStepCode(StepCode stepCode);
+
     @EzyQuery("select e from Step e where e.status = ?0")
     List<Step> findByStatus(EntityStatus entityStatus);
 

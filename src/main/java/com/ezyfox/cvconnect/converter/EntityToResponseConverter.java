@@ -5,6 +5,7 @@ import com.ezyfox.cvconnect.constant.LevelName;
 import com.ezyfox.cvconnect.entity.*;
 import com.ezyfox.cvconnect.repository.*;
 import com.ezyfox.cvconnect.response.*;
+import com.ezyfox.cvconnect.util.DateUtil;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import lombok.AllArgsConstructor;
 
@@ -161,7 +162,12 @@ public class EntityToResponseConverter {
                 .status(progress.getStatus())
                 .agencyName(agencyName)
                 .candidateName(candidateName)
-                .createdDate(progress.getCreatedTime())
+                .createdDate(
+                    DateUtil
+                        .parseLocalDateTimeToString(
+                            progress.getCreatedTime(),
+                            DateUtil.DATE_DDMMYYYY_PATTERN)
+                )
                 .levelName(level != null ? level.getName().getName() : "")
                 .companyName(company != null ? company.getName() : "")
                 .careerName(career != null ? career.getName() : "")
