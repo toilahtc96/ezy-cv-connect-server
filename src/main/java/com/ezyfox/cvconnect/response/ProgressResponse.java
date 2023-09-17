@@ -21,4 +21,5 @@ public class ProgressResponse {
     private String careerName;
     private String createdDate;
     private String cvLink;
+    private String sendCvCompanyTime;
 }

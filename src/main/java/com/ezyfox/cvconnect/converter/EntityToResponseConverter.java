@@ -172,6 +172,12 @@ public class EntityToResponseConverter {
                 .companyName(company != null ? company.getName() : "")
                 .careerName(career != null ? career.getName() : "")
                 .cvLink(progress.getCvLink())
+                .sendCvCompanyTime(
+                        DateUtil
+                                .parseLocalDateTimeToString(
+                                        progress.getSendCvCompanyTime(),
+                                        DateUtil.DATE_DDMMYYYY_PATTERN)
+                )
                 .build();
     }
 
