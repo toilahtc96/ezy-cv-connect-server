@@ -157,16 +157,17 @@ public class EntityToResponseConverter {
                 .builder()
                 .id(progress.getId())
                 .agencyId(progress.getAgencyId())
+                .companyId(company != null ? company.getId() : null)
                 .candidateId(progress.getCandidateId())
                 .stepId(progress.getStepId())
                 .status(progress.getStatus())
                 .agencyName(agencyName)
                 .candidateName(candidateName)
                 .createdDate(
-                    DateUtil
-                        .parseLocalDateTimeToString(
-                            progress.getCreatedTime(),
-                            DateUtil.DATE_DDMMYYYY_PATTERN)
+                        DateUtil
+                                .parseLocalDateTimeToString(
+                                        progress.getCreatedTime(),
+                                        DateUtil.DATE_DDMMYYYY_PATTERN)
                 )
                 .levelName(level != null ? level.getName().getName() : "")
                 .companyName(company != null ? company.getName() : "")
@@ -176,6 +177,12 @@ public class EntityToResponseConverter {
                         DateUtil
                                 .parseLocalDateTimeToString(
                                         progress.getSendCvCompanyTime(),
+                                        DateUtil.DATE_DDMMYYYY_PATTERN)
+                )
+                .candidateSendCvTime(
+                        DateUtil
+                                .parseLocalDateTimeToString(
+                                        progress.getCandidateSendCvTime(),
                                         DateUtil.DATE_DDMMYYYY_PATTERN)
                 )
                 .build();

@@ -21,8 +21,12 @@ public interface ProgressRepository extends EzyDatabaseRepository<Long, Progress
     @EzyQuery("select e from Progress e where e.status = ?0")
     List<Progress> getByStatus(EntityStatus status);
 
-    @EzyQuery("select e from Progress e where e.agencyId = ?0 and e.status = ?1")
-    List<Progress> getActiveProgressByAgencyId(long agencyId, EntityStatus status);
+    @EzyQuery(value = "select * from Progress where agency_id = ?0 and status = ?1 " +
+            " limit ?2 offset ?3 ", nativeQuery = true)
+    List<Progress> getActiveProgressByAgencyId(long agencyId, String status, int size, int skip);
+
+    @EzyQuery(value = "select count(*) from Progress where agency_id = ?0 and status = ?1 ", nativeQuery = true)
+    BigInteger totalActiveProgressByAgencyId(long agencyId, String status);
 
     @EzyQuery(value = "select * from Progress e where 1 = 1 and " +
         " (?0 is null OR e.agency_id = ?0 )  and " +

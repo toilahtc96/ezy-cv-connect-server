@@ -20,7 +20,7 @@ public interface ProgressService {
 
     List<ProgressResponse> getAll();
 
-    List<ProgressResponse> getAllActiveOfAgency(long agencyId);
+    Map<String, Object> getPageActiveOfAgency(long agencyId, int page, int size);
 
     Map<String, Object> getProgressPaging(SearchProgressData searchProgressData);
 

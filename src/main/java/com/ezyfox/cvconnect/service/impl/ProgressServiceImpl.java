@@ -86,12 +86,18 @@ public class ProgressServiceImpl implements ProgressService {
   }
 
   @Override
-  public List<ProgressResponse> getAllActiveOfAgency(long agencyId) {
-    return progressRepository
-        .getActiveProgressByAgencyId(agencyId, EntityStatus.ACTIVED)
+  public Map<String, Object> getPageActiveOfAgency(long agencyId, int page, int size) {
+    Map<String, Object> data = new HashMap<>();
+    int skip = size * page;
+    List<ProgressResponse> listProgress = progressRepository
+        .getActiveProgressByAgencyId(agencyId, EntityStatus.ACTIVED.name(), size, skip)
         .stream()
         .map(entityToResponseConverter::toProgressResponse)
         .collect(Collectors.toList());
+    BigInteger total = progressRepository.totalActiveProgressByAgencyId(agencyId,EntityStatus.ACTIVED.name());
+    data.put("data", listProgress);
+    data.put("total", total);
+    return data;
   }
 
   @Override

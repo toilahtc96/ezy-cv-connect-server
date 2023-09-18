@@ -15260,3 +15260,4 @@ alter table progress change column created_time created_time datetime null;
 alter table progress change column updated_time updated_time datetime null;
 
 alter table progress add column send_cv_company_time datetime null;
+alter table progress add column candidate_send_cv_time datetime null;

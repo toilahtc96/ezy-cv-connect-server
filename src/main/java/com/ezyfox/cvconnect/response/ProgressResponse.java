@@ -20,4 +20,6 @@ public class ProgressResponse {
     private String createdDate;
     private String cvLink;
     private String sendCvCompanyTime;
+    private String candidateSendCvTime;
+    private Long companyId;
 }

@@ -51,8 +51,12 @@ public class ProgressController {
     }
 
     @DoGet("/get-active-of-agency")
-    public List<ProgressResponse> getActiveOfAgency(@RequestParam long agencyId) {
-        return progressService.getAllActiveOfAgency(agencyId);
+    public Map<String, Object> getActiveOfAgency(
+            @UserId long agencyId,
+            @RequestParam(value = "page") int page,
+            @RequestParam(value = "size") int size
+    ) {
+        return progressService.getPageActiveOfAgency(agencyId, page, size);
     }
 
     @DoGet("/get-page")
@@ -77,4 +81,5 @@ public class ProgressController {
         progressService.updateCvLink(candidateId, updateCvLinkOfProcessRequest.getAgencyId(), updateCvLinkOfProcessRequest.getJobId(), updateCvLinkOfProcessRequest.getCvLink());
         return ResponseEntity.noContent();
     }
+
 }

@@ -34,4 +34,6 @@ public class Progress extends CommonEntity {
     private String cvLink;
     @Column(name = "send_cv_company_time")
     private LocalDateTime sendCvCompanyTime;
+    @Column(name = "candidate_send_cv_time")
+    private LocalDateTime candidateSendCvTime;
 }
