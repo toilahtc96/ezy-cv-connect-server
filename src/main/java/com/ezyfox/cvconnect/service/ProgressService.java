@@ -5,28 +5,38 @@ import com.ezyfox.cvconnect.model.EditProgressData;
 import com.ezyfox.cvconnect.model.SearchProgressData;
 import com.ezyfox.cvconnect.response.ProgressResponse;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
 public interface ProgressService {
 
-    void addProgress(AddProgressData addProgressData);
+  void addProgress(AddProgressData addProgressData);
 
-    void editProgress(EditProgressData editProgressData);
+  void editProgress(EditProgressData editProgressData);
 
-    List<ProgressResponse> getByAgencyId(long agencyId);
+  List<ProgressResponse> getByAgencyId(long agencyId);
 
-    List<ProgressResponse> getByCandidateId(long candidateId);
+  List<ProgressResponse> getByCandidateId(long candidateId);
 
-    List<ProgressResponse> getAll();
+  List<ProgressResponse> getAll();
 
-    Map<String, Object> getPageActiveOfAgency(long agencyId, int page, int size);
+  Map<String, Object> getPageActiveOfAgency(
+      long agencyId,
+      Long companyId,
+      String fromCandidateTime,
+      String toCandidateTime,
+      String sendCompanyFrom,
+      String sendCompanyTo,
+      int page,
+      int size
+  ) throws ParseException;
 
-    Map<String, Object> getProgressPaging(SearchProgressData searchProgressData);
+  Map<String, Object> getProgressPaging(SearchProgressData searchProgressData);
 
-    ProgressResponse getById(long id);
+  ProgressResponse getById(long id);
 
-    List<ProgressResponse> getByCandidateJob(long candidateId, long jobId);
+  List<ProgressResponse> getByCandidateJob(long candidateId, long jobId);
 
-    void updateCvLink(long candidateId,long  agencyId, long jobId, String cvLink);
+  void updateCvLink(long candidateId, long agencyId, long jobId, String cvLink);
 }

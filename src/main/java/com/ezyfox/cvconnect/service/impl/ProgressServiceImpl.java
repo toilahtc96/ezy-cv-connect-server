@@ -17,15 +17,15 @@ import com.ezyfox.cvconnect.repository.JobRepository;
 import com.ezyfox.cvconnect.repository.StepRepository;
 import com.ezyfox.cvconnect.response.ProgressResponse;
 import com.ezyfox.cvconnect.service.ProgressService;
+import com.ezyfox.cvconnect.util.DateUtil;
 import com.tvd12.ezyfox.bean.annotation.EzySingleton;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigInteger;
+import java.text.ParseException;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @EzySingleton
@@ -86,15 +86,48 @@ public class ProgressServiceImpl implements ProgressService {
   }
 
   @Override
-  public Map<String, Object> getPageActiveOfAgency(long agencyId, int page, int size) {
+  public Map<String, Object> getPageActiveOfAgency(
+      long agencyId,
+      Long companyId,
+      String fromCandidateTime,
+      String toCandidateTime,
+      String sendCompanyFrom,
+      String sendCompanyTo,
+      int page,
+      int size
+  ) throws ParseException {
     Map<String, Object> data = new HashMap<>();
+    Date fromCandidateTimeToDate = fromCandidateTime == null ? null :
+        DateUtil.parseFromStringFormat(fromCandidateTime, DateUtil.DATE_DDMMYYYY_PATTERN);
+    Date toCandidateTimeToDate = toCandidateTime == null ? null :
+        DateUtil.parseFromStringFormat(toCandidateTime, DateUtil.DATE_DDMMYYYY_PATTERN);
+    Date sendCompanyFromToDate = sendCompanyFrom == null ? null :
+        DateUtil.parseFromStringFormat(sendCompanyFrom, DateUtil.DATE_DDMMYYYY_PATTERN);
+    Date sendCompanyToToDate = sendCompanyTo == null ? null :
+        DateUtil.parseFromStringFormat(sendCompanyTo, DateUtil.DATE_DDMMYYYY_PATTERN);
     int skip = size * page;
     List<ProgressResponse> listProgress = progressRepository
-        .getActiveProgressByAgencyId(agencyId, EntityStatus.ACTIVED.name(), size, skip)
+        .getActiveProgressByAgencyId(
+            agencyId,
+            EntityStatus.ACTIVED.name(),
+            companyId,
+            fromCandidateTimeToDate,
+            toCandidateTimeToDate,
+            sendCompanyFromToDate,
+            sendCompanyToToDate,
+            size,
+            skip
+        )
         .stream()
         .map(entityToResponseConverter::toProgressResponse)
+        .sorted(
+            Comparator.comparing(
+                ProgressResponse::getCandidateSendCvTime,
+                Comparator.nullsLast(Comparator.naturalOrder())
+            ).reversed()
+        )
         .collect(Collectors.toList());
-    BigInteger total = progressRepository.totalActiveProgressByAgencyId(agencyId,EntityStatus.ACTIVED.name());
+    BigInteger total = progressRepository.totalActiveProgressByAgencyId(agencyId, EntityStatus.ACTIVED.name());
     data.put("data", listProgress);
     data.put("total", total);
     return data;
@@ -202,14 +235,14 @@ public class ProgressServiceImpl implements ProgressService {
       default:
         break;
       case SEND_CV_TO_AGENCY:
-        log.info("next step from {} to {}",StepCode.SEND_CV_TO_AGENCY.getName(),StepCode.SEND_CV_TO_COMPANY.name());
+        log.info("next step from {} to {}", StepCode.SEND_CV_TO_AGENCY.getName(), StepCode.SEND_CV_TO_COMPANY.name());
         nextStep = stepRepository.findFirstByStepCode(StepCode.SEND_CV_TO_COMPANY);
         if (nextStep != null) {
           progress.setStepId(nextStep.getId());
         }
         break;
       case SEND_CV_TO_COMPANY:
-        log.info("next step from {} to {}",StepCode.SEND_CV_TO_COMPANY.getName(),StepCode.SUCCESS.name());
+        log.info("next step from {} to {}", StepCode.SEND_CV_TO_COMPANY.getName(), StepCode.SUCCESS.name());
         nextStep = stepRepository.findFirstByStepCode(StepCode.SUCCESS);
         if (nextStep != null) {
           progress.setStepId(nextStep.getId());

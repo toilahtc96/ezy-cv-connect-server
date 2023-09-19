@@ -8,10 +8,13 @@ import com.ezyfox.cvconnect.request.EditProgressRequest;
 import com.ezyfox.cvconnect.request.UpdateCvLinkOfProcessRequest;
 import com.ezyfox.cvconnect.response.ProgressResponse;
 import com.ezyfox.cvconnect.service.ProgressService;
+import com.ezyfox.cvconnect.util.DateUtil;
+import com.sun.istack.Nullable;
 import com.tvd12.ezyhttp.core.response.ResponseEntity;
 import com.tvd12.ezyhttp.server.core.annotation.*;
 import lombok.AllArgsConstructor;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -53,10 +56,23 @@ public class ProgressController {
     @DoGet("/get-active-of-agency")
     public Map<String, Object> getActiveOfAgency(
             @UserId long agencyId,
+            @RequestParam(value = "companyId")  @Nullable  Long companyId,
+            @RequestParam(value = "fromCandidateTime")  @Nullable  String fromCandidateTime,
+            @RequestParam(value = "toCandidateTime")  @Nullable  String toCandidateTime,
+            @RequestParam(value = "sendCompanyFrom")  @Nullable  String sendCompanyFrom,
+            @RequestParam(value = "sendCompanyTo")  @Nullable  String sendCompanyTo,
             @RequestParam(value = "page") int page,
             @RequestParam(value = "size") int size
-    ) {
-        return progressService.getPageActiveOfAgency(agencyId, page, size);
+    ) throws ParseException {
+        return progressService.getPageActiveOfAgency(
+            agencyId,
+            companyId,
+            fromCandidateTime,
+            toCandidateTime,
+            sendCompanyFrom,
+            sendCompanyTo,
+            page,
+            size);
     }
 
     @DoGet("/get-page")
