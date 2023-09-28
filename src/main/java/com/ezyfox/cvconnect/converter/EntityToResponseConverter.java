@@ -133,11 +133,7 @@ public class EntityToResponseConverter {
         if (progress == null) {
             return null;
         }
-        User agency = userRepository.findById(progress.getAgencyId());
-        String agencyName = agency != null ? agency.getName() : "";
 
-        User candidate = userRepository.findById(progress.getCandidateId());
-        String candidateName = candidate != null ? candidate.getName() : "";
 
         Job job = jobRepository.findById(progress.getJobId());
         Level level = null;
@@ -152,6 +148,11 @@ public class EntityToResponseConverter {
         if (job.getCareerId() != null) {
             career = careerRepository.findById(job.getCareerId());
         }
+        User agency = userRepository.findById(progress.getAgencyId());
+        String agencyName = agency != null ? agency.getName() : "";
+
+        User candidate = userRepository.findById(progress.getCandidateId());
+        String candidateName = candidate != null ? candidate.getName() : "";
 
         return ProgressResponse
                 .builder()

@@ -30,7 +30,7 @@ public class Progress extends CommonEntity {
     private EntityStatus status;
     @Column(name = "step_id")
     private Long stepId;
-    @Column(name= "cv_link")
+    @Column(name = "cv_link")
     private String cvLink;
     @Column(name = "send_cv_company_time")
     private LocalDateTime sendCvCompanyTime;

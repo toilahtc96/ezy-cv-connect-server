@@ -1,13 +1,10 @@
 package com.ezyfox.cvconnect.controller;
 
-import com.amazonaws.services.s3.transfer.Upload;
 import com.ezyfox.cvconnect.annotation.UserId;
-import com.ezyfox.cvconnect.request.UploadRequest;
 import com.ezyfox.cvconnect.service.ProgressService;
 import com.ezyfox.cvconnect.service.S3UploadService;
 import com.ezyfox.cvconnect.service.impl.FileService;
 import com.ezyfox.cvconnect.service.impl.FileUploadService;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.tvd12.ezyhttp.core.response.ResponseEntity;
 import com.tvd12.ezyhttp.server.core.annotation.*;
 import com.tvd12.ezyhttp.server.core.request.RequestArguments;
