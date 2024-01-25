@@ -13,6 +13,7 @@ import com.tvd12.ezyfox.io.EzyStrings;
 import lombok.AllArgsConstructor;
 
 import java.text.ParseException;
+import java.util.Date;
 import java.util.Objects;
 
 @EzySingleton
@@ -148,52 +149,36 @@ public class RequestToDataConverter {
         if (editAgencyUserRequest.getLevel() != null) {
             levelByIdIfExist = levelRepository.findByField("name", editAgencyUserRequest.getLevel());
         }
+        Date birthDay;
         try {
-            return EditUserData
-                    .builder()
-                    .id(editAgencyUserRequest.getId())
-                    .companyId(editAgencyUserRequest.getCompanyId())
-                    .roleId(Objects.isNull(editAgencyUserRequest.getRoleId())
-                            ? null : roleRepository.findByField("code", editAgencyUserRequest.getRoleId()).getId())
-                    .typeId(editAgencyUserRequest.getTypeId())
-                    .information(editAgencyUserRequest.getInformation())
-                    .description(editAgencyUserRequest.getDescription())
-                    .birthDay(DateUtil.parseFromStringFormat(
-                            editAgencyUserRequest.getBirthDay(), DateUtil.DATE_DDMMYYYY_PATTERN
-                    ))
-                    .status(editAgencyUserRequest.getStatus())
-                    .star(editAgencyUserRequest.getStar())
-                    .userName(editAgencyUserRequest.getUsername())
-                    .password(editAgencyUserRequest.getPassword())
-                    .name(editAgencyUserRequest.getName())
-                    .cvLink(editAgencyUserRequest.getCvLink())
-                    .experienceYear(editAgencyUserRequest.getExperienceYear())
-                    .userTypeCode(editAgencyUserRequest.getUserTypeCode())
-                    .levelId(levelByIdIfExist != null ? levelByIdIfExist.getId() : null)
-                    .avatarUrl(editAgencyUserRequest.getAvatarUrl())
-                    .build();
+            birthDay = DateUtil.parseFromStringFormat(
+                    editAgencyUserRequest.getBirthDay(), DateUtil.DATE_DDMMYYYY_PATTERN
+            );
+
         } catch (ParseException e) {
-            return EditUserData
-                    .builder()
-                    .id(editAgencyUserRequest.getId())
-                    .companyId(editAgencyUserRequest.getCompanyId())
-                    .roleId(Objects.isNull(editAgencyUserRequest.getRoleId())
-                            ? null : roleRepository.findByField("code", editAgencyUserRequest.getRoleId()).getId())
-                    .typeId(editAgencyUserRequest.getTypeId())
-                    .information(editAgencyUserRequest.getInformation())
-                    .description(editAgencyUserRequest.getDescription())
-                    .status(editAgencyUserRequest.getStatus())
-                    .star(editAgencyUserRequest.getStar())
-                    .userName(editAgencyUserRequest.getUsername())
-                    .password(editAgencyUserRequest.getPassword())
-                    .name(editAgencyUserRequest.getName())
-                    .cvLink(editAgencyUserRequest.getCvLink())
-                    .experienceYear(editAgencyUserRequest.getExperienceYear())
-                    .userTypeCode(editAgencyUserRequest.getUserTypeCode())
-                    .levelId(levelRepository.findByField("name", editAgencyUserRequest.getLevel()).getId())
-                    .avatarUrl(editAgencyUserRequest.getAvatarUrl())
-                    .build();
+            birthDay = null;
         }
+        return EditUserData
+                .builder()
+                .id(editAgencyUserRequest.getId())
+                .companyId(editAgencyUserRequest.getCompanyId())
+                .roleId(Objects.isNull(editAgencyUserRequest.getRoleId())
+                        ? null : roleRepository.findByField("code", editAgencyUserRequest.getRoleId()).getId())
+                .typeId(editAgencyUserRequest.getTypeId())
+                .information(editAgencyUserRequest.getInformation())
+                .description(editAgencyUserRequest.getDescription())
+                .birthDay(birthDay)
+                .status(editAgencyUserRequest.getStatus())
+                .star(editAgencyUserRequest.getStar())
+                .userName(editAgencyUserRequest.getUsername())
+                .password(editAgencyUserRequest.getPassword())
+                .name(editAgencyUserRequest.getName())
+                .cvLink(editAgencyUserRequest.getCvLink())
+                .experienceYear(editAgencyUserRequest.getExperienceYear())
+                .userTypeCode(editAgencyUserRequest.getUserTypeCode())
+                .levelId(levelByIdIfExist != null ? levelByIdIfExist.getId() : null)
+                .avatarUrl(editAgencyUserRequest.getAvatarUrl())
+                .build();
     }
 
     public AddUserRoleData toDataFromAddUserRole(AddUserRoleRequest addUserRoleRequest) {

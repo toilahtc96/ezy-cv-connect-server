@@ -128,20 +128,4 @@ public class S3Uploader {
         return data.length;
     }
 
-    //    public String putToS3WithFolderName(InputStream inputStream, String fileName, String folderName) {
-    //        AmazonS3 s3Client = getAmazonS3(accessKey, secretKey);
-    //        String folderS3 = bucketName.concat("/").concat(folderName);
-    //        try {
-    //            s3Client.putObject(new PutObjectRequest(folderS3, fileName, inputStream, null));
-    //            String imageUrl = s3Client.getUrl(folderS3, fileName).toString();
-    //            log.info("File uploaded successfully. link {}", imageUrl);
-    //            return imageUrl;
-    //        } catch (Exception e) {
-    //            e.printStackTrace();
-    //            log.error("Failed to upload file.");
-    //            return "";
-    //        }
-    //    }
-
-
 }
